@@ -1,10 +1,9 @@
 import pytest
 import pandas as pd
-from pipeline_funcs import clean_df
 
 dataset = [
     {
-        'title' : "Bitch Planet, Vol. 1: Extraordinary Machine (Bitch Planet (Collected Editions))",
+        'title' : "Bitch Planet, 'Vol. 1: Extraordinary Machine '(Bitch Planet (Collected Editions))",
         'rating' : 'Two',
         'price' : 'w£37.92',
         'availability' : 'In stock',
@@ -29,9 +28,7 @@ dataset = [
     },
 ]
 
-
 @pytest.fixture
 def df():
     df = pd.DataFrame(data=dataset)
-    cleaned_df = clean_df(df)
-    return cleaned_df
+    return df

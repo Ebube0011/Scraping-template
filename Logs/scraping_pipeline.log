@@ -2252,3 +2252,10 @@
 [DEBUG|beautifulCrawler|WEB_SCRAPER|L277] - 2024-05-29 20:57:32  ->  getting next page tag
 [DEBUG|beautifulCrawler|WEB_SCRAPER|L199] - 2024-05-29 20:57:32  ->  Tag was not find
 [DEBUG|beautifulCrawler|WEB_SCRAPER|L200] - 2024-05-29 20:57:32  ->  Moving on!
+[ERROR|pipeline_funcs|WEB_SCRAPER|L63] - 2024-05-29 21:22:01  ->  Exception: ValueError: invalid literal for int() with base 10: ''
+[ERROR|pipeline_funcs|WEB_SCRAPER|L63] - 2024-05-29 21:22:02  ->  Exception: ValueError: invalid literal for int() with base 10: ''
+[ERROR|pipeline_funcs|WEB_SCRAPER|L83] - 2024-05-29 21:22:03  ->  Exception: ValueError: could not convert string to float: ''
+[ERROR|pipeline_funcs|WEB_SCRAPER|L41] - 2024-05-29 21:25:53  ->  Exception: TypeError: expected string or bytes-like object
+[ERROR|pipeline_funcs|WEB_SCRAPER|L63] - 2024-05-29 21:25:53  ->  Exception: AttributeError: 'float' object has no attribute 'replace'
+[ERROR|pipeline_funcs|WEB_SCRAPER|L63] - 2024-05-29 21:25:55  ->  Exception: AttributeError: 'float' object has no attribute 'replace'
+[ERROR|pipeline_funcs|WEB_SCRAPER|L83] - 2024-05-29 21:25:55  ->  Exception: TypeError: 'float' object is not subscriptable
