@@ -1,0 +1,77 @@
+{
+    "name": "BookScrape",
+    "url": "https://books.toscrape.com",
+    "targetTag": {
+        "find_all": {
+            "tag": "a",
+            "attrs": {
+                "href": [
+                    "pattern",
+                    "^(catalogue/category/books/)"
+                ]
+            }
+        }
+    },
+    "AbsoluteUrl": false,
+    "nextPageTag": {
+        "select": "li.next",
+        "index": 0,
+        "find": {
+            "tag": "a",
+            "attrs": {
+                "href": true
+            }
+        },
+        "get": "href"
+    },
+    "itemsTag": {
+        "select": "article.product_pod"
+    },
+    "categoryTag": {
+        "select": "h1",
+        "index": 0,
+        "text": true
+    },
+    "titleTag": {
+        "find": {
+            "tag": "a",
+            "attrs": {
+                "title": true
+            }
+        },
+        "get": "title"
+    },
+    "ratingTag": {
+        "find": {
+            "tag": "p",
+            "attrs": {
+                "class": [
+                    "pattern",
+                    "star-rating.(\\w{3,5})$"
+                ]
+            }
+        },
+        "get": "class",
+        "index": 1
+    },
+    "priceTag": {
+        "select": "p.price_color",
+        "index": 0,
+        "text": true
+    },
+    "availabilityTag": {
+        "select": "p.instock.availability",
+        "index": 0,
+        "text": true
+    },
+    "linkTag": {
+        "find": {
+            "tag": "a",
+            "attrs": {
+                "href": true
+            }
+        },
+        "get": "href",
+        "r-url": true
+    }
+}

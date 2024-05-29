@@ -1,0 +1,29 @@
+FROM python:3.11
+
+# copy the requirements
+#COPY requirements.txt ./
+
+# copy the function code
+COPY . .
+
+# install the dependencies
+RUN pip install -r requirements.txt
+
+# set the CMD to the handler
+
+
+
+# lambda dockerfile
+FROM public.ecr.aws/lambda/python:3.11
+
+# copy the requirements
+COPY . ./
+
+# install the dependencies
+RUN pip install -r requirements.txt
+
+# copy the function code
+#COPY scraper_lambda_fuction.py ${LAMBDA_TASK_ROOT}
+
+# set the CMD to the handler
+CMD [ "lambda_function.lambda_handler" ]

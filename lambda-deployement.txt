@@ -1,0 +1,61 @@
+- create docker file
+
+- build the image
+
+
+
+docker build -t BTS_scraper:v1 .
+docker build -t scraping_test .
+docker build --platform linux/amd64 -t scraping_test:test .
+
+
+- push image to aws ecr by following ecr command
+
+
+    - login to aws ecr (authenticate docker with ecr)  
+        aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <aws_account_id>.dkr.ecr.us-east-1.amazonaws.com
+
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 447379529645.dkr.ecr.us-east-1.amazonaws.com
+        aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/v8g8s5l3
+
+
+    - create ecr repository
+aws ecr create-repository --repository-name lambda_scrape_test --region us-east-1 --image-scanning-configuration scanOnPush=true --image-tag-mutability MUTABLE
+
+
+URI: 447379529645.dkr.ecr.us-east-1.amazonaws.com/lambda_scrape_test
+arn: arn:aws:ecr:us-east-1:447379529645:repository/lambda_scrape_test
+
+    - tag image
+docker tag scraping_test:test 447379529645.dkr.ecr.us-east-1.amazonaws.com/lambda_scrape_test:latest
+        docker tag scraping_test:latest public.ecr.aws/v8g8s5l3/scraping_test:latest
+
+    - push image to ecr
+docker push 447379529645.dkr.ecr.us-east-1.amazonaws.com/lambda_scrape_test:latest
+        docker push public.ecr.aws/v8g8s5l3/scraping_test:latest
+
+- create the lambda function
+aws lambda create-function \
+  --function-name container_scraper \
+  --package-type Image \
+  --code ImageUri=447379529645.dkr.ecr.us-east-1.amazonaws.com/lambda_scrape_test:latest \
+  --role arn:aws:iam::447379529645:role/lambda-s3-role
+
+
+- invoke the lambda function
+aws lambda invoke --function-name container_scraper response.json
+
+
+
+
+
+FROM public.ecr.aws/lambda/python:3.8  
+  
+COPY requirements.txt ./  
+  
+RUN pip install --upgrade pip  
+RUN pip install -r requirements.txt  
+  
+COPY . ./  
+CMD \[ "app.handler" ]  
+
