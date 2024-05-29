@@ -32,7 +32,7 @@ class Crawler:
     def __init__(self):
         self.site = None
         self.visited = []
-        self.storage = get_storage(STORAGE_TYPE)
+        self.storage = get_storage()
         self.pipeline_functions = funcs
         self.steps = STEPS
 
@@ -189,19 +189,18 @@ class Crawler:
             return
             
         # instantiate the dataset object
-        dataset = Dataset()
-        dataset.endpoint = 'Books'
+        dataset = Dataset(endpoint= 'Books')
         
         # loop through all product data
         for product in products:
             # instantiate the content object
-            content = Content()
-            content.category = category
-            content.title = self.safe_get(product, self.site.titleTag)
-            content.rating = self.safe_get(product, self.site.ratingTag)
-            content.price = self.safe_get(product, self.site.priceTag)
-            content.availability = self.safe_get(product, self.site.availabilityTag)
-            content.link = self.safe_get(product, self.site.linkTag)
+            content = Content(category= category,
+                              title= self.safe_get(product, self.site.titleTag),
+                              rating = self.safe_get(product, self.site.ratingTag),
+                              price = self.safe_get(product, self.site.priceTag),
+                              availability = self.safe_get(product, self.site.availabilityTag),
+                              link = self.safe_get(product, self.site.linkTag)
+            )
             if (self.site.linkTag['r-url']) and (content.link != ''):
                 content.link = '{}/{}'.format(self.site.url, content.link)
                 
@@ -301,7 +300,7 @@ class Crawler:
 
             # store the data
             if (STORAGE):
-                if (STORAGE_TYPE == 'file' & self.storage == None):
+                if (STORAGE_TYPE == 'file') and (self.storage == None):
                     print(f'saving data to file: {dataset.endpoint}')
                     save_to_csv(dataset.endpoint, df)
                 else:
@@ -314,4 +313,5 @@ class Crawler:
         print('>'*50)
                         
     def __exit__(self, type, value, traceback):
-        self.storage.close()
+        if (self.storage != None):
+            self.storage.close()

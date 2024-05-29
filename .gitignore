@@ -1,2 +1,3 @@
 .pytest_cache
 windows_requirements.txt
+__pycache__

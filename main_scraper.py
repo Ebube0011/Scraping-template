@@ -17,19 +17,19 @@ def main():
 
     websites = []
     for site in sites:
-        website = Website()
-        website.name = site['name']
-        website.url = site['url']
-        website.targetPattern = site['targetTag']
-        website.absoluteUrl = site['AbsoluteUrl']
-        website.paginationTag = site['nextPageTag']
-        website.itemsTag = site['itemsTag']
-        website.categoryTag = site['categoryTag']
-        website.titleTag = site['titleTag']
-        website.ratingTag = site['ratingTag']
-        website.priceTag = site['priceTag']
-        website.availabilityTag = site['availabilityTag']
-        website.linkTag = site['linkTag']
+        website = Website(name= site['name'],
+                          url = site['url'],
+                          targetPattern = site['targetTag'],
+                          absoluteUrl = site['AbsoluteUrl'],
+                          paginationTag = site['nextPageTag'],
+                          itemsTag = site['itemsTag'],
+                          categoryTag = site['categoryTag'],
+                          titleTag = site['titleTag'],
+                          ratingTag = site['ratingTag'],
+                          priceTag = site['priceTag'],
+                          availabilityTag = site['availabilityTag'],
+                          linkTag = site['linkTag']
+        )
 
         # add to list of websites
         websites.append(website)

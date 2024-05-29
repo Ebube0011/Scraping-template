@@ -11,7 +11,7 @@ STEPS = ['clean_df']#['clean_df', 'store']
 
 ''' WEBSITE '''
 WAIT_TIME = 2
-WEBSITE_FILE_PATH = 'Websites/Books/'
+WEBSITE_FILE_PATH = 'Websites/'
 
 ''' DATABASE '''
 DB_HOST = 'localhost' # os.environ.get('DB_HOST')

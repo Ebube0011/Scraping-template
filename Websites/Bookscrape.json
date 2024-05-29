@@ -15,7 +15,6 @@
     "AbsoluteUrl": false,
     "nextPageTag": {
         "select": "li.next",
-        "index": 0,
         "find": {
             "tag": "a",
             "attrs": {
@@ -25,11 +24,10 @@
         "get": "href"
     },
     "itemsTag": {
-        "select": "article.product_pod"
+        "select_all": "article.product_pod"
     },
     "categoryTag": {
         "select": "h1",
-        "index": 0,
         "text": true
     },
     "titleTag": {
@@ -56,12 +54,10 @@
     },
     "priceTag": {
         "select": "p.price_color",
-        "index": 0,
         "text": true
     },
     "availabilityTag": {
         "select": "p.instock.availability",
-        "index": 0,
         "text": true
     },
     "linkTag": {
