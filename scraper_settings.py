@@ -10,6 +10,7 @@ STEPS = ['clean_df']#['clean_df', 'store']
 
 
 ''' WEBSITE '''
+WAIT_TIME = 2
 WEBSITE_FILE_PATH = 'Websites/Books/'
 
 ''' DATABASE '''
