@@ -12,7 +12,9 @@ for jsonfile in glob.glob(WEBSITE_FILE_PATH + "*.json"):
         json_object = json.load(openfile)
         sites.append(json_object)
 
-if __name__ == '__main__':
+def main():
+    ''' Instantiate the crawler to crawl through the provided websites '''
+
     websites = []
     for site in sites:
         website = Website()
@@ -32,6 +34,10 @@ if __name__ == '__main__':
         # add to list of websites
         websites.append(website)
 
+    # crawl websites
     with Crawler() as crawler:
         for website in websites:
             crawler.crawl(website)
+
+if __name__ == '__main__':
+    main()
