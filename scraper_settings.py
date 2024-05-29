@@ -6,7 +6,7 @@ STORAGE = True #False
 
 
 ''' PIPELINE STEPS '''
-STEPS = ['clean_df']#['clean_df', 'store']
+STEPS = ['remove_nulls', 'clean_title', 'clean_rating', 'clean_price', 'clean_link']
 
 
 ''' WEBSITE '''

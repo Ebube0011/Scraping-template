@@ -9,6 +9,9 @@ from scraper_settings import S3_BUCKET_NAME, S3_OUTPUT_DIR
 from scraper_settings import OUTPUT_FILE_DIRECTORY
 from datetime import datetime
 #import json
+from utils.log_tool import get_logger
+
+logger = get_logger("WEB_SCRAPER")
 
 
 def get_storage():
@@ -19,7 +22,7 @@ def get_storage():
     elif (STORAGE_TYPE == 'obj'):
         return Obj_Storage()
     else:
-        print('Invalid storage type selected')
+        logger.error('Invalid storage type selected')
         return None
 
 
@@ -34,10 +37,10 @@ def save_to_csv(filename:str, df):
         else:
             df.to_csv(filename, index=False)
     except Exception as e:
-        print('#ERROR: Failed to save data to file!!!')
-        print(f'Exception: {e.__class__.__name__}: {e}')
+        logger.error('Failed to save data to file!!!')
+        logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     else:
-        print(filename + ' saved Successfully!')
+        logger.info(filename + ' saved Successfully!')
 
 
 def save_to_excel(filename:str, df):
@@ -51,10 +54,10 @@ def save_to_excel(filename:str, df):
         else:
             df.to_excel(filename, index=False)
     except Exception as e:
-        print('#ERROR: Failed to save data to file!!!')
-        print(f'Exception: {e.__class__.__name__}: {e}')
+        logger.error('Failed to save data to file!!!')
+        logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     else:
-        print(filename + ' saved Successfully!')
+        logger.debug(filename + ' saved Successfully!')
 
 
 
@@ -71,8 +74,8 @@ class Obj_Storage:
                                      #aws_secret_access_key=SECRET
                                     )
         except Exception as e:
-            print('ERROR: Unable to connect to object storage!!')
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.error('Unable to connect to object storage!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
 
     def insert_data(self, filename, df):
         # add prefix with timestamp
@@ -85,15 +88,15 @@ class Obj_Storage:
             try:
                 self.s3.Object(self.bucket, key).put(Body=csv_buffer.getvalue())
             except Exception as e:
-                print('ERROR: Failed to insert data into bucket')
-                print(f'Exception: {e.__class__.__name__}: {e}')
+                logger.error('Failed to insert data into bucket')
+                logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
 
     def get_items(self, prefix):
         try:
             bucket = self.s3.Bucket(self.bucket)
         except Exception as e:
-            print('ERROR: Unable to get items in bucket')
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.error('Unable to get items in bucket')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
             data_files = [filename.key for filename in bucket.objects.filter(Prefix=prefix)] # list object files based on prefix
             return data_files
@@ -124,14 +127,14 @@ class DB_Storage:
                 buffered=True
             )
         except Exception as e:
-            print('ERROR: Unable to Connect to database!!!')
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.error('Unable to Connect to database!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
             # create cursor
             self.cur = self.conn.cursor()
             self.cur.execute('USE scraping')
             self.create_tables()
-            print('Successfully Connected to database!')
+            logger.info('Successfully Connected to database!')
 
     def create_tables(self):
         self.cur.execute('''CREATE TABLE IF NOT EXISTS books(
@@ -180,11 +183,11 @@ class DB_Storage:
                     #print(f'Book Title: {title}')
                     self.cur.execute(sql)
                 except Exception as e:
-                    print('ERROR: Unable to get row_id!!!')
-                    print(f'Exception: {e.__class__.__name__}: {e}')
+                    logger.error('Unable to get row_id!!!')
+                    logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
                     
                     # save to alternative storage
-                    print('Saving to file instead')
+                    logger.info('Saving to file instead')
                     save_to_csv('failed_data.csv', df)
                     return
                     #print(self.cur.fetchone()[0])
@@ -203,23 +206,23 @@ class DB_Storage:
                         try:
                             self.cur.execute(sql, record)
                         except Exception as e:
-                            print('ERROR: Unable to insert data into database!!!')
-                            print(f'Exception: {e.__class__.__name__}: {e}')
+                            logger.error('Unable to insert data into database!!!')
+                            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
                             #self.conn.rollback()
                             
                             # save to alternative storage
-                            print('Saving to file instead')
+                            logger.info('Saving to file instead')
                             save_to_csv('failed_data.csv', df)
                         else:
                             # commit the insertion
                             self.conn.commit()
                             inserted_records += 1
-            print(f'{inserted_records} records inserted into database!')
+            logger.info(f'{inserted_records} records inserted into database!')
             
         else:
             # save to alternate file if db connection failed
-            print('ERROR: Unable to Connect to database!')
-            print('Saving to file instead')
+            logger.error('Unable to Connect to database!')
+            logger.info('Saving to file instead')
             file_name = table_name + '.csv'
             save_to_csv(file_name, df)  
 
@@ -234,8 +237,8 @@ class DB_Storage:
             print(sql)
             self.cur.execute(sql)
         except Exception as e:
-            print(f'ERROR: Failed to execute query!!!')
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.error('Failed to execute query!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
             result = [row for row in self.cur.fetchall()]
             return result
@@ -247,11 +250,11 @@ class DB_Storage:
             
         try:
             self.cur.reset()
-            print(sql)
+            logger.debug(sql)
             self.cur.execute(sql)
         except Exception as e:
-            print(f'ERROR: Failed to execute query!!!')
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.error('Failed to execute query!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
             result = [row for row in self.cur.fetchall()]
             return result

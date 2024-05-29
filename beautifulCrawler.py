@@ -10,8 +10,15 @@ import pipeline_funcs
 from content import Content, Dataset
 from storage import get_storage, save_to_csv
 from fake_useragent import UserAgent
+from utils.log_tool import get_logger
+
+logger = get_logger("WEB_SCRAPER")
 
 def get_user_agent():
+    '''
+    Gets a random user agent
+    Returns user agent as string object
+    '''
     ua = UserAgent()
     #ua = UserAgent(cache=False, use_cache_server=False)
     user_agent = ua.random
@@ -40,21 +47,29 @@ class Crawler:
         return self
     
     def get_page(self, url):
+        '''
+        Gets the html of the page and converts it to beautiful soup
+        Returns beautiful soup object or None if page was no found
+        '''
         try:
             time.sleep(WAIT_TIME)
-            print(f'getting page: {url}')
+            logger.info(f'Getting page: {url}')
             response = requests.get(url)
         except requests.exceptions.RequestException as e:
-            print('ERROR: Unable to get page!!!')
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.error('Unable to get page!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
             return None
         except Exception as e:
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
             if (response.status_code == 200):
                 return BeautifulSoup(response.text, 'lxml')
 
     def anon_get_page(self, url):
+        '''
+        Gets the html of the page anonymously and converts it to beautiful soup
+        Returns beautiful soup object or None if page was no found
+        '''
         headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0',
                    'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
                    'Accept-Language': 'en-GB,en;q=0.9,en-US;q=0.8'
@@ -73,7 +88,7 @@ class Crawler:
         # get the webpage
         try:
             time.sleep(WAIT_TIME)
-            print(f'getting page: {url}')
+            logger.info(f'Getting page: {url}')
             if(proxies_available):
                 response = requests.get(url, 
                                         headers=headers, 
@@ -86,17 +101,23 @@ class Crawler:
                                         #cookies=self.site.cookies
                                     )
         except requests.exceptions.RequestException as e:
-            print('ERROR: Unable to get page!!!')
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.info('Unable to get page!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
             return None
         except Exception as e:
-            print(f'Exception: {e.__class__.__name__}: {e}')
+            logger.info('Unable to get page!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+            return None
         else:
             if (response.status_code == 200):
                 #self.site.cookies = response.cookies
                 return BeautifulSoup(response.text, 'lxml')
 
     def clean_attrs(self, attrs):
+        '''
+        parses attribute arguement into the required format
+        Returns a dictionary
+        '''
         new_arg = {}
         try:
             for key, value in attrs['attrs'].items():
@@ -114,6 +135,10 @@ class Crawler:
         return new_arg
 
     def check_args(self, arg):
+        '''
+        Parses the tag and string arguments into the right format
+        Returns a tuple
+        '''
         # check for the string argument
         try:
             string_arg = arg['string']
@@ -133,6 +158,11 @@ class Crawler:
         return (name_arg, string_arg)
         
     def safe_get(self, pageObj, selector):
+        '''
+        Executes beautiful soup filter functions to get data. In the absence of data
+        or presence of an error, it returns an empty string.
+        Returns a string
+        '''
         result = pageObj
         
         # parse pipeline
@@ -166,26 +196,30 @@ class Crawler:
                 elif func == 'text':
                     result = result.get_text().strip()
         except AttributeError:
-            # debug message
-            print('Tag was not find')
-            print('Moving on!')
+            logger.debug('Tag was not find')
+            logger.debug('Moving on!')
             return ''
         except IndexError:
-            # debug message
-            print('Issue with select/findall tag, tag not found')
-            print('Moving on!')
+            logger.debug('Issue with select/findall tag, tag not found')
+            logger.debug('Moving on!')
             return ''
         return result
                 
     def parse(self, bs):
+        '''
+        Parses the data based on predefined tag definitions. The pipeline function is
+        then executed to clean and possibly store the acquired dataset.
+        Returns None
+        '''
 
-        print('Parsing data')
+        #logger.info('#' * 25)
+        logger.info('Parsing data')
         # parse the data
         category = self.safe_get(bs, self.site.categoryTag)
         products = self.safe_get(bs, self.site.itemsTag)
 
         if (products == '') or (category == ''):
-            print('Category or Products tag missing! Skipping category...')
+            logger.debug('Category or Products tag missing! Skipping category...')
             return
             
         # instantiate the dataset object
@@ -205,7 +239,7 @@ class Crawler:
                 content.link = '{}/{}'.format(self.site.url, content.link)
                 
             # add product data to the content dataset
-            print(content)
+            logger.debug(content)
             dataset.records.append(content)
         # save data to file
         #save_to_csv(dataset.endpoint, dataset.dataframe())
@@ -217,6 +251,11 @@ class Crawler:
                   
             
     def get_page_data(self, url):
+        '''
+        Recursive function that isolates next page link and parseable data. 
+        Calls the parse function and procedes to the next page, if it exists.
+        Returns None
+        '''
         # get page
         page = self.get_page(url)
         if page is not None:
@@ -235,8 +274,7 @@ class Crawler:
                     #self.parse(book_page)
             
             # get next page url
-            print('getting next page tag')
-            print('*' * 50)
+            logger.debug('getting next page tag')
             next_page = self.safe_get(page, self.site.paginationTag)
             if (next_page != ''):
                 # check url for current page
@@ -247,12 +285,13 @@ class Crawler:
                 if (curr_page != next_page):
                     url = url.replace(curr_page, next_page)
                     # get the page data
-                    print('going to next page')
+                    logger.info('going to next page')
                     self.get_page_data(url)
         
     def crawl(self, website):
         """
-        Get pages from website home page
+        Get pages from website home page and crawl through filtered links
+        Returns None
         """
         self.site = website
         bs = self.get_page(self.site.url)
@@ -263,7 +302,7 @@ class Crawler:
             # loop through pages to get data
             if (targetPages != '') and (len(targetPages) > 0):
                 for targetPage in targetPages:
-                    print('-' * 100)
+                    #logger.info('-' * 50)
                     # get links of target pages
                     targetPage = targetPage.attrs['href']
                     
@@ -275,12 +314,16 @@ class Crawler:
                             
                         # get page data
                         self.get_page_data(targetPage)
-                        print('-' * 100)
+                        #logger.info('-' * 50)
 
     def pipeline(self, dataset):
+        '''
+        Cleans data collected by executing defined pipeline functions
+        Returns None
+        '''
         # go through pipeline
-        print('>'*50)
-        print('beginning pipeline')
+        #logger.info('>'*25)
+        logger.info('beginning pipeline')
 
         # execute pipeline processes
         if (dataset != None):
@@ -296,21 +339,22 @@ class Crawler:
                 for step in self.steps:
                     for func_name, func in self.pipeline_functions.items():
                         if (step == func_name): #or (step in func_name)
+                            logger.debug(f'Executing {func_name} on dataset')
                             df = func(df)
 
             # store the data
             if (STORAGE):
                 if (STORAGE_TYPE == 'file') and (self.storage == None):
-                    print(f'saving data to file: {dataset.endpoint}')
+                    logger.info(f'saving data to file: {dataset.endpoint}')
                     save_to_csv(dataset.endpoint, df)
                 else:
-                    print(f'saving data to {STORAGE_TYPE} storage: {dataset.endpoint}')
+                    logger.info(f'saving data to {STORAGE_TYPE} storage: {dataset.endpoint}')
                     self.storage.insert_data(dataset.endpoint, df)
             else:
-                print(df)
+                logger.info(df)
         
-        print('Pipeline process complete')
-        print('>'*50)
+        logger.info('Pipeline process complete')
+        #logger.info('>'*25)
                         
     def __exit__(self, type, value, traceback):
         if (self.storage != None):
