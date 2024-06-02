@@ -11,6 +11,7 @@ from content import Content, Dataset
 from storage import get_storage, save_to_csv
 from fake_useragent import UserAgent
 from utils.log_tool import get_logger
+from website import Website
 
 logger = get_logger("WEB_SCRAPER")
 
@@ -37,11 +38,13 @@ for p_func in p_funcs:
 
 class Crawler:
     def __init__(self):
-        self.site = None
-        self.visited = []
+        self.site: Website
+        self.session = requests.Session()
+        self.visited: list = []
         self.storage = get_storage()
-        self.pipeline_functions = funcs
-        self.steps = STEPS
+        self.pipeline_functions: dict = funcs
+        self.steps: list[str] = STEPS
+        self.proxies_available: bool = False
 
     def __enter__(self):
         return self
@@ -54,7 +57,7 @@ class Crawler:
         try:
             time.sleep(WAIT_TIME)
             logger.info(f'Getting page: {url}')
-            response = requests.get(url)
+            response = self.session.get(url, allow_redirects=True)
         except requests.exceptions.RequestException as e:
             logger.error('Unable to get page!!!')
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
@@ -62,8 +65,29 @@ class Crawler:
         except Exception as e:
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
+            un_authorized = [401, 403]
+            server_error = [500, 501]
             if (response.status_code == 200):
                 return BeautifulSoup(response.text, 'lxml')
+            elif (response.status_code in server_error):
+                logger.info(f'Unable to get page({url}) due to server error')
+                return None
+            elif (response.status_code in un_authorized):
+                logger.info(f'Unable to get page({url}) due to being UnAuthorized')
+                logger.info(f'Attempting to get page with masking')
+                self.anon_get_page(url)
+
+    def check_for_proxies(self):
+        '''
+        check if proxies are provided
+        '''
+        try:
+            check = PROXIES['https']
+            check = PROXIES['http']
+        except KeyError as e:
+            self.proxies_available = False
+        else:
+            self.proxies_available = True
 
     def anon_get_page(self, url):
         '''
@@ -76,29 +100,18 @@ class Crawler:
                   }
     
         #requests.get('https://icanhazip.com', proxies=proxies).text.strip()
-        # check if proxies are available
-        proxies_available = None
-        try:
-            secure = PROXIES['https']
-            secure = PROXIES['http']
-            proxies_available = True
-        except KeyError as e:
-            proxies_available = False
-
         # get the webpage
         try:
             time.sleep(WAIT_TIME)
             logger.info(f'Getting page: {url}')
-            if(proxies_available):
-                response = requests.get(url, 
-                                        headers=headers, 
-                                        proxies=PROXIES,
-                                        #cookies=self.site.cookies
-                                    )
+            if(self.proxies_available):
+                proxies = PROXIES
             else:
-                response = requests.get(url, 
-                                        headers=headers,
-                                        #cookies=self.site.cookies
+                proxies = None
+                response = self.session.get(url, 
+                                        headers=headers, 
+                                        proxies=proxies,
+                                        allow_redirects=True,
                                     )
         except requests.exceptions.RequestException as e:
             logger.info('Unable to get page!!!')
@@ -109,9 +122,15 @@ class Crawler:
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
             return None
         else:
+            un_authorized = [401, 403]
+            server_error = [500, 501]
             if (response.status_code == 200):
-                #self.site.cookies = response.cookies
                 return BeautifulSoup(response.text, 'lxml')
+            elif (response.status_code in server_error):
+                logger.info(f'Unable to get page({url}) due to server error')
+                return None
+            elif (response.status_code in un_authorized):
+                self.anon_get_page(url)
 
     def clean_attrs(self, attrs):
         '''
@@ -205,7 +224,7 @@ class Crawler:
             return ''
         return result
                 
-    def parse(self, bs):
+    def parse_page_data(self, bs):
         '''
         Parses the data based on predefined tag definitions. The pipeline function is
         then executed to clean and possibly store the acquired dataset.
@@ -250,7 +269,7 @@ class Crawler:
         self.pipeline(dataset)
                   
             
-    def get_page_data(self, url):
+    def parse(self, url):
         '''
         Recursive function that isolates next page link and parseable data. 
         Calls the parse function and procedes to the next page, if it exists.
@@ -260,7 +279,7 @@ class Crawler:
         page = self.get_page(url)
         if page is not None:
             # get book/product links
-            self.parse(page)
+            self.parse_page_data(page)
             #books = self.safe_get(page, self.bookLinksTag)
 
             # loop through each individual book
@@ -286,13 +305,14 @@ class Crawler:
                     url = url.replace(curr_page, next_page)
                     # get the page data
                     logger.info('going to next page')
-                    self.get_page_data(url)
+                    self.parse(url)
         
     def crawl(self, website):
         """
         Get pages from website home page and crawl through filtered links
         Returns None
         """
+        start_time = time.perf_counter()
         self.site = website
         bs = self.get_page(self.site.url)
         if (bs != None):
@@ -312,9 +332,12 @@ class Crawler:
                         if not self.site.absoluteUrl:
                             targetPage = '{}/{}'.format(self.site.url, targetPage)
                             
-                        # get page data
-                        self.get_page_data(targetPage)
+                        # parse page data
+                        self.parse(targetPage)
                         #logger.info('-' * 50)
+        end_time = time.perf_counter()
+        logger.info(f"Exhausted time: {end_time - start_time:.2f}s")
+        logger.info(f"Crawling Complete!!")
 
     def pipeline(self, dataset):
         '''
