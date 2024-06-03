@@ -1,12 +1,15 @@
-import mysql.connector
 #import csv
 import os
 from io import StringIO
+import asyncio
 import boto3
+# from mysql.connector.aio import connect
+# import mysql.connector
+import aiomysql
 from scraper_settings import DB_USER, DB_DATABASE, DB_HOST, DB_PASSWORD
-from scraper_settings import STORAGE_TYPE
+from scraper_settings import STORAGE_TYPE, MAX_WORKERS
 from scraper_settings import S3_BUCKET_NAME, S3_OUTPUT_DIR
-from scraper_settings import OUTPUT_FILE_DIRECTORY
+from pipeline_funcs import save_to_csv, save_to_excel
 from datetime import datetime
 #import json
 from utils.log_tool import get_logger
@@ -15,51 +18,13 @@ logger = get_logger("WEB_SCRAPER")
 
 
 def get_storage():
-    if (STORAGE_TYPE == 'file'):
-        return None
-    elif (STORAGE_TYPE == 'db'):
+    if (STORAGE_TYPE == 'db'):
         return DB_Storage()
     elif (STORAGE_TYPE == 'obj'):
         return Obj_Storage()
     else:
         logger.error('Invalid storage type selected')
         return None
-
-
-def save_to_csv(filename:str, df):
-    filename = OUTPUT_FILE_DIRECTORY + filename + '.csv'
-    try:
-        # append if file exists
-        file_exists = os.path.isfile(filename)
-        if (file_exists):
-            df.to_csv(filename, mode='a', index=False, header=False)
-        # if not, create new file
-        else:
-            df.to_csv(filename, index=False)
-    except Exception as e:
-        logger.error('Failed to save data to file!!!')
-        logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-    else:
-        logger.info(filename + ' saved Successfully!')
-
-
-def save_to_excel(filename:str, df):
-    filename = OUTPUT_FILE_DIRECTORY + filename + '.xlsx'
-    try:
-        # append if file exists
-        file_exists = os.path.isfile(filename)
-        if (file_exists):
-            df.to_excel(filename, mode='a', index=False, header=False)
-        # if not, create new file
-        else:
-            df.to_excel(filename, index=False)
-    except Exception as e:
-        logger.error('Failed to save data to file!!!')
-        logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-    else:
-        logger.debug(filename + ' saved Successfully!')
-
-
 
 class Obj_Storage:
     def __init__(self):#, host, user, password, database):
@@ -104,57 +69,75 @@ class Obj_Storage:
     def close(self):
         pass
 
+cnx_pool = None
+loop = asyncio.get_event_loop()
+
+async def get_pool():
+    global cnx_pool
+    try:
+        logger.info(f'Connecting to database {DB_DATABASE}')
+        cnx_pool = await aiomysql.create_pool(
+            host= DB_HOST,
+            user= DB_USER,
+            password= DB_PASSWORD,
+            port= 3306,
+            charset='utf8',
+            #loop=loop
+            )
+    except Exception as e:
+        logger.error('Unable to Connect to database!!!')
+        logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+    else:
+        logger.info('Successfully Connected to database!')
+
+async def close_pool():
+    global cnx_pool
+    if (cnx_pool != None):
+        cnx_pool.close()
+        await cnx_pool.wait_closed()
+
 
 class DB_Storage:
-    def __init__(self):#, host, user, password, database):
-        self.host = DB_HOST
-        self.user = DB_USER
-        self.password = DB_PASSWORD
-        self.database = DB_DATABASE
-        self.cur = None
-        self.conn = None
+    def __init__(self):
+        #self.cnx = None
+        #self.cur = None
         #self.connect_to_db()
+        pass
 
-    def connect_to_db(self):
-        try:
-            print('connecting to database')
-            self.conn = mysql.connector.connect(
-                host= self.host,
-                user= self.user,
-                password= self.password,
-                database= self.database, 
-                charset='utf8',
-                buffered=True
-            )
-        except Exception as e:
-            logger.error('Unable to Connect to database!!!')
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-        else:
-            # create cursor
-            self.cur = self.conn.cursor()
-            self.cur.execute('USE scraping')
-            self.create_tables()
-            logger.info('Successfully Connected to database!')
 
-    def create_tables(self):
-        self.cur.execute('''CREATE TABLE IF NOT EXISTS books(
-                         bookId INT NOT NULL AUTO_INCREMENT,
-                         title VARCHAR(1000),
-                         rating INT,
-                         price DECIMAL(6,2),
-                         availability VARCHAR(20),
-                         category VARCHAR(50),
-                         link VARCHAR(1000),
-                         created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                         PRIMARY KEY(bookId));''')
+    async def connect_to_db(self):
+        '''  
+        Asynchronously connect to the database
+        '''
+        await get_pool()
 
-    def insert_data(self, table_name, df):
+        await self.create_tables()
+
+    async def create_tables(self):
+        #global cnx_pool
+        sql = '''CREATE TABLE IF NOT EXISTS BookScrape(
+                    bookId INT NOT NULL AUTO_INCREMENT,
+                    title VARCHAR(1000),
+                    rating INT,
+                    price_£ DECIMAL(6,2),
+                    availability VARCHAR(20),
+                    category VARCHAR(50),
+                    link VARCHAR(1000),
+                    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY(bookId));'''
+        async with cnx_pool.acquire() as cnx:
+            async with cnx.cursor() as cur:
+                await cur.execute('USE scraping')
+                await cur.execute(sql)
+
+    async def insert_data(self, table_name, df):
         # connect to database if there is no connection
-        if (self.cur == None) and (self.conn == None):
-            self.connect_to_db()
+        #global cnx_pool
+        if (cnx_pool == None):
+            await self.connect_to_db()
             
         # insert the data
-        if (self.cur != None) and (self.conn != None):
+        if (cnx_pool != None):
             inserted_records = 0
 
             # convert dataframe to records
@@ -169,54 +152,56 @@ class DB_Storage:
             number_of_vals = len(records_to_insert[0]) - 1
             vals_placeholder = '%s, ' * number_of_vals + '%s'
 
-            # loop through each record
-            for record in records_to_insert:
-                #print(record)
-                self.cur.reset()
-                
-                # check if record already exists
-                title = record[0].replace('\"', '')
-                sql = f'''SELECT bookId 
-                        FROM scraping.{table_name} 
-                        WHERE title = "{title}"'''
-                try:
-                    #print(f'Book Title: {title}')
-                    self.cur.execute(sql)
-                except Exception as e:
-                    logger.error('Unable to get row_id!!!')
-                    logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-                    
-                    # save to alternative storage
-                    logger.info('Saving to file instead')
-                    save_to_csv('failed_data.csv', df)
-                    return
-                    #print(self.cur.fetchone()[0])
-                    
-                    # if not, insert new record
-                    #print(f'Acquired book id is: {self.cur.fetchone()[0]}')
-                    #print(f'Row count: {self.cur.rowcount}')
-                else:
-                    if (self.cur.rowcount == 0):
-                        self.cur.reset()
-                        #print(f'current table fields: {table_fields}')
-                        sql = f'''INSERT INTO scraping.{table_name} 
-                                {table_fields}
-                                VALUES ({vals_placeholder})'''
-                        #print(sql)
+            async with cnx_pool.acquire() as cnx:
+                async with cnx.cursor() as cur:
+                    # loop through each record
+                    for record in records_to_insert:
+                        #print(record)
+                        #await self.cur.reset()
+                        
+                        # check if record already exists
+                        title = record[0].replace('\"', '')
+                        sql = f'''SELECT bookId 
+                                FROM scraping.{table_name} 
+                                WHERE title = "{title}"'''
+                            #print(f'Book Title: {title}')
                         try:
-                            self.cur.execute(sql, record)
+                            #await cur.reset()
+                            await cur.execute(sql)
                         except Exception as e:
-                            logger.error('Unable to insert data into database!!!')
+                            logger.error('Unable to get row_id!!!')
                             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-                            #self.conn.rollback()
-                            
+                    
                             # save to alternative storage
                             logger.info('Saving to file instead')
-                            save_to_csv('failed_data.csv', df)
+                            save_to_csv(filename=f'{table_name} failed_data.csv', df=df)
+                            return
+                            #print(await self.cur.fetchone()[0])
+                            
+                            # if not, insert new record
+                            #print(f'Acquired book id is: {await self.cur.fetchone()[0]}')
+                            #print(f'Row count: {await self.cur.rowcount}')
                         else:
-                            # commit the insertion
-                            self.conn.commit()
-                            inserted_records += 1
+                            if (cur.rowcount == 0):
+                                #await cur.reset()
+                                #print(f'current table fields: {table_fields}')
+                                sql = f'''INSERT INTO scraping.{table_name} 
+                                        {table_fields}
+                                        VALUES ({vals_placeholder})'''
+                                logger.debug(sql)
+                                try:
+                                    await cur.execute(sql, record)
+                                    # commit the insertion
+                                    await cnx.commit()
+                                    inserted_records += 1
+                                except Exception as e:
+                                    logger.error('Unable to insert data into database!!!')
+                                    logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+                                    self.conn.rollback()
+                                    
+                                    # save to alternative storage
+                                    logger.info('Saving to file instead')
+                                    save_to_csv(filename=f'{table_name} failed_data.csv', df=df)
             logger.info(f'{inserted_records} records inserted into database!')
             
         else:
@@ -224,47 +209,51 @@ class DB_Storage:
             logger.error('Unable to Connect to database!')
             logger.info('Saving to file instead')
             file_name = table_name + '.csv'
-            save_to_csv(file_name, df)  
+            save_to_csv(filename=file_name, df=df)  
 
-    def query_all(self, table_name):
-        if (self.cur == None) and (self.conn == None):
-            self.connect_to_db()
-            
-        try:
-            self.cur.reset()
-            sql = f'''SELECT * 
-                FROM scraping.{table_name}'''
-            print(sql)
-            self.cur.execute(sql)
-        except Exception as e:
-            logger.error('Failed to execute query!!!')
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-        else:
-            result = [row for row in self.cur.fetchall()]
-            return result
+    async def query_all(self, table_name):
+        #global cnx_pool
+        if (cnx_pool == None):
+            await self.connect_to_db()
+        
+        async with cnx_pool.acquire() as cnx:
+            async with cnx.cursor() as cur:
+                try:
+                    await cur.reset()
+                    sql = f'''SELECT * 
+                        FROM scraping.{table_name}'''
+                    logger.debug(sql)
+                    await cur.execute(sql)
+                except Exception as e:
+                    logger.error('Failed to execute query!!!')
+                    logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+                else:
+                    result = [row for row in await cur.fetchall()]
+                    return result
 
-    def query(self, sql):
+    async def query(self, sql):
+        #global cnx_pool
         # Run custom sql query
-        if (self.cur == None) and (self.conn == None):
-            self.connect_to_db()
-            
-        try:
-            self.cur.reset()
-            logger.debug(sql)
-            self.cur.execute(sql)
-        except Exception as e:
-            logger.error('Failed to execute query!!!')
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-        else:
-            result = [row for row in self.cur.fetchall()]
-            return result
+        if (cnx_pool == None):
+            await self.connect_to_db()
+        
+        async with cnx_pool.acquire() as cnx:
+            async with cnx.cursor() as cur:
+                try:
+                    #await cur.reset()
+                    logger.debug(sql)
+                    await cur.execute(sql)
+                except Exception as e:
+                    logger.error('Failed to execute query!!!')
+                    logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+                else:
+                    result = [row for row in await cur.fetchall()]
+                    return result
 
     
-    def close(self):
+    async def close(self):
         # close connection
-        if (self.cur != None):
-            self.cur.reset()
-            self.cur.close()
-        if (self.conn != None):
-            self.cur.reset()
-            self.conn.close()
+        #global cnx_pool
+        if (cnx_pool != None):
+            await close_pool()
+            cnx_pool == None

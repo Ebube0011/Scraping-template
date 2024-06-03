@@ -1,12 +1,15 @@
 import os
 
+''' WORKERS '''
+MAX_WORKERS:int = 5
+
 ''' STORAGE '''
-STORAGE_TYPE = 'file'#file','db','obj'
-STORAGE = True #False
+STORAGE_TYPE = 'db'#'db','obj'
 
 
 ''' PIPELINE STEPS '''
-STEPS = ['remove_nulls', 'clean_title', 'clean_rating', 'clean_price', 'clean_link']
+STEPS = ['remove_nulls', 'clean_title', 'clean_rating', 
+         'clean_price', 'clean_link']
 
 
 ''' WEBSITE '''

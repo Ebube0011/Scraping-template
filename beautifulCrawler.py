@@ -1,14 +1,19 @@
 from bs4 import BeautifulSoup
 import re
 import time
-import requests
-from scraper_settings import STEPS, STORAGE_TYPE, STORAGE
-from scraper_settings import PROXIES
-from scraper_settings import WAIT_TIME
+#import requests
+#import aiohttp
+import httpx
+import asyncio
+import glob
+import json
+from scraper_settings import STEPS, STORAGE_TYPE
+from scraper_settings import PROXIES, MAX_WORKERS, WAIT_TIME
+from scraper_settings import WEBSITE_FILE_PATH
 from inspect import getmembers, isfunction
 import pipeline_funcs
 from content import Content, Dataset
-from storage import get_storage, save_to_csv
+from storage import get_storage, close_pool, get_pool
 from fake_useragent import UserAgent
 from utils.log_tool import get_logger
 from website import Website
@@ -39,36 +44,58 @@ for p_func in p_funcs:
 class Crawler:
     def __init__(self):
         self.site: Website
-        self.session = requests.Session()
+        #self.session = requests.Session()
+        #self.session = aiohttp.ClientSession()
+        # self.session = httpx.AsyncClient(event_hooks={'request':[self.log_request],
+        #                                               'response':[self.log_response]})
+        self.session = None
         self.visited: list = []
         self.storage = get_storage()
         self.pipeline_functions: dict = funcs
         self.steps: list[str] = STEPS
-        self.proxies_available: bool = False
+        self.proxies_available: bool = self.check_for_proxies()
+        self.work_queue = asyncio.Queue()
 
-    def __enter__(self):
+    async def __aenter__(self):
+
+        await get_pool()
+        self.session = httpx.AsyncClient(event_hooks={'request':[self.log_request],
+                                                      'response':[self.log_response]})
         return self
     
-    def get_page(self, url):
+    async def log_request(self, request):
+        logger.debug(f'Request: {request.method} {request.url}')
+
+    
+    async def log_response(self, response):
+        request = response.request
+        logger.info(f'Response: {request.method} {request.url} - Status {response.status_code}')
+    
+    
+    async def get_page(self, url):
         '''
         Gets the html of the page and converts it to beautiful soup
         Returns beautiful soup object or None if page was no found
         '''
         try:
-            time.sleep(WAIT_TIME)
+            await asyncio.sleep(WAIT_TIME)
             logger.info(f'Getting page: {url}')
-            response = self.session.get(url, allow_redirects=True)
-        except requests.exceptions.RequestException as e:
-            logger.error('Unable to get page!!!')
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-            return None
+            response = await self.session.get(url, 
+                                              #allow_redirects=True
+                                              )
+        # except requests.exceptions.RequestException as e:
+        #     logger.error('Unable to get page!!!')
+        #     logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+        #     return None
         except Exception as e:
+            logger.error('Unable to get page!!!')
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
             un_authorized = [401, 403]
             server_error = [500, 501]
             if (response.status_code == 200):
-                return BeautifulSoup(response.text, 'lxml')
+                html = response.text
+                return BeautifulSoup(html, 'lxml')
             elif (response.status_code in server_error):
                 logger.info(f'Unable to get page({url}) due to server error')
                 return None
@@ -84,12 +111,12 @@ class Crawler:
         try:
             check = PROXIES['https']
             check = PROXIES['http']
-        except KeyError as e:
-            self.proxies_available = False
+        except KeyError:
+            return False
         else:
-            self.proxies_available = True
+            return True
 
-    def anon_get_page(self, url):
+    async def anon_get_page(self, url):
         '''
         Gets the html of the page anonymously and converts it to beautiful soup
         Returns beautiful soup object or None if page was no found
@@ -102,35 +129,34 @@ class Crawler:
         #requests.get('https://icanhazip.com', proxies=proxies).text.strip()
         # get the webpage
         try:
-            time.sleep(WAIT_TIME)
+            await asyncio.sleep(WAIT_TIME)
             logger.info(f'Getting page: {url}')
             if(self.proxies_available):
                 proxies = PROXIES
             else:
                 proxies = None
-                response = self.session.get(url, 
-                                        headers=headers, 
-                                        proxies=proxies,
-                                        allow_redirects=True,
-                                    )
-        except requests.exceptions.RequestException as e:
-            logger.info('Unable to get page!!!')
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-            return None
+
+            response = await self.session.get(url, 
+                                    headers=headers, 
+                                    proxies=proxies,
+                                    #allow_redirects=True,
+                                )
+        # except requests.exceptions.RequestException as e:
+        #     logger.info('Unable to get page!!!')
+        #     logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+        #     return None
         except Exception as e:
             logger.info('Unable to get page!!!')
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
             return None
         else:
-            un_authorized = [401, 403]
             server_error = [500, 501]
             if (response.status_code == 200):
-                return BeautifulSoup(response.text, 'lxml')
+                html = response.text
+                return BeautifulSoup(html, 'lxml')
             elif (response.status_code in server_error):
                 logger.info(f'Unable to get page({url}) due to server error')
                 return None
-            elif (response.status_code in un_authorized):
-                self.anon_get_page(url)
 
     def clean_attrs(self, attrs):
         '''
@@ -224,7 +250,7 @@ class Crawler:
             return ''
         return result
                 
-    def parse_page_data(self, bs):
+    async def parse_page_data(self, bs):
         '''
         Parses the data based on predefined tag definitions. The pipeline function is
         then executed to clean and possibly store the acquired dataset.
@@ -242,7 +268,7 @@ class Crawler:
             return
             
         # instantiate the dataset object
-        dataset = Dataset(endpoint= 'Books')
+        dataset = Dataset(endpoint= self.site.name)
         
         # loop through all product data
         for product in products:
@@ -258,28 +284,27 @@ class Crawler:
                 content.link = '{}/{}'.format(self.site.url, content.link)
                 
             # add product data to the content dataset
-            logger.debug(content)
+            #logger.debug(content)
             dataset.records.append(content)
         # save data to file
         #save_to_csv(dataset.endpoint, dataset.dataframe())
         #save_to_excel(dataset.endpoint, dataset.dataframe())
-        
-                
+              
         # send data to pipeline
-        self.pipeline(dataset)
+        await self.pipeline(dataset)
                   
             
-    def parse(self, url):
+    async def parse(self, url):
         '''
         Recursive function that isolates next page link and parseable data. 
         Calls the parse function and procedes to the next page, if it exists.
         Returns None
         '''
         # get page
-        page = self.get_page(url)
+        page = await self.get_page(url)
         if page is not None:
             # get book/product links
-            self.parse_page_data(page)
+            await self.parse_page_data(page)
             #books = self.safe_get(page, self.bookLinksTag)
 
             # loop through each individual book
@@ -305,16 +330,16 @@ class Crawler:
                     url = url.replace(curr_page, next_page)
                     # get the page data
                     logger.info('going to next page')
-                    self.parse(url)
+                    await self.parse(url)
         
-    def crawl(self, website):
+    async def crawl(self, website):
         """
         Get pages from website home page and crawl through filtered links
         Returns None
         """
-        start_time = time.perf_counter()
+        # start_time = time.perf_counter()
         self.site = website
-        bs = self.get_page(self.site.url)
+        bs = await self.get_page(self.site.url)
         if (bs != None):
             # get target pages
             targetPages = self.safe_get(bs, self.site.targetPattern)
@@ -333,13 +358,13 @@ class Crawler:
                             targetPage = '{}/{}'.format(self.site.url, targetPage)
                             
                         # parse page data
-                        self.parse(targetPage)
+                        await self.parse(targetPage)
                         #logger.info('-' * 50)
-        end_time = time.perf_counter()
-        logger.info(f"Exhausted time: {end_time - start_time:.2f}s")
-        logger.info(f"Crawling Complete!!")
+        # end_time = time.perf_counter()
+        # logger.info(f"Exhausted time: {end_time - start_time:.2f}s")
+        # logger.info(f"Crawling Complete!!")
 
-    def pipeline(self, dataset):
+    async def pipeline(self, dataset):
         '''
         Cleans data collected by executing defined pipeline functions
         Returns None
@@ -363,22 +388,117 @@ class Crawler:
                     for func_name, func in self.pipeline_functions.items():
                         if (step == func_name): #or (step in func_name)
                             logger.debug(f'Executing {func_name} on dataset')
-                            df = func(df)
+                            df = func(df=df, filename=dataset.endpoint, obj=self)
+                            logger.debug(f'Finished execution of {func_name} on dataset')
 
-            # store the data
-            if (STORAGE):
-                if (STORAGE_TYPE == 'file') and (self.storage == None):
-                    logger.info(f'saving data to file: {dataset.endpoint}')
-                    save_to_csv(dataset.endpoint, df)
-                else:
-                    logger.info(f'saving data to {STORAGE_TYPE} storage: {dataset.endpoint}')
-                    self.storage.insert_data(dataset.endpoint, df)
+            # # store the data
+            if (self.storage != None):
+                logger.info(f'saving data to {STORAGE_TYPE} storage: {dataset.endpoint}')
+                await self.storage.insert_data(dataset.endpoint, df)
             else:
-                logger.info(df)
+                records = df.to_dict(orient='records')
+                for record in records:
+                    logger.info(f'Data: {record}')
         
         logger.info('Pipeline process complete')
         #logger.info('>'*25)
-                        
-    def __exit__(self, type, value, traceback):
-        if (self.storage != None):
+
+    async def run(self):
+        # create an empty list to contain the sites
+        num_of_sites = 0
+
+        # get website settings in json files
+        logger.info('Gathering website configuration files...')
+        for jsonfile in glob.glob(WEBSITE_FILE_PATH + "*.json"):
+            with open(jsonfile, 'r') as openfile: 
+                # Reading from json file 
+                json_object = json.load(openfile)
+                await self.work_queue.put(json_object)
+                num_of_sites += 1
+
+        logger.info(f'Gathered {num_of_sites} website files')
+        # record start timer
+        start_time = time.perf_counter()
+            
+        # determine number of workers
+        if (num_of_sites > MAX_WORKERS):
+            if(MAX_WORKERS <= 0):
+                num_workers = 1
+            else:
+                num_workers = MAX_WORKERS
+        else:
+            num_workers = num_of_sites
+        
+        try:
+            # start workers
+            tasks = [asyncio.create_task(self.task(str(index))) 
+                    for index in range(1, num_workers+1)]
+            # done, pending = await asyncio.wait(tasks)
+            await asyncio.wait(tasks)
+
+        except Exception as e:
+            logger.error('Failed to execute query!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+        finally:
+            end_time = time.perf_counter()
+            logger.info(f"Process completed in time: {end_time - start_time: .2f}s")
+            # clean up async shit that can't be done in the exit func
+            #await self.clean_up()
+        
+
+    async def task(self, name):
+        '''
+        Defines the task to be handled by a worker. It can be crawling or scraping
+        '''
+
+        while not self.work_queue.empty():
+            # get site data from the work queue
+            site = await self.work_queue.get()
+            # instantiate the website object
+            website = Website(name= site['name'],
+                              url = site['url'],
+                              targetPattern = site['targetTag'],
+                              absoluteUrl = site['AbsoluteUrl'],
+                              paginationTag = site['nextPageTag'],
+                              itemsTag = site['itemsTag'],
+                              categoryTag = site['categoryTag'],
+                              titleTag = site['titleTag'],
+                              ratingTag = site['ratingTag'],
+                              priceTag = site['priceTag'],
+                              availabilityTag = site['availabilityTag'],
+                              linkTag = site['linkTag']
+                          )
+            # do the actual task of crawling/scraping
+            logger.info(f"Worker-{name} starts task of crawling {website.name}")
+            start_time = time.perf_counter()
+            # async with httpx.AsyncClient(event_hooks={'request':[self.log_request],
+            #                                           'response':[self.log_response]}) as client:
+            # self.session = client
+            await self.crawl(website)
+            fin = time.perf_counter() - start_time
+            logger.info(f"Worker-{name} completed task in time: {fin: .2f}s")
+        
+
+    # async def clean_up(self):
+    #     # close the storage
+    #     #await close_pool()
+    #     if (self.storage != None) and (STORAGE_TYPE == 'db'):
+    #         await self.storage.close()
+    #         self.storage = None
+
+
+    async def __aexit__(self, type, value, traceback):
+
+        # close the connection pool
+        await close_pool()
+
+        # close the session
+        await self.session.aclose()
+
+        
+        # close the storage
+        if (self.storage != None) and (STORAGE_TYPE == 'db'):
+            await self.storage.close()
+            self.storage = None
+        else:
             self.storage.close()

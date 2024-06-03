@@ -26,7 +26,7 @@ logging_config = {
             "class": "logging.handlers.RotatingFileHandler",
             "level": "DEBUG",
             "formatter": "detailed",
-            "filename": "Logs/scraping_pipeline.log",
+            "filename": "Logs/scraping_logs.log",
             "maxBytes": 5000000,
             "backupCount": 3,
         },
