@@ -1,7 +1,7 @@
 import asyncio
 import glob
 import json
-from beautifulcrawler import BeautifulCrawler
+from beautiful_crawler import BeautifulCrawler
 from scraper_settings import WEBSITE_FILE_PATH
 
 async def main():
