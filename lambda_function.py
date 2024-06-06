@@ -1,4 +1,4 @@
-from beautifulCrawler import Crawler
+from beautiful_crawler import Crawler
 from website import Website
 import re
 
