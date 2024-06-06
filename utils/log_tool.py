@@ -27,6 +27,7 @@ logging_config = {
             "level": "DEBUG",
             "formatter": "detailed",
             "filename": "Logs/scraping_pipeline.log",
+            "encoding": "utf-8",
             "maxBytes": 5000000,
             "backupCount": 3,
         },

@@ -2,13 +2,15 @@ from bs4 import BeautifulSoup
 import re
 import time
 import requests
-from scraper_settings import STEPS, STORAGE_TYPE, STORAGE
-from scraper_settings import PROXIES
-from scraper_settings import WAIT_TIME
+import queue
+import threading
+from scraper_settings import STEPS, STORAGE_TYPE
+from scraper_settings import MAX_WORKERS
+from scraper_settings import PROXIES, WAIT_TIME
 from inspect import getmembers, isfunction
 import pipeline_funcs
 from content import Content, Dataset
-from storage import get_storage, save_to_csv
+from storage import get_repo, close_pool, get_pool
 from fake_useragent import UserAgent
 from utils.log_tool import get_logger
 from website import Website
@@ -36,17 +38,39 @@ for p_func in p_funcs:
 
 #user_agent = get_user_agent()
 
-class Crawler:
+class BeautifulCrawler:
     def __init__(self):
-        self.site: Website
         self.session = requests.Session()
-        self.visited: list = []
-        self.storage = get_storage()
+        self.visited = set()
+        # self.found = set()
+        self.storage = get_repo()
         self.pipeline_functions: dict = funcs
         self.steps: list[str] = STEPS
         self.proxies_available: bool = False
+        self.work_queue = queue.Queue()
+
+        # add storage func to pipeline steps
+        if (STORAGE_TYPE == 'db') and (not 'save_to_db' in self.steps):
+            self.steps.append('save_to_db')
+        elif (STORAGE_TYPE == 'obj') and (not 'save_to_obj' in self.steps):
+            self.steps.append('save_to_obj')
+        elif (STORAGE_TYPE == 'excel') and (not 'save_to_excel' in self.steps):
+            self.steps.append('save_to_excel')
+        elif (STORAGE_TYPE == 'csv') and (not 'save_to_csv' in self.steps):
+            self.steps.append('save_to_csv')
+    
+    # def on_found_links(self, urls:set[str]):
+    #     new = urls - self.found
+        
+    #     for url in new:
+    #         await self.url_queue.put(url)
 
     def __enter__(self):
+        '''
+        Things to initailize when using context managers
+        '''
+        if (STORAGE_TYPE == 'db'):
+            get_pool()
         return self
     
     def get_page(self, url):
@@ -57,18 +81,21 @@ class Crawler:
         try:
             time.sleep(WAIT_TIME)
             logger.info(f'Getting page: {url}')
-            response = self.session.get(url, allow_redirects=True)
+            response = self.session.get(url, 
+                                        allow_redirects=True,
+                                        )
         except requests.exceptions.RequestException as e:
             logger.error('Unable to get page!!!')
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
             return None
-        except Exception as e:
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
             un_authorized = [401, 403]
             server_error = [500, 501]
             if (response.status_code == 200):
                 return BeautifulSoup(response.text, 'lxml')
+            elif (response.status_code == 404):
+                logger.info(f'Bad url: Page({url}) not found')
+                return None
             elif (response.status_code in server_error):
                 logger.info(f'Unable to get page({url}) due to server error')
                 return None
@@ -117,20 +144,25 @@ class Crawler:
             logger.info('Unable to get page!!!')
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
             return None
-        except Exception as e:
-            logger.info('Unable to get page!!!')
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-            return None
+        # except Exception as e:
+        #     logger.info('Unable to get page!!!')
+        #     logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+        #     return None
         else:
             un_authorized = [401, 403]
             server_error = [500, 501]
             if (response.status_code == 200):
                 return BeautifulSoup(response.text, 'lxml')
+            elif (response.status_code == 404):
+                logger.info(f'Bad url: Page({url}) not found')
+                return None
             elif (response.status_code in server_error):
                 logger.info(f'Unable to get page({url}) due to server error')
                 return None
             elif (response.status_code in un_authorized):
-                self.anon_get_page(url)
+                logger.info(f'Unable to get page({url}) due to being UnAuthorized')
+                logger.info(f'Masking attempt failed!!')
+                return None
 
     def clean_attrs(self, attrs):
         '''
@@ -176,7 +208,7 @@ class Crawler:
             name_arg  = ''
         return (name_arg, string_arg)
         
-    def safe_get(self, pageObj, selector):
+    def safe_get(self, pageObj, selector:dict):
         '''
         Executes beautiful soup filter functions to get data. In the absence of data
         or presence of an error, it returns an empty string.
@@ -224,7 +256,7 @@ class Crawler:
             return ''
         return result
                 
-    def parse_page_data(self, bs):
+    def parse_page_data(self, bs:BeautifulSoup, website:Website):
         '''
         Parses the data based on predefined tag definitions. The pipeline function is
         then executed to clean and possibly store the acquired dataset.
@@ -234,42 +266,38 @@ class Crawler:
         #logger.info('#' * 25)
         logger.info('Parsing data')
         # parse the data
-        category = self.safe_get(bs, self.site.categoryTag)
-        products = self.safe_get(bs, self.site.itemsTag)
+        category = self.safe_get(bs, website.categoryTag)
+        products = self.safe_get(bs, website.itemsTag)
 
         if (products == '') or (category == ''):
             logger.debug('Category or Products tag missing! Skipping category...')
             return
             
         # instantiate the dataset object
-        dataset = Dataset(endpoint= 'Books')
+        dataset = Dataset(endpoint=website.name)
         
         # loop through all product data
         for product in products:
             # instantiate the content object
             content = Content(category= category,
-                              title= self.safe_get(product, self.site.titleTag),
-                              rating = self.safe_get(product, self.site.ratingTag),
-                              price = self.safe_get(product, self.site.priceTag),
-                              availability = self.safe_get(product, self.site.availabilityTag),
-                              link = self.safe_get(product, self.site.linkTag)
+                              title= self.safe_get(product, website.titleTag),
+                              rating = self.safe_get(product, website.ratingTag),
+                              price = self.safe_get(product, website.priceTag),
+                              availability = self.safe_get(product, website.availabilityTag),
+                              link = self.safe_get(product, website.linkTag)
             )
-            if (self.site.linkTag['r-url']) and (content.link != ''):
-                content.link = '{}/{}'.format(self.site.url, content.link)
+            if (website.linkTag['r-url']) and (content.link != ''):
+                content.link = '{}/{}'.format(website.url, content.link)
                 
             # add product data to the content dataset
-            logger.debug(content)
+            #logger.debug(content)
             dataset.records.append(content)
-        # save data to file
-        #save_to_csv(dataset.endpoint, dataset.dataframe())
-        #save_to_excel(dataset.endpoint, dataset.dataframe())
         
-                
         # send data to pipeline
         self.pipeline(dataset)
                   
             
-    def parse(self, url):
+    def parse(self, url:str, website:Website):
         '''
         Recursive function that isolates next page link and parseable data. 
         Calls the parse function and procedes to the next page, if it exists.
@@ -279,7 +307,7 @@ class Crawler:
         page = self.get_page(url)
         if page is not None:
             # get book/product links
-            self.parse_page_data(page)
+            self.parse_page_data(page, website)
             #books = self.safe_get(page, self.bookLinksTag)
 
             # loop through each individual book
@@ -294,7 +322,7 @@ class Crawler:
             
             # get next page url
             logger.debug('getting next page tag')
-            next_page = self.safe_get(page, self.site.paginationTag)
+            next_page = self.safe_get(page, website.paginationTag)
             if (next_page != ''):
                 # check url for current page
                 page_match = re.search(r'(index|page.*).html', url)
@@ -305,19 +333,18 @@ class Crawler:
                     url = url.replace(curr_page, next_page)
                     # get the page data
                     logger.info('going to next page')
-                    self.parse(url)
+                    self.parse(url, website)
         
-    def crawl(self, website):
+    def crawl(self, website:Website):
         """
         Get pages from website home page and crawl through filtered links
         Returns None
         """
-        start_time = time.perf_counter()
-        self.site = website
-        bs = self.get_page(self.site.url)
+        # start_time = time.perf_counter()
+        bs = self.get_page(website.url)
         if (bs != None):
             # get target pages
-            targetPages = self.safe_get(bs, self.site.targetPattern)
+            targetPages = self.safe_get(bs, website.targetPattern)
 
             # loop through pages to get data
             if (targetPages != '') and (len(targetPages) > 0):
@@ -328,18 +355,15 @@ class Crawler:
                     
                     # add to visited list if not in there
                     if targetPage not in self.visited:
-                        self.visited.append(targetPage)
-                        if not self.site.absoluteUrl:
-                            targetPage = '{}/{}'.format(self.site.url, targetPage)
+                        self.visited.add(targetPage)
+                        if not website.absoluteUrl:
+                            targetPage = '{}/{}'.format(website.url, targetPage)
                             
                         # parse page data
-                        self.parse(targetPage)
+                        self.parse(targetPage, website)
                         #logger.info('-' * 50)
-        end_time = time.perf_counter()
-        logger.info(f"Exhausted time: {end_time - start_time:.2f}s")
-        logger.info(f"Crawling Complete!!")
 
-    def pipeline(self, dataset):
+    def pipeline(self, dataset:Dataset):
         '''
         Cleans data collected by executing defined pipeline functions
         Returns None
@@ -358,27 +382,87 @@ class Crawler:
             df = dataset.dataframe()
 
             # run pipeline steps/stages
+            print_data = True
             if (self.steps != None) and (len(self.steps) > 0):
                 for step in self.steps:
                     for func_name, func in self.pipeline_functions.items():
                         if (step == func_name): #or (step in func_name)
                             logger.debug(f'Executing {func_name} on dataset')
-                            df = func(df)
+                            df = func(df=df, filename=dataset.endpoint, obj=self)
+                            logger.debug(f'Finished execution of {func_name} on dataset')
+                        if ('save' in func_name):
+                            print_data = False
 
             # store the data
-            if (STORAGE):
-                if (STORAGE_TYPE == 'file') and (self.storage == None):
-                    logger.info(f'saving data to file: {dataset.endpoint}')
-                    save_to_csv(dataset.endpoint, df)
-                else:
-                    logger.info(f'saving data to {STORAGE_TYPE} storage: {dataset.endpoint}')
-                    self.storage.insert_data(dataset.endpoint, df)
-            else:
-                logger.info(df)
+            if (print_data):
+                records = df.to_dict(orient='records')
+                for record in records:
+                    logger.info(f'Data: {record}')
         
         logger.info('Pipeline process complete')
         #logger.info('>'*25)
-                        
+
+    def work(self, name):
+        '''
+        Consumes a site from the queue to crawl and starts the
+        crawling process
+        '''
+        while not self.work_queue.empty():
+            site = self.work_queue.get()
+        
+            # instantiate the website object
+            website = Website(name= site['name'],
+                                url = site['url'],
+                                targetPattern = site['targetTag'],
+                                absoluteUrl = site['AbsoluteUrl'],
+                                paginationTag = site['nextPageTag'],
+                                itemsTag = site['itemsTag'],
+                                categoryTag = site['categoryTag'],
+                                titleTag = site['titleTag'],
+                                ratingTag = site['ratingTag'],
+                                priceTag = site['priceTag'],
+                                availabilityTag = site['availabilityTag'],
+                                linkTag = site['linkTag']
+                            )
+            # do the actual task of crawling/scraping
+            logger.info(f"Worker-{name} Crawling {website.name}")
+            start = time.perf_counter()
+            self.crawl(website)
+            duration = time.perf_counter() - start
+            logger.info(f"Worker-{name} finished crawling {website.name} in time: {duration:.2f}s")
+
+    def delegate_and_run_work(self, sites:list):
+        '''
+        Creates crawling workers to work concurrently, on threads, to crawl 
+        the provided websites
+        '''
+        # add sites to queue
+        for site in sites:
+            self.work_queue.put(site)
+
+        # assign workers in different threads
+        workers = [threading.Thread(target=self.work, args=(i,))
+                        for i in range(1, MAX_WORKERS+1)]
+        
+        logger.info(f"Worker(s) starting work...")
+        start = time.perf_counter()
+
+        # start the wokers and wait till they finish
+        for worker in workers:
+                worker.start()
+        for worker in workers:
+                worker.join()
+
+        duration = time.perf_counter() - start
+        logger.info(f"Worker(s) finished all work in time: {duration:.2f}s")
+
     def __exit__(self, type, value, traceback):
-        if (self.storage != None):
-            self.storage.close()
+        '''
+        Closes the storage pool on exit from context manager
+        '''
+        # close the session object
+        self.session.close()
+
+        # close the database connection pool if storage type used was database
+        if (STORAGE_TYPE == 'db'):
+            close_pool()

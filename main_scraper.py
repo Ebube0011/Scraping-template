@@ -1,43 +1,25 @@
-from beautifulCrawler import Crawler
-from website import Website
 import glob
-from scraper_settings import WEBSITE_FILE_PATH
 import json
-
-sites = []
-# get website settings in json files
-for jsonfile in glob.glob(WEBSITE_FILE_PATH + "*.json"):
-    with open(jsonfile, 'r') as openfile: 
-        # Reading from json file 
-        json_object = json.load(openfile)
-        sites.append(json_object)
+from beautifulcrawler import BeautifulCrawler
+from scraper_settings import WEBSITE_FILE_PATH
 
 def main():
-    ''' Instantiate the crawler to crawl through the provided websites '''
+    ''' 
+    Instantiate the crawler object to crawl through 
+    the provided websites
+    '''
+    sites = []
 
-    websites = []
-    for site in sites:
-        website = Website(name= site['name'],
-                          url = site['url'],
-                          targetPattern = site['targetTag'],
-                          absoluteUrl = site['AbsoluteUrl'],
-                          paginationTag = site['nextPageTag'],
-                          itemsTag = site['itemsTag'],
-                          categoryTag = site['categoryTag'],
-                          titleTag = site['titleTag'],
-                          ratingTag = site['ratingTag'],
-                          priceTag = site['priceTag'],
-                          availabilityTag = site['availabilityTag'],
-                          linkTag = site['linkTag']
-        )
-
-        # add to list of websites
-        websites.append(website)
+    # get website settings in json files
+    for jsonfile in glob.glob(WEBSITE_FILE_PATH + "*.json"):
+        with open(jsonfile, 'r') as openfile: 
+            # Reading from json file 
+            json_object = json.load(openfile)
+            sites.append(json_object)
 
     # crawl websites
-    with Crawler() as crawler:
-        for website in websites:
-            crawler.crawl(website)
+    with BeautifulCrawler() as spider_man:
+        spider_man.delegate_and_run_work(sites)
 
 if __name__ == '__main__':
     main()
