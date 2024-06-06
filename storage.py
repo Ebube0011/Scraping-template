@@ -6,10 +6,10 @@ import boto3
 # from mysql.connector.aio import connect
 # import mysql.connector
 import aiomysql
-from scraper_settings import DB_USER, DB_DATABASE, DB_HOST, DB_PASSWORD
+from scraper_settings import DB_USER, DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT
 from scraper_settings import STORAGE_TYPE, MAX_WORKERS
 from scraper_settings import S3_BUCKET_NAME, S3_OUTPUT_DIR
-from pipeline_funcs import save_to_csv, save_to_excel
+from pipeline_funcs import save_to_csv
 from datetime import datetime
 #import json
 from utils.log_tool import get_logger
@@ -17,13 +17,13 @@ from utils.log_tool import get_logger
 logger = get_logger("WEB_SCRAPER")
 
 
-def get_storage():
+def get_repo():
     if (STORAGE_TYPE == 'db'):
         return DB_Storage()
     elif (STORAGE_TYPE == 'obj'):
         return Obj_Storage()
     else:
-        logger.error('Invalid storage type selected')
+        logger.error('Invalid repository type selected')
         return None
 
 class Obj_Storage:
@@ -73,15 +73,19 @@ cnx_pool = None
 loop = asyncio.get_event_loop()
 
 async def get_pool():
+    '''
+    Creates a modular connection pool variable for database connections
+    '''
     global cnx_pool
     try:
-        logger.info(f'Connecting to database {DB_DATABASE}')
+        logger.info(f'Connecting to database {DB_NAME}')
         cnx_pool = await aiomysql.create_pool(
             host= DB_HOST,
             user= DB_USER,
             password= DB_PASSWORD,
-            port= 3306,
+            port= DB_PORT,
             charset='utf8',
+            maxsize=MAX_WORKERS + 1,
             #loop=loop
             )
     except Exception as e:
@@ -107,7 +111,7 @@ class DB_Storage:
 
     async def connect_to_db(self):
         '''  
-        Asynchronously connect to the database
+        Asynchronously Create a connection pool if not available
         '''
         await get_pool()
 
@@ -132,13 +136,12 @@ class DB_Storage:
 
     async def insert_data(self, table_name, df):
         # connect to database if there is no connection
-        #global cnx_pool
+        global cnx_pool
         if (cnx_pool == None):
             await self.connect_to_db()
             
         # insert the data
         if (cnx_pool != None):
-            inserted_records = 0
 
             # convert dataframe to records
             records_to_insert = df.to_records(index=False).tolist()
@@ -151,7 +154,8 @@ class DB_Storage:
             # get values place holder based on the number of fields being inserted
             number_of_vals = len(records_to_insert[0]) - 1
             vals_placeholder = '%s, ' * number_of_vals + '%s'
-
+            
+            inserted_records = 0
             async with cnx_pool.acquire() as cnx:
                 async with cnx.cursor() as cur:
                     # loop through each record
@@ -160,7 +164,7 @@ class DB_Storage:
                         #await self.cur.reset()
                         
                         # check if record already exists
-                        title = record[0].replace('\"', '')
+                        title = record[1].replace('\"', '')
                         sql = f'''SELECT bookId 
                                 FROM scraping.{table_name} 
                                 WHERE title = "{title}"'''
@@ -249,11 +253,3 @@ class DB_Storage:
                 else:
                     result = [row for row in await cur.fetchall()]
                     return result
-
-    
-    async def close(self):
-        # close connection
-        #global cnx_pool
-        if (cnx_pool != None):
-            await close_pool()
-            cnx_pool == None

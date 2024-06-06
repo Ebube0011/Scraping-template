@@ -1,26 +1,27 @@
 import os
 
 ''' WORKERS '''
-MAX_WORKERS:int = 5
+MAX_WORKERS:int = 3
 
 ''' STORAGE '''
-STORAGE_TYPE = 'db'#'db','obj'
+STORAGE_TYPE:str = 'db'#'db','obj', 'csv', 'excel'
 
 
 ''' PIPELINE STEPS '''
-STEPS = ['remove_nulls', 'clean_title', 'clean_rating', 
+STEPS:list[str] = ['remove_nulls', 'clean_title', 'clean_rating', 
          'clean_price', 'clean_link']
 
 
 ''' WEBSITE '''
-WAIT_TIME = 2
-WEBSITE_FILE_PATH = 'Websites/'
+WAIT_TIME:float = 2.5
+WEBSITE_FILE_PATH:str = 'Websites/'
 
 ''' DATABASE '''
-DB_HOST = 'localhost' # os.environ.get('DB_HOST')
-DB_USER = 'root' # os.environ.get('DB_USER')
-DB_PASSWORD = 'Peter-602' # os.environ.get('DB_PASSWORD')
-DB_DATABASE = 'mysql' # os.environ.get('DB_DATABASE')
+DB_HOST:str = 'localhost' # os.environ.get('DB_HOST')
+DB_USER:str = 'root' # os.environ.get('DB_USER')
+DB_PASSWORD:str = 'Peter-602' # os.environ.get('DB_PASSWORD')
+DB_NAME:str = 'mysql' # os.environ.get('DB_DATABASE')
+DB_PORT:int = 3306
 
 
 ''' OBJECT STORAGE '''
@@ -34,7 +35,7 @@ S3_OUTPUT_DIR='Output' # os.environ.get('S3_OUTPUT_DIR')
 
 
 ''' FILE STORAGE '''
-OUTPUT_FILE_DIRECTORY = 'Output/' # os.environ.get('FILE_OUTPUT_DIR')
+OUTPUT_FILE_DIRECTORY:str = 'Output/' # os.environ.get('FILE_OUTPUT_DIR')
 
 
 ''' PROXIES '''

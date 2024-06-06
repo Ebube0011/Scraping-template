@@ -4,12 +4,11 @@ from numpy import nan
 import re
 from utils.log_tool import get_logger
 from scraper_settings import OUTPUT_FILE_DIRECTORY
-#from storage import get_storage
 
 logger = get_logger("WEB_SCRAPER")
 
 
-def remove_nulls(**kwargs):
+async def remove_nulls(**kwargs):
     '''
     Remove rows that are all null 
     '''
@@ -28,7 +27,7 @@ def remove_nulls(**kwargs):
 
 
 
-def clean_title(**kwargs):
+async def clean_title(**kwargs):
     '''
     Clean the title and change the data type
     '''
@@ -49,7 +48,7 @@ def clean_title(**kwargs):
 
 
 
-def clean_rating(**kwargs):
+async def clean_rating(**kwargs):
     '''
     Clean the rating and correct the datatype
     '''
@@ -69,7 +68,7 @@ def clean_rating(**kwargs):
     finally:
         return df
 
-def clean_price(**kwargs):
+async def clean_price(**kwargs):
     '''
     Clean the price, change datatype and rename column
     '''
@@ -89,7 +88,7 @@ def clean_price(**kwargs):
     finally:
         return df
 
-def clean_link(**kwargs):
+async def clean_link(**kwargs):
     '''
     Clean the link and set dtype to string
     '''
@@ -98,7 +97,7 @@ def clean_link(**kwargs):
     try:
     # clean the link
         #df['link'] = df['link'].apply(lambda x: x.replace('/../../../', '/catalogue/'))
-        df['link'] = df['link'].replace(to_replace=r'(/..)*/', value='/catalogue/', regex=True)
+        df['link'] = df['link'].replace(to_replace=r'(/..)+/', value='/catalogue/', regex=True)
         
         # changing dtypes
         df['link'] = df['link'].astype(np.str_)
@@ -138,7 +137,7 @@ def clean_link(**kwargs):
 
 
 
-def save_to_csv(**kwargs):
+async def save_to_csv(**kwargs):
 
     filename = OUTPUT_FILE_DIRECTORY + kwargs['filename']  + '.csv'
     df = kwargs['df'].copy()
@@ -159,7 +158,7 @@ def save_to_csv(**kwargs):
         return df
 
 
-def save_to_excel(**kwargs):
+async def save_to_excel(**kwargs):
 
     filename = OUTPUT_FILE_DIRECTORY + kwargs['filename']  + '.xlsx'
     df = kwargs['df'].copy()
@@ -196,4 +195,5 @@ async def save_to_db(**kwargs):
         logger.error('Unable to insert data into database!!!')
         logger.error('No database storage object available!!!')
         return df
-    return df
+    finally:
+        return df
