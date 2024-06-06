@@ -183,7 +183,11 @@ def save_to_db(**kwargs):
     df = kwargs['df'].copy()
     table_name = kwargs['filename']
     storage = kwargs['obj'].storage
-    logger.info(f'saving data to Database storage, table: {table_name}')
-    storage.insert_data(table_name, df)
-
-    return df
+    try:
+        logger.info(f'saving data to Database storage, table: {table_name}')
+        storage.insert_data(table_name, df)
+    except Exception as e:
+        logger.error('Failed to save data to database!!!')
+        logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+    finally:
+        return df

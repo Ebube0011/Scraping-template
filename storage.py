@@ -1,6 +1,4 @@
 import mysql.connector
-#import csv
-import os
 from io import StringIO
 import boto3
 from scraper_settings import DB_USER, DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT
@@ -113,7 +111,7 @@ def close_pool():
 class DB_Storage:
     def __init__(self):#, host, user, password, database):
         #self.connect_to_db()
-        self.connect_to_db()
+        pass
 
     def connect_to_db(self):
         '''

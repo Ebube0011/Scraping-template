@@ -46,7 +46,7 @@ class BeautifulCrawler:
         self.storage = get_repo()
         self.pipeline_functions: dict = funcs
         self.steps: list[str] = STEPS
-        self.proxies_available: bool = False
+        self.proxies_available: bool = self.check_for_proxies()
         self.work_queue = queue.Queue()
 
         # add storage func to pipeline steps
@@ -71,6 +71,7 @@ class BeautifulCrawler:
         '''
         if (STORAGE_TYPE == 'db'):
             get_pool()
+            self.storage.create_tables()
         return self
     
     def get_page(self, url):
@@ -111,10 +112,10 @@ class BeautifulCrawler:
         try:
             check = PROXIES['https']
             check = PROXIES['http']
-        except KeyError as e:
-            self.proxies_available = False
+        except KeyError:
+            return False
         else:
-            self.proxies_available = True
+            return True
 
     def anon_get_page(self, url):
         '''
