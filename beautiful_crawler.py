@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import re
 import time
 import requests
+from requests_html import HTMLSession
 import queue
 import threading
 from scraper_settings import STEPS, STORAGE_TYPE
@@ -71,6 +72,7 @@ def get_pipeline_funcs():
 class BeautifulCrawler:
     def __init__(self):
         self.session = requests.Session()
+        self.js_session = HTMLSession()
         #self.session.headers.update(headers)
         self.visited = set()
         # self.found = set()
@@ -144,7 +146,52 @@ class BeautifulCrawler:
             un_authorized = [401, 403]
             server_error = [500, 501]
             if (response.status_code == 200):
-                return BeautifulSoup(response.text, 'lxml')
+                #html = response.html.html
+                html = response.text
+                return BeautifulSoup(html, 'lxml')
+            elif (response.status_code == 404):
+                logger.info(f'Bad url: Page({url}) not found')
+                return None
+            elif (response.status_code in server_error):
+                logger.info(f'Unable to get page({url}) due to server error')
+                return None
+            elif (response.status_code in un_authorized):
+                logger.info(f'Unable to get page({url}) due to being UnAuthorized')
+                if (headers == None) or (proxies == None):
+                    logger.info('Add proxy or change headers and try again!!')
+                else:
+                    logger.info('Look for another solution and try again!!')
+    
+    def get_js_page(self, url):
+        '''
+        Gets the html of the page, renders it, and converts it to beautiful soup
+        Returns beautiful soup object or None if page was no found
+        '''
+        # set the headers
+        headers = self.get_headers()
+        # add proxies
+        proxies = self.get_proxies()
+
+        #requests.get('https://icanhazip.com', proxies=proxies).text.strip()
+        try:
+            time.sleep(WAIT_TIME)
+            logger.info(f'Getting page: {url}')
+            response = self.js_session.get(url,
+                                        headers=headers, 
+                                        proxies=proxies,
+                                        allow_redirects=True,
+                                        )
+        except requests.exceptions.RequestException as e:
+            logger.error('Unable to get page!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+            return None
+        else:
+            un_authorized = [401, 403]
+            server_error = [500, 501]
+            if (response.status_code == 200):
+                #html = response.html.html
+                html = response.text
+                return BeautifulSoup(html, 'lxml')
             elif (response.status_code == 404):
                 logger.info(f'Bad url: Page({url}) not found')
                 return None
