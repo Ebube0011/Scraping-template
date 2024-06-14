@@ -10,26 +10,6 @@ Travel,A Year in Provence (Provence #1),4,56.88,In stock,https://books.toscrape.
 Travel,The Road to Little Dribbling: Adventures of an American in Britain (Notes From a Small Island #2),1,23.21,In stock,https://books.toscrape.com/catalogue/the-road-to-little-dribbling-adventures-of-an-american-in-britain-notes-from-a-small-island-2_277/index.html
 Travel,Neither Here nor There: Travels in Europe,3,38.95,In stock,https://books.toscrape.com/catalogue/neither-here-nor-there-travels-in-europe_198/index.html
 Travel,"1,000 Places to See Before You Die",5,26.08,In stock,https://books.toscrape.com/catalogue/1000-places-to-see-before-you-die_1/index.html
-Mystery,Sharp Objects,4,47.82,In stock,https://books.toscrape.com/catalogue/sharp-objects_997/index.html
-Mystery,"In a Dark, Dark Wood",1,19.63,In stock,https://books.toscrape.com/catalogue/in-a-dark-dark-wood_963/index.html
-Mystery,The Past Never Ends,4,56.5,In stock,https://books.toscrape.com/catalogue/the-past-never-ends_942/index.html
-Mystery,A Murder in Time,1,16.64,In stock,https://books.toscrape.com/catalogue/a-murder-in-time_877/index.html
-Mystery,The Murder of Roger Ackroyd (Hercule Poirot #4),4,44.1,In stock,https://books.toscrape.com/catalogue/the-murder-of-roger-ackroyd-hercule-poirot-4_852/index.html
-Mystery,The Last Mile (Amos Decker #2),2,54.21,In stock,https://books.toscrape.com/catalogue/the-last-mile-amos-decker-2_754/index.html
-Mystery,That Darkness (Gardiner and Renner #1),1,13.92,In stock,https://books.toscrape.com/catalogue/that-darkness-gardiner-and-renner-1_743/index.html
-Mystery,Tastes Like Fear (DI Marnie Rome #3),1,10.69,In stock,https://books.toscrape.com/catalogue/tastes-like-fear-di-marnie-rome-3_742/index.html
-Mystery,A Time of Torment (Charlie Parker #14),5,48.35,In stock,https://books.toscrape.com/catalogue/a-time-of-torment-charlie-parker-14_657/index.html
-Mystery,A Study in Scarlet (Sherlock Holmes #1),2,16.73,In stock,https://books.toscrape.com/catalogue/a-study-in-scarlet-sherlock-holmes-1_656/index.html
-Mystery,Poisonous (Max Revere Novels #3),3,26.8,In stock,https://books.toscrape.com/catalogue/poisonous-max-revere-novels-3_627/index.html
-Mystery,Murder at the 42nd Street Library (Raymond Ambler #1),4,54.36,In stock,https://books.toscrape.com/catalogue/murder-at-the-42nd-street-library-raymond-ambler-1_624/index.html
-Mystery,Most Wanted,3,35.28,In stock,https://books.toscrape.com/catalogue/most-wanted_623/index.html
-Mystery,Hide Away (Eve Duncan #20),1,11.84,In stock,https://books.toscrape.com/catalogue/hide-away-eve-duncan-20_620/index.html
-Mystery,Boar Island (Anna Pigeon #19),3,59.48,In stock,https://books.toscrape.com/catalogue/boar-island-anna-pigeon-19_613/index.html
-Mystery,The Widow,2,27.26,In stock,https://books.toscrape.com/catalogue/the-widow_609/index.html
-Mystery,Playing with Fire,3,13.71,In stock,https://books.toscrape.com/catalogue/playing-with-fire_602/index.html
-Mystery,What Happened on Beale Street (Secrets of the South Mysteries #2),5,25.37,In stock,https://books.toscrape.com/catalogue/what-happened-on-beale-street-secrets-of-the-south-mysteries-2_506/index.html
-Mystery,The Bachelor Girls Guide to Murder (Herringford and Watts Mysteries #1),5,52.3,In stock,https://books.toscrape.com/catalogue/the-bachelor-girls-guide-to-murder-herringford-and-watts-mysteries-1_491/index.html
-Mystery,Delivering the Truth (Quaker Midwife Mystery #1),4,20.89,In stock,https://books.toscrape.com/catalogue/delivering-the-truth-quaker-midwife-mystery-1_464/index.html
 Historical Fiction,Tipping the Velvet,1,53.74,In stock,https://books.toscrape.com/catalogue/tipping-the-velvet_999/index.html
 Historical Fiction,Forever and Forever: The Courtship of Henry Longfellow and Fanny Appleton,3,29.69,In stock,https://books.toscrape.com/catalogue/forever-and-forever-the-courtship-of-henry-longfellow-and-fanny-appleton_894/index.html
 Historical Fiction,A Flight of Arrows (The Pathfinders #2),5,55.53,In stock,https://books.toscrape.com/catalogue/a-flight-of-arrows-the-pathfinders-2_876/index.html
@@ -50,24 +30,32 @@ Historical Fiction,The Red Tent,5,35.66,In stock,https://books.toscrape.com/cata
 Historical Fiction,The Last Painting of Sara de Vos,2,55.55,In stock,https://books.toscrape.com/catalogue/the-last-painting-of-sara-de-vos_259/index.html
 Historical Fiction,The Guernsey Literary and Potato Peel Pie Society,1,49.53,In stock,https://books.toscrape.com/catalogue/the-guernsey-literary-and-potato-peel-pie-society_253/index.html
 Historical Fiction,Girl in the Blue Coat,2,46.83,In stock,https://books.toscrape.com/catalogue/girl-in-the-blue-coat_160/index.html
+Mystery,Sharp Objects,4,47.82,In stock,https://books.toscrape.com/catalogue/sharp-objects_997/index.html
+Mystery,"In a Dark, Dark Wood",1,19.63,In stock,https://books.toscrape.com/catalogue/in-a-dark-dark-wood_963/index.html
+Mystery,The Past Never Ends,4,56.5,In stock,https://books.toscrape.com/catalogue/the-past-never-ends_942/index.html
+Mystery,A Murder in Time,1,16.64,In stock,https://books.toscrape.com/catalogue/a-murder-in-time_877/index.html
+Mystery,The Murder of Roger Ackroyd (Hercule Poirot #4),4,44.1,In stock,https://books.toscrape.com/catalogue/the-murder-of-roger-ackroyd-hercule-poirot-4_852/index.html
+Mystery,The Last Mile (Amos Decker #2),2,54.21,In stock,https://books.toscrape.com/catalogue/the-last-mile-amos-decker-2_754/index.html
+Mystery,That Darkness (Gardiner and Renner #1),1,13.92,In stock,https://books.toscrape.com/catalogue/that-darkness-gardiner-and-renner-1_743/index.html
+Mystery,Tastes Like Fear (DI Marnie Rome #3),1,10.69,In stock,https://books.toscrape.com/catalogue/tastes-like-fear-di-marnie-rome-3_742/index.html
+Mystery,A Time of Torment (Charlie Parker #14),5,48.35,In stock,https://books.toscrape.com/catalogue/a-time-of-torment-charlie-parker-14_657/index.html
+Mystery,A Study in Scarlet (Sherlock Holmes #1),2,16.73,In stock,https://books.toscrape.com/catalogue/a-study-in-scarlet-sherlock-holmes-1_656/index.html
+Mystery,Poisonous (Max Revere Novels #3),3,26.8,In stock,https://books.toscrape.com/catalogue/poisonous-max-revere-novels-3_627/index.html
+Mystery,Murder at the 42nd Street Library (Raymond Ambler #1),4,54.36,In stock,https://books.toscrape.com/catalogue/murder-at-the-42nd-street-library-raymond-ambler-1_624/index.html
+Mystery,Most Wanted,3,35.28,In stock,https://books.toscrape.com/catalogue/most-wanted_623/index.html
+Mystery,Hide Away (Eve Duncan #20),1,11.84,In stock,https://books.toscrape.com/catalogue/hide-away-eve-duncan-20_620/index.html
+Mystery,Boar Island (Anna Pigeon #19),3,59.48,In stock,https://books.toscrape.com/catalogue/boar-island-anna-pigeon-19_613/index.html
+Mystery,The Widow,2,27.26,In stock,https://books.toscrape.com/catalogue/the-widow_609/index.html
+Mystery,Playing with Fire,3,13.71,In stock,https://books.toscrape.com/catalogue/playing-with-fire_602/index.html
+Mystery,What Happened on Beale Street (Secrets of the South Mysteries #2),5,25.37,In stock,https://books.toscrape.com/catalogue/what-happened-on-beale-street-secrets-of-the-south-mysteries-2_506/index.html
+Mystery,The Bachelor Girls Guide to Murder (Herringford and Watts Mysteries #1),5,52.3,In stock,https://books.toscrape.com/catalogue/the-bachelor-girls-guide-to-murder-herringford-and-watts-mysteries-1_491/index.html
+Mystery,Delivering the Truth (Quaker Midwife Mystery #1),4,20.89,In stock,https://books.toscrape.com/catalogue/delivering-the-truth-quaker-midwife-mystery-1_464/index.html
 Historical Fiction,Between Shades of Gray,5,20.79,In stock,https://books.toscrape.com/catalogue/between-shades-of-gray_128/index.html
 Historical Fiction,While You Were Mine,5,41.32,In stock,https://books.toscrape.com/catalogue/while-you-were-mine_97/index.html
 Historical Fiction,The Secret Healer,3,34.56,In stock,https://books.toscrape.com/catalogue/the-secret-healer_80/index.html
 Historical Fiction,Starlark,3,25.83,In stock,https://books.toscrape.com/catalogue/starlark_56/index.html
 Historical Fiction,Lost Among the Living,4,27.7,In stock,https://books.toscrape.com/catalogue/lost-among-the-living_31/index.html
 Historical Fiction,A Spys Devotion (The Regency Spies of London #1),5,16.97,In stock,https://books.toscrape.com/catalogue/a-spys-devotion-the-regency-spies-of-london-1_3/index.html
-Mystery,The Mysterious Affair at Styles (Hercule Poirot #1),4,24.8,In stock,https://books.toscrape.com/catalogue/the-mysterious-affair-at-styles-hercule-poirot-1_452/index.html
-Mystery,In the Woods (Dublin Murder Squad #1),2,38.38,In stock,https://books.toscrape.com/catalogue/in-the-woods-dublin-murder-squad-1_433/index.html
-Mystery,The Silkworm (Cormoran Strike #2),5,23.05,In stock,https://books.toscrape.com/catalogue/the-silkworm-cormoran-strike-2_280/index.html
-Mystery,The Exiled,3,43.45,In stock,https://books.toscrape.com/catalogue/the-exiled_247/index.html
-Mystery,The Cuckoos Calling (Cormoran Strike #1),1,19.21,In stock,https://books.toscrape.com/catalogue/the-cuckoos-calling-cormoran-strike-1_239/index.html
-Mystery,Extreme Prey (Lucas Davenport #26),3,25.4,In stock,https://books.toscrape.com/catalogue/extreme-prey-lucas-davenport-26_154/index.html
-Mystery,Career of Evil (Cormoran Strike #3),2,24.72,In stock,https://books.toscrape.com/catalogue/career-of-evil-cormoran-strike-3_137/index.html
-Mystery,The No. 1 Ladies Detective Agency (No. 1 Ladies Detective Agency #1),4,57.7,In stock,https://books.toscrape.com/catalogue/the-no-1-ladies-detective-agency-no-1-ladies-detective-agency-1_76/index.html
-Mystery,The Girl You Lost,5,12.29,In stock,https://books.toscrape.com/catalogue/the-girl-you-lost_66/index.html
-Mystery,The Girl In The Ice (DCI Erika Foster #1),3,15.85,In stock,https://books.toscrape.com/catalogue/the-girl-in-the-ice-dci-erika-foster-1_65/index.html
-Mystery,Blood Defense (Samantha Brinkman #1),3,20.3,In stock,https://books.toscrape.com/catalogue/blood-defense-samantha-brinkman-1_8/index.html
-Mystery,1st to Die (Womens Murder Club #1),1,53.98,In stock,https://books.toscrape.com/catalogue/1st-to-die-womens-murder-club-1_2/index.html
 Sequential Art,Scott Pilgrims Precious Little Life (Scott Pilgrim #1),5,52.29,In stock,https://books.toscrape.com/catalogue/scott-pilgrims-precious-little-life-scott-pilgrim-1_987/index.html
 Sequential Art,Tsubasa: WoRLD CHRoNiCLE 2 (Tsubasa WoRLD CHRoNiCLE #2),1,16.28,In stock,https://books.toscrape.com/catalogue/tsubasa-world-chronicle-2-tsubasa-world-chronicle-2_949/index.html
 Sequential Art,This One Summer,4,19.49,In stock,https://books.toscrape.com/catalogue/this-one-summer_947/index.html
@@ -88,6 +76,18 @@ Sequential Art,"Giant Days, Vol. 2 (Giant Days #5-8)",2,22.11,In stock,https://b
 Sequential Art,Danganronpa Volume 1,4,51.99,In stock,https://books.toscrape.com/catalogue/danganronpa-volume-1_889/index.html
 Sequential Art,"Codename Baboushka, Volume 1: The Conclave of Death",4,36.72,In stock,https://books.toscrape.com/catalogue/codename-baboushka-volume-1-the-conclave-of-death_887/index.html
 Sequential Art,Camp Midnight,4,17.08,In stock,https://books.toscrape.com/catalogue/camp-midnight_886/index.html
+Mystery,The Mysterious Affair at Styles (Hercule Poirot #1),4,24.8,In stock,https://books.toscrape.com/catalogue/the-mysterious-affair-at-styles-hercule-poirot-1_452/index.html
+Mystery,In the Woods (Dublin Murder Squad #1),2,38.38,In stock,https://books.toscrape.com/catalogue/in-the-woods-dublin-murder-squad-1_433/index.html
+Mystery,The Silkworm (Cormoran Strike #2),5,23.05,In stock,https://books.toscrape.com/catalogue/the-silkworm-cormoran-strike-2_280/index.html
+Mystery,The Exiled,3,43.45,In stock,https://books.toscrape.com/catalogue/the-exiled_247/index.html
+Mystery,The Cuckoos Calling (Cormoran Strike #1),1,19.21,In stock,https://books.toscrape.com/catalogue/the-cuckoos-calling-cormoran-strike-1_239/index.html
+Mystery,Extreme Prey (Lucas Davenport #26),3,25.4,In stock,https://books.toscrape.com/catalogue/extreme-prey-lucas-davenport-26_154/index.html
+Mystery,Career of Evil (Cormoran Strike #3),2,24.72,In stock,https://books.toscrape.com/catalogue/career-of-evil-cormoran-strike-3_137/index.html
+Mystery,The No. 1 Ladies Detective Agency (No. 1 Ladies Detective Agency #1),4,57.7,In stock,https://books.toscrape.com/catalogue/the-no-1-ladies-detective-agency-no-1-ladies-detective-agency-1_76/index.html
+Mystery,The Girl You Lost,5,12.29,In stock,https://books.toscrape.com/catalogue/the-girl-you-lost_66/index.html
+Mystery,The Girl In The Ice (DCI Erika Foster #1),3,15.85,In stock,https://books.toscrape.com/catalogue/the-girl-in-the-ice-dci-erika-foster-1_65/index.html
+Mystery,Blood Defense (Samantha Brinkman #1),3,20.3,In stock,https://books.toscrape.com/catalogue/blood-defense-samantha-brinkman-1_8/index.html
+Mystery,1st to Die (Womens Murder Club #1),1,53.98,In stock,https://books.toscrape.com/catalogue/1st-to-die-womens-murder-club-1_2/index.html
 Classics,The Secret Garden,4,15.08,In stock,https://books.toscrape.com/catalogue/the-secret-garden_413/index.html
 Classics,The Metamorphosis,1,28.58,In stock,https://books.toscrape.com/catalogue/the-metamorphosis_409/index.html
 Classics,The Pilgrims Progress,2,50.26,In stock,https://books.toscrape.com/catalogue/the-pilgrims-progress_353/index.html
@@ -107,17 +107,6 @@ Classics,Sense and Sensibility,1,37.46,In stock,https://books.toscrape.com/catal
 Classics,Of Mice and Men,2,47.11,In stock,https://books.toscrape.com/catalogue/of-mice-and-men_37/index.html
 Classics,Emma,2,32.93,In stock,https://books.toscrape.com/catalogue/emma_17/index.html
 Classics,Alice in Wonderland (Alices Adventures in Wonderland #1),1,55.53,In stock,https://books.toscrape.com/catalogue/alice-in-wonderland-alices-adventures-in-wonderland-1_5/index.html
-Philosophy,Sophies World,5,15.94,In stock,https://books.toscrape.com/catalogue/sophies-world_966/index.html
-Philosophy,The Death of Humanity: and the Case for Life,4,58.11,In stock,https://books.toscrape.com/catalogue/the-death-of-humanity-and-the-case-for-life_932/index.html
-Philosophy,The Stranger,4,17.44,In stock,https://books.toscrape.com/catalogue/the-stranger_861/index.html
-Philosophy,Proofs of God: Classical Arguments from Tertullian to Barth,1,54.21,In stock,https://books.toscrape.com/catalogue/proofs-of-god-classical-arguments-from-tertullian-to-barth_538/index.html
-Philosophy,Kierkegaard: A Christian Missionary to Christians,1,47.13,In stock,https://books.toscrape.com/catalogue/kierkegaard-a-christian-missionary-to-christians_527/index.html
-Philosophy,"At The Existentialist CafÃ©: Freedom, Being, and apricot cocktails with: Jean-Paul Sartre, Simone de Beauvoir, Albert Camus, Martin Heidegger, Edmund Husserl, Karl Jaspers, Maurice Merleau-Ponty and others",5,29.93,In stock,https://books.toscrape.com/catalogue/at-the-existentialist-cafe-freedom-being-and-apricot-cocktails-with-jean-paul-sartre-simone-de-beauvoir-albert-camus-martin-heidegger-edmund-husserl-karl-jaspers-maurice-merleau-ponty-and-others_459/index.html
-Philosophy,Critique of Pure Reason,1,20.75,In stock,https://books.toscrape.com/catalogue/critique-of-pure-reason_366/index.html
-Philosophy,"Run, Spot, Run: The Ethics of Keeping Pets",1,20.02,In stock,https://books.toscrape.com/catalogue/run-spot-run-the-ethics-of-keeping-pets_106/index.html
-Philosophy,The Nicomachean Ethics,1,36.34,In stock,https://books.toscrape.com/catalogue/the-nicomachean-ethics_75/index.html
-Philosophy,Meditations,2,25.89,In stock,https://books.toscrape.com/catalogue/meditations_33/index.html
-Philosophy,Beyond Good and Evil,1,43.38,In stock,https://books.toscrape.com/catalogue/beyond-good-and-evil_6/index.html
 Sequential Art,"Bitch Planet, Vol. 1: Extraordinary Machine (Bitch Planet (Collected Editions))",2,37.92,In stock,https://books.toscrape.com/catalogue/bitch-planet-vol-1-extraordinary-machine-bitch-planet-collected-editions_882/index.html
 Sequential Art,The Shadow Hero (The Shadow Hero),1,33.14,In stock,https://books.toscrape.com/catalogue/the-shadow-hero-the-shadow-hero_860/index.html
 Sequential Art,"Fables, Vol. 1: Legends in Exile (Fables #1)",4,41.62,In stock,https://books.toscrape.com/catalogue/fables-vol-1-legends-in-exile-fables-1_806/index.html
@@ -138,6 +127,17 @@ Sequential Art,Art Ops Vol. 1,3,48.8,In stock,https://books.toscrape.com/catalog
 Sequential Art,Adulthood Is a Myth: A Sarahs Scribbles Collection,2,10.9,In stock,https://books.toscrape.com/catalogue/adulthood-is-a-myth-a-sarahs-scribbles-collection_659/index.html
 Sequential Art,"Fruits Basket, Vol. 9 (Fruits Basket #9)",4,33.95,In stock,https://books.toscrape.com/catalogue/fruits-basket-vol-9-fruits-basket-9_563/index.html
 Sequential Art,Roller Girl,5,14.1,In stock,https://books.toscrape.com/catalogue/roller-girl_540/index.html
+Philosophy,Sophies World,5,15.94,In stock,https://books.toscrape.com/catalogue/sophies-world_966/index.html
+Philosophy,The Death of Humanity: and the Case for Life,4,58.11,In stock,https://books.toscrape.com/catalogue/the-death-of-humanity-and-the-case-for-life_932/index.html
+Philosophy,The Stranger,4,17.44,In stock,https://books.toscrape.com/catalogue/the-stranger_861/index.html
+Philosophy,Proofs of God: Classical Arguments from Tertullian to Barth,1,54.21,In stock,https://books.toscrape.com/catalogue/proofs-of-god-classical-arguments-from-tertullian-to-barth_538/index.html
+Philosophy,Kierkegaard: A Christian Missionary to Christians,1,47.13,In stock,https://books.toscrape.com/catalogue/kierkegaard-a-christian-missionary-to-christians_527/index.html
+Philosophy,"At The Existentialist CafÃ©: Freedom, Being, and apricot cocktails with: Jean-Paul Sartre, Simone de Beauvoir, Albert Camus, Martin Heidegger, Edmund Husserl, Karl Jaspers, Maurice Merleau-Ponty and others",5,29.93,In stock,https://books.toscrape.com/catalogue/at-the-existentialist-cafe-freedom-being-and-apricot-cocktails-with-jean-paul-sartre-simone-de-beauvoir-albert-camus-martin-heidegger-edmund-husserl-karl-jaspers-maurice-merleau-ponty-and-others_459/index.html
+Philosophy,Critique of Pure Reason,1,20.75,In stock,https://books.toscrape.com/catalogue/critique-of-pure-reason_366/index.html
+Philosophy,"Run, Spot, Run: The Ethics of Keeping Pets",1,20.02,In stock,https://books.toscrape.com/catalogue/run-spot-run-the-ethics-of-keeping-pets_106/index.html
+Philosophy,The Nicomachean Ethics,1,36.34,In stock,https://books.toscrape.com/catalogue/the-nicomachean-ethics_75/index.html
+Philosophy,Meditations,2,25.89,In stock,https://books.toscrape.com/catalogue/meditations_33/index.html
+Philosophy,Beyond Good and Evil,1,43.38,In stock,https://books.toscrape.com/catalogue/beyond-good-and-evil_6/index.html
 Romance,Chase Me (Paris Nights #2),5,25.27,In stock,https://books.toscrape.com/catalogue/chase-me-paris-nights-2_977/index.html
 Romance,Black Dust,5,34.53,In stock,https://books.toscrape.com/catalogue/black-dust_976/index.html
 Romance,Her Backup Boyfriend (The Sorensen Family #1),1,33.97,In stock,https://books.toscrape.com/catalogue/her-backup-boyfriend-the-sorensen-family-1_896/index.html
@@ -158,23 +158,6 @@ Romance,A Girls Guide to Moving On (New Beginnings #2),1,31.3,In stock,https://b
 Romance,The Perfect Play (Play by Play #1),3,59.99,In stock,https://books.toscrape.com/catalogue/the-perfect-play-play-by-play-1_352/index.html
 Romance,Dark Lover (Black Dagger Brotherhood #1),1,12.87,In stock,https://books.toscrape.com/catalogue/dark-lover-black-dagger-brotherhood-1_319/index.html
 Romance,Changing the Game (Play by Play #2),3,13.38,In stock,https://books.toscrape.com/catalogue/changing-the-game-play-by-play-2_317/index.html
-Womens Fiction,I Had a Nice Time And Other Lies...: How to find love & sh*t like that,4,57.36,In stock,https://books.toscrape.com/catalogue/i-had-a-nice-time-and-other-lies-how-to-find-love-sht-like-that_814/index.html
-Womens Fiction,Will You Wont You Want Me?,3,13.86,In stock,https://books.toscrape.com/catalogue/will-you-wont-you-want-me_644/index.html
-Womens Fiction,Keep Me Posted,4,20.46,In stock,https://books.toscrape.com/catalogue/keep-me-posted_594/index.html
-Womens Fiction,Grey (Fifty Shades #4),4,48.49,In stock,https://books.toscrape.com/catalogue/grey-fifty-shades-4_592/index.html
-Womens Fiction,Meternity,3,43.58,In stock,https://books.toscrape.com/catalogue/meternity_478/index.html
-Womens Fiction,Some Women,5,13.73,In stock,https://books.toscrape.com/catalogue/some-women_341/index.html
-Womens Fiction,Shopaholic Ties the Knot (Shopaholic #3),5,48.39,In stock,https://books.toscrape.com/catalogue/shopaholic-ties-the-knot-shopaholic-3_340/index.html
-Womens Fiction,Can You Keep a Secret?,1,21.94,In stock,https://books.toscrape.com/catalogue/can-you-keep-a-secret_315/index.html
-Womens Fiction,Twenties Girl,2,42.8,In stock,https://books.toscrape.com/catalogue/twenties-girl_292/index.html
-Womens Fiction,The Undomestic Goddess,4,45.75,In stock,https://books.toscrape.com/catalogue/the-undomestic-goddess_286/index.html
-Womens Fiction,The Nanny Diaries (Nanny #1),5,52.53,In stock,https://books.toscrape.com/catalogue/the-nanny-diaries-nanny-1_265/index.html
-Womens Fiction,The Devil Wears Prada (The Devil Wears Prada #1),1,44.29,In stock,https://books.toscrape.com/catalogue/the-devil-wears-prada-the-devil-wears-prada-1_243/index.html
-Womens Fiction,Something Borrowed (Darcy & Rachel #1),5,48.96,In stock,https://books.toscrape.com/catalogue/something-borrowed-darcy-rachel-1_224/index.html
-Womens Fiction,Something Blue (Darcy & Rachel #2),1,54.62,In stock,https://books.toscrape.com/catalogue/something-blue-darcy-rachel-2_223/index.html
-Womens Fiction,Ive Got Your Number,1,19.69,In stock,https://books.toscrape.com/catalogue/ive-got-your-number_173/index.html
-Womens Fiction,The Edge of Reason (Bridget Jones #2),4,19.18,In stock,https://books.toscrape.com/catalogue/the-edge-of-reason-bridget-jones-2_63/index.html
-Womens Fiction,Bridget Joness Diary (Bridget Jones #1),1,29.82,In stock,https://books.toscrape.com/catalogue/bridget-joness-diary-bridget-jones-1_10/index.html
 Sequential Art,"Fruits Basket, Vol. 7 (Fruits Basket #7)",1,19.57,In stock,https://books.toscrape.com/catalogue/fruits-basket-vol-7-fruits-basket-7_468/index.html
 Sequential Art,"Fruits Basket, Vol. 6 (Fruits Basket #6)",4,20.96,In stock,https://books.toscrape.com/catalogue/fruits-basket-vol-6-fruits-basket-6_427/index.html
 Sequential Art,"Death Note, Vol. 6: Give-and-Take (Death Note #6)",3,36.39,In stock,https://books.toscrape.com/catalogue/death-note-vol-6-give-and-take-death-note-6_425/index.html
@@ -195,6 +178,23 @@ Sequential Art,Awkward,2,38.02,In stock,https://books.toscrape.com/catalogue/awk
 Sequential Art,"The Sandman, Vol. 2: The Dolls House (The Sandman (volumes) #2)",1,54.81,In stock,https://books.toscrape.com/catalogue/the-sandman-vol-2-the-dolls-house-the-sandman-volumes-2_110/index.html
 Sequential Art,"Saga, Volume 2 (Saga (Collected Editions) #2)",3,11.75,In stock,https://books.toscrape.com/catalogue/saga-volume-2-saga-collected-editions-2_107/index.html
 Sequential Art,"Fruits Basket, Vol. 2 (Fruits Basket #2)",5,11.64,In stock,https://books.toscrape.com/catalogue/fruits-basket-vol-2-fruits-basket-2_100/index.html
+Womens Fiction,I Had a Nice Time And Other Lies...: How to find love & sh*t like that,4,57.36,In stock,https://books.toscrape.com/catalogue/i-had-a-nice-time-and-other-lies-how-to-find-love-sht-like-that_814/index.html
+Womens Fiction,Will You Wont You Want Me?,3,13.86,In stock,https://books.toscrape.com/catalogue/will-you-wont-you-want-me_644/index.html
+Womens Fiction,Keep Me Posted,4,20.46,In stock,https://books.toscrape.com/catalogue/keep-me-posted_594/index.html
+Womens Fiction,Grey (Fifty Shades #4),4,48.49,In stock,https://books.toscrape.com/catalogue/grey-fifty-shades-4_592/index.html
+Womens Fiction,Meternity,3,43.58,In stock,https://books.toscrape.com/catalogue/meternity_478/index.html
+Womens Fiction,Some Women,5,13.73,In stock,https://books.toscrape.com/catalogue/some-women_341/index.html
+Womens Fiction,Shopaholic Ties the Knot (Shopaholic #3),5,48.39,In stock,https://books.toscrape.com/catalogue/shopaholic-ties-the-knot-shopaholic-3_340/index.html
+Womens Fiction,Can You Keep a Secret?,1,21.94,In stock,https://books.toscrape.com/catalogue/can-you-keep-a-secret_315/index.html
+Womens Fiction,Twenties Girl,2,42.8,In stock,https://books.toscrape.com/catalogue/twenties-girl_292/index.html
+Womens Fiction,The Undomestic Goddess,4,45.75,In stock,https://books.toscrape.com/catalogue/the-undomestic-goddess_286/index.html
+Womens Fiction,The Nanny Diaries (Nanny #1),5,52.53,In stock,https://books.toscrape.com/catalogue/the-nanny-diaries-nanny-1_265/index.html
+Womens Fiction,The Devil Wears Prada (The Devil Wears Prada #1),1,44.29,In stock,https://books.toscrape.com/catalogue/the-devil-wears-prada-the-devil-wears-prada-1_243/index.html
+Womens Fiction,Something Borrowed (Darcy & Rachel #1),5,48.96,In stock,https://books.toscrape.com/catalogue/something-borrowed-darcy-rachel-1_224/index.html
+Womens Fiction,Something Blue (Darcy & Rachel #2),1,54.62,In stock,https://books.toscrape.com/catalogue/something-blue-darcy-rachel-2_223/index.html
+Womens Fiction,Ive Got Your Number,1,19.69,In stock,https://books.toscrape.com/catalogue/ive-got-your-number_173/index.html
+Womens Fiction,The Edge of Reason (Bridget Jones #2),4,19.18,In stock,https://books.toscrape.com/catalogue/the-edge-of-reason-bridget-jones-2_63/index.html
+Womens Fiction,Bridget Joness Diary (Bridget Jones #1),1,29.82,In stock,https://books.toscrape.com/catalogue/bridget-joness-diary-bridget-jones-1_10/index.html
 Romance,A Walk to Remember,1,56.43,In stock,https://books.toscrape.com/catalogue/a-walk-to-remember_312/index.html
 Romance,The Purest Hook (Second Circle Tattoos #3),1,12.25,In stock,https://books.toscrape.com/catalogue/the-purest-hook-second-circle-tattoos-3_271/index.html
 Romance,The Obsession,1,45.43,In stock,https://books.toscrape.com/catalogue/the-obsession_268/index.html
@@ -210,6 +210,21 @@ Romance,Fighting Fate (Fighting #6),3,39.24,In stock,https://books.toscrape.com/
 Romance,Deep Under (Walker Security #1),5,47.09,In stock,https://books.toscrape.com/catalogue/deep-under-walker-security-1_15/index.html
 Romance,Charitys Cross (Charles Towne Belles #4),1,41.24,In stock,https://books.toscrape.com/catalogue/charitys-cross-charles-towne-belles-4_12/index.html
 Romance,Bounty (Colorado Mountain #7),4,37.26,In stock,https://books.toscrape.com/catalogue/bounty-colorado-mountain-7_9/index.html
+Sequential Art,"Y: The Last Man, Vol. 1: Unmanned (Y: The Last Man #1)",4,18.51,In stock,https://books.toscrape.com/catalogue/y-the-last-man-vol-1-unmanned-y-the-last-man-1_98/index.html
+Sequential Art,"The Wicked + The Divine, Vol. 1: The Faust Act (The Wicked + The Divine)",2,36.52,In stock,https://books.toscrape.com/catalogue/the-wicked-the-divine-vol-1-the-faust-act-the-wicked-the-divine_86/index.html
+Sequential Art,"The Sandman, Vol. 1: Preludes and Nocturnes (The Sandman (volumes) #1)",3,54.12,In stock,https://books.toscrape.com/catalogue/the-sandman-vol-1-preludes-and-nocturnes-the-sandman-volumes-1_79/index.html
+Sequential Art,The Complete Maus (Maus #1-2),3,10.64,In stock,https://books.toscrape.com/catalogue/the-complete-maus-maus-1-2_62/index.html
+Sequential Art,"Skip Beat!, Vol. 01 (Skip Beat! #1)",3,42.12,In stock,https://books.toscrape.com/catalogue/skip-beat-vol-01-skip-beat-1_55/index.html
+Sequential Art,"Saga, Volume 1 (Saga (Collected Editions) #1)",1,28.48,In stock,https://books.toscrape.com/catalogue/saga-volume-1-saga-collected-editions-1_48/index.html
+Sequential Art,"Rat Queens, Vol. 1: Sass & Sorcery (Rat Queens (Collected Editions) #1-5)",5,46.96,In stock,https://books.toscrape.com/catalogue/rat-queens-vol-1-sass-sorcery-rat-queens-collected-editions-1-5_46/index.html
+Sequential Art,"Paper Girls, Vol. 1 (Paper Girls #1-5)",4,21.71,In stock,https://books.toscrape.com/catalogue/paper-girls-vol-1-paper-girls-1-5_44/index.html
+Sequential Art,"Ouran High School Host Club, Vol. 1 (Ouran High School Host Club #1)",3,29.87,In stock,https://books.toscrape.com/catalogue/ouran-high-school-host-club-vol-1-ouran-high-school-host-club-1_43/index.html
+Sequential Art,"Ms. Marvel, Vol. 1: No Normal (Ms. Marvel (2014-2015) #1)",4,39.39,In stock,https://books.toscrape.com/catalogue/ms-marvel-vol-1-no-normal-ms-marvel-2014-2015-1_34/index.html
+Sequential Art,"Hawkeye, Vol. 1: My Life as a Weapon (Hawkeye #1)",3,45.24,In stock,https://books.toscrape.com/catalogue/hawkeye-vol-1-my-life-as-a-weapon-hawkeye-1_24/index.html
+Sequential Art,"Giant Days, Vol. 1 (Giant Days #1-4)",4,56.76,In stock,https://books.toscrape.com/catalogue/giant-days-vol-1-giant-days-1-4_22/index.html
+Sequential Art,"Fruits Basket, Vol. 1 (Fruits Basket #1)",5,40.28,In stock,https://books.toscrape.com/catalogue/fruits-basket-vol-1-fruits-basket-1_21/index.html
+Sequential Art,"Bleach, Vol. 1: Strawberry and the Soul Reapers (Bleach #1)",5,34.65,In stock,https://books.toscrape.com/catalogue/bleach-vol-1-strawberry-and-the-soul-reapers-bleach-1_7/index.html
+Sequential Art,"Ajin: Demi-Human, Volume 1 (Ajin: Demi-Human #1)",4,57.06,In stock,https://books.toscrape.com/catalogue/ajin-demi-human-volume-1-ajin-demi-human-1_4/index.html
 Fiction,Soumission,1,50.1,In stock,https://books.toscrape.com/catalogue/soumission_998/index.html
 Fiction,Private Paris (Private #10),5,47.61,In stock,https://books.toscrape.com/catalogue/private-paris-private-10_958/index.html
 Fiction,"We Love You, Charlie Freeman",5,50.27,In stock,https://books.toscrape.com/catalogue/we-love-you-charlie-freeman_954/index.html
@@ -230,21 +245,6 @@ Fiction,My Mrs. Brown,3,24.48,In stock,https://books.toscrape.com/catalogue/my-m
 Fiction,Mr. Mercedes (Bill Hodges Trilogy #1),1,28.9,In stock,https://books.toscrape.com/catalogue/mr-mercedes-bill-hodges-trilogy-1_717/index.html
 Fiction,I Am Pilgrim (Pilgrim #1),4,10.6,In stock,https://books.toscrape.com/catalogue/i-am-pilgrim-pilgrim-1_703/index.html
 Fiction,Eligible (The Austen Project #4),3,27.09,In stock,https://books.toscrape.com/catalogue/eligible-the-austen-project-4_692/index.html
-Sequential Art,"Y: The Last Man, Vol. 1: Unmanned (Y: The Last Man #1)",4,18.51,In stock,https://books.toscrape.com/catalogue/y-the-last-man-vol-1-unmanned-y-the-last-man-1_98/index.html
-Sequential Art,"The Wicked + The Divine, Vol. 1: The Faust Act (The Wicked + The Divine)",2,36.52,In stock,https://books.toscrape.com/catalogue/the-wicked-the-divine-vol-1-the-faust-act-the-wicked-the-divine_86/index.html
-Sequential Art,"The Sandman, Vol. 1: Preludes and Nocturnes (The Sandman (volumes) #1)",3,54.12,In stock,https://books.toscrape.com/catalogue/the-sandman-vol-1-preludes-and-nocturnes-the-sandman-volumes-1_79/index.html
-Sequential Art,The Complete Maus (Maus #1-2),3,10.64,In stock,https://books.toscrape.com/catalogue/the-complete-maus-maus-1-2_62/index.html
-Sequential Art,"Skip Beat!, Vol. 01 (Skip Beat! #1)",3,42.12,In stock,https://books.toscrape.com/catalogue/skip-beat-vol-01-skip-beat-1_55/index.html
-Sequential Art,"Saga, Volume 1 (Saga (Collected Editions) #1)",1,28.48,In stock,https://books.toscrape.com/catalogue/saga-volume-1-saga-collected-editions-1_48/index.html
-Sequential Art,"Rat Queens, Vol. 1: Sass & Sorcery (Rat Queens (Collected Editions) #1-5)",5,46.96,In stock,https://books.toscrape.com/catalogue/rat-queens-vol-1-sass-sorcery-rat-queens-collected-editions-1-5_46/index.html
-Sequential Art,"Paper Girls, Vol. 1 (Paper Girls #1-5)",4,21.71,In stock,https://books.toscrape.com/catalogue/paper-girls-vol-1-paper-girls-1-5_44/index.html
-Sequential Art,"Ouran High School Host Club, Vol. 1 (Ouran High School Host Club #1)",3,29.87,In stock,https://books.toscrape.com/catalogue/ouran-high-school-host-club-vol-1-ouran-high-school-host-club-1_43/index.html
-Sequential Art,"Ms. Marvel, Vol. 1: No Normal (Ms. Marvel (2014-2015) #1)",4,39.39,In stock,https://books.toscrape.com/catalogue/ms-marvel-vol-1-no-normal-ms-marvel-2014-2015-1_34/index.html
-Sequential Art,"Hawkeye, Vol. 1: My Life as a Weapon (Hawkeye #1)",3,45.24,In stock,https://books.toscrape.com/catalogue/hawkeye-vol-1-my-life-as-a-weapon-hawkeye-1_24/index.html
-Sequential Art,"Giant Days, Vol. 1 (Giant Days #1-4)",4,56.76,In stock,https://books.toscrape.com/catalogue/giant-days-vol-1-giant-days-1-4_22/index.html
-Sequential Art,"Fruits Basket, Vol. 1 (Fruits Basket #1)",5,40.28,In stock,https://books.toscrape.com/catalogue/fruits-basket-vol-1-fruits-basket-1_21/index.html
-Sequential Art,"Bleach, Vol. 1: Strawberry and the Soul Reapers (Bleach #1)",5,34.65,In stock,https://books.toscrape.com/catalogue/bleach-vol-1-strawberry-and-the-soul-reapers-bleach-1_7/index.html
-Sequential Art,"Ajin: Demi-Human, Volume 1 (Ajin: Demi-Human #1)",4,57.06,In stock,https://books.toscrape.com/catalogue/ajin-demi-human-volume-1-ajin-demi-human-1_4/index.html
 Childrens,Birdsong: A Story in Pictures,3,54.64,In stock,https://books.toscrape.com/catalogue/birdsong-a-story-in-pictures_975/index.html
 Childrens,The Bear and the Piano,1,36.89,In stock,https://books.toscrape.com/catalogue/the-bear-and-the-piano_967/index.html
 Childrens,The Secret of Dreadwillow Carse,1,56.13,In stock,https://books.toscrape.com/catalogue/the-secret-of-dreadwillow-carse_944/index.html
@@ -399,6 +399,22 @@ Default,The Kite Runner,4,41.82,In stock,https://books.toscrape.com/catalogue/th
 Default,The Girl on the Train,2,55.02,In stock,https://books.toscrape.com/catalogue/the-girl-on-the-train_844/index.html
 Default,The Emerald Mystery,2,23.15,In stock,https://books.toscrape.com/catalogue/the-emerald-mystery_842/index.html
 Default,The Bridge to Consciousness: Im Writing the Bridge Between Science and Our Old and New Beliefs.,3,32.0,In stock,https://books.toscrape.com/catalogue/the-bridge-to-consciousness-im-writing-the-bridge-between-science-and-our-old-and-new-beliefs_840/index.html
+Science Fiction,Mesaerion: The Best Science Fiction Stories 1800-1849,1,37.59,In stock,https://books.toscrape.com/catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html
+Science Fiction,Join,5,35.67,In stock,https://books.toscrape.com/catalogue/join_902/index.html
+Science Fiction,"William Shakespeares Star Wars: Verily, A New Hope (William Shakespeares Star Wars #4)",4,43.3,In stock,https://books.toscrape.com/catalogue/william-shakespeares-star-wars-verily-a-new-hope-william-shakespeares-star-wars-4_871/index.html
+Science Fiction,The Project,1,10.65,In stock,https://books.toscrape.com/catalogue/the-project_856/index.html
+Science Fiction,Soft Apocalypse,2,26.12,In stock,https://books.toscrape.com/catalogue/soft-apocalypse_833/index.html
+Science Fiction,Sleeping Giants (Themis Files #1),1,48.74,In stock,https://books.toscrape.com/catalogue/sleeping-giants-themis-files-1_604/index.html
+Science Fiction,Arena,4,21.36,In stock,https://books.toscrape.com/catalogue/arena_587/index.html
+Science Fiction,Foundation (Foundation (Publication Order) #1),1,32.42,In stock,https://books.toscrape.com/catalogue/foundation-foundation-publication-order-1_375/index.html
+Science Fiction,The Restaurant at the End of the Universe (Hitchhikers Guide to the Galaxy #2),1,10.92,In stock,https://books.toscrape.com/catalogue/the-restaurant-at-the-end-of-the-universe-hitchhikers-guide-to-the-galaxy-2_275/index.html
+Science Fiction,Ready Player One,4,19.07,In stock,https://books.toscrape.com/catalogue/ready-player-one_209/index.html
+Science Fiction,"Life, the Universe and Everything (Hitchhikers Guide to the Galaxy #3)",2,33.26,In stock,https://books.toscrape.com/catalogue/life-the-universe-and-everything-hitchhikers-guide-to-the-galaxy-3_189/index.html
+Science Fiction,Dune (Dune #1),1,54.86,In stock,https://books.toscrape.com/catalogue/dune-dune-1_151/index.html
+Science Fiction,Do Androids Dream of Electric Sheep? (Blade Runner #1),1,51.48,In stock,https://books.toscrape.com/catalogue/do-androids-dream-of-electric-sheep-blade-runner-1_149/index.html
+Science Fiction,Three Wishes (River of Time: California #1),2,44.18,In stock,https://books.toscrape.com/catalogue/three-wishes-river-of-time-california-1_89/index.html
+Science Fiction,The Last Girl (The Dominion Trilogy #1),2,36.26,In stock,https://books.toscrape.com/catalogue/the-last-girl-the-dominion-trilogy-1_70/index.html
+Science Fiction,Having the Barbarians Baby (Ice Planet Barbarians #7.5),4,34.96,In stock,https://books.toscrape.com/catalogue/having-the-barbarians-baby-ice-planet-barbarians-75_23/index.html
 Nonfiction,The Lonely City: Adventures in the Art of Being Alone,2,33.26,In stock,https://books.toscrape.com/catalogue/the-lonely-city-adventures-in-the-art-of-being-alone_639/index.html
 Nonfiction,The Diary of a Young Girl,3,59.9,In stock,https://books.toscrape.com/catalogue/the-diary-of-a-young-girl_634/index.html
 Nonfiction,Snatched: How A Drug Queen Went Undercover for the DEA and Was Kidnapped By Colombian Guerillas,3,21.21,In stock,https://books.toscrape.com/catalogue/snatched-how-a-drug-queen-went-undercover-for-the-dea-and-was-kidnapped-by-colombian-guerillas_631/index.html
@@ -419,22 +435,11 @@ Nonfiction,"Love That Boy: What Two Presidents, Eight Road Trips, and My Son Tau
 Nonfiction,Living Forward: A Proven Plan to Stop Drifting and Get the Life You Want,3,12.55,In stock,https://books.toscrape.com/catalogue/living-forward-a-proven-plan-to-stop-drifting-and-get-the-life-you-want_531/index.html
 Nonfiction,I Will Find You,1,44.21,In stock,https://books.toscrape.com/catalogue/i-will-find-you_524/index.html
 Nonfiction,Brazen: The Courage to Find the You Thats Been Hiding,2,19.22,In stock,https://books.toscrape.com/catalogue/brazen-the-courage-to-find-the-you-thats-been-hiding_514/index.html
-Science Fiction,Mesaerion: The Best Science Fiction Stories 1800-1849,1,37.59,In stock,https://books.toscrape.com/catalogue/mesaerion-the-best-science-fiction-stories-1800-1849_983/index.html
-Science Fiction,Join,5,35.67,In stock,https://books.toscrape.com/catalogue/join_902/index.html
-Science Fiction,"William Shakespeares Star Wars: Verily, A New Hope (William Shakespeares Star Wars #4)",4,43.3,In stock,https://books.toscrape.com/catalogue/william-shakespeares-star-wars-verily-a-new-hope-william-shakespeares-star-wars-4_871/index.html
-Science Fiction,The Project,1,10.65,In stock,https://books.toscrape.com/catalogue/the-project_856/index.html
-Science Fiction,Soft Apocalypse,2,26.12,In stock,https://books.toscrape.com/catalogue/soft-apocalypse_833/index.html
-Science Fiction,Sleeping Giants (Themis Files #1),1,48.74,In stock,https://books.toscrape.com/catalogue/sleeping-giants-themis-files-1_604/index.html
-Science Fiction,Arena,4,21.36,In stock,https://books.toscrape.com/catalogue/arena_587/index.html
-Science Fiction,Foundation (Foundation (Publication Order) #1),1,32.42,In stock,https://books.toscrape.com/catalogue/foundation-foundation-publication-order-1_375/index.html
-Science Fiction,The Restaurant at the End of the Universe (Hitchhikers Guide to the Galaxy #2),1,10.92,In stock,https://books.toscrape.com/catalogue/the-restaurant-at-the-end-of-the-universe-hitchhikers-guide-to-the-galaxy-2_275/index.html
-Science Fiction,Ready Player One,4,19.07,In stock,https://books.toscrape.com/catalogue/ready-player-one_209/index.html
-Science Fiction,"Life, the Universe and Everything (Hitchhikers Guide to the Galaxy #3)",2,33.26,In stock,https://books.toscrape.com/catalogue/life-the-universe-and-everything-hitchhikers-guide-to-the-galaxy-3_189/index.html
-Science Fiction,Dune (Dune #1),1,54.86,In stock,https://books.toscrape.com/catalogue/dune-dune-1_151/index.html
-Science Fiction,Do Androids Dream of Electric Sheep? (Blade Runner #1),1,51.48,In stock,https://books.toscrape.com/catalogue/do-androids-dream-of-electric-sheep-blade-runner-1_149/index.html
-Science Fiction,Three Wishes (River of Time: California #1),2,44.18,In stock,https://books.toscrape.com/catalogue/three-wishes-river-of-time-california-1_89/index.html
-Science Fiction,The Last Girl (The Dominion Trilogy #1),2,36.26,In stock,https://books.toscrape.com/catalogue/the-last-girl-the-dominion-trilogy-1_70/index.html
-Science Fiction,Having the Barbarians Baby (Ice Planet Barbarians #7.5),4,34.96,In stock,https://books.toscrape.com/catalogue/having-the-barbarians-baby-ice-planet-barbarians-75_23/index.html
+Sports and Games,The Book of Basketball: The NBA According to The Sports Guy,5,44.84,In stock,https://books.toscrape.com/catalogue/the-book-of-basketball-the-nba-according-to-the-sports-guy_232/index.html
+Sports and Games,"Friday Night Lights: A Town, a Team, and a Dream",3,51.22,In stock,https://books.toscrape.com/catalogue/friday-night-lights-a-town-a-team-and-a-dream_158/index.html
+Sports and Games,Sugar Rush (Offensive Line #2),1,24.42,In stock,https://books.toscrape.com/catalogue/sugar-rush-offensive-line-2_108/index.html
+Sports and Games,Settling the Score (The Summer Games #1),2,44.91,In stock,https://books.toscrape.com/catalogue/settling-the-score-the-summer-games-1_50/index.html
+Sports and Games,Icing (Aces Hockey #2),4,40.44,In stock,https://books.toscrape.com/catalogue/icing-aces-hockey-2_25/index.html
 Default,The Art of War,5,33.34,In stock,https://books.toscrape.com/catalogue/the-art-of-war_838/index.html
 Default,Secrets and Lace (Fatal Hearts #1),1,20.27,In stock,https://books.toscrape.com/catalogue/secrets-and-lace-fatal-hearts-1_829/index.html
 Default,Romero and Juliet: A Tragic Tale of Love and Zombies,1,36.94,In stock,https://books.toscrape.com/catalogue/romero-and-juliet-a-tragic-tale-of-love-and-zombies_827/index.html
@@ -455,11 +460,6 @@ Default,V for Vendetta (V for Vendetta Complete),4,37.1,In stock,https://books.t
 Default,"Unbroken: A World War II Story of Survival, Resilience, and Redemption",2,45.95,In stock,https://books.toscrape.com/catalogue/unbroken-a-world-war-ii-story-of-survival-resilience-and-redemption_774/index.html
 Default,The Wright Brothers,4,56.8,In stock,https://books.toscrape.com/catalogue/the-wright-brothers_769/index.html
 Default,The Songs of the Gods,5,44.48,In stock,https://books.toscrape.com/catalogue/the-songs-of-the-gods_763/index.html
-Sports and Games,The Book of Basketball: The NBA According to The Sports Guy,5,44.84,In stock,https://books.toscrape.com/catalogue/the-book-of-basketball-the-nba-according-to-the-sports-guy_232/index.html
-Sports and Games,"Friday Night Lights: A Town, a Team, and a Dream",3,51.22,In stock,https://books.toscrape.com/catalogue/friday-night-lights-a-town-a-team-and-a-dream_158/index.html
-Sports and Games,Sugar Rush (Offensive Line #2),1,24.42,In stock,https://books.toscrape.com/catalogue/sugar-rush-offensive-line-2_108/index.html
-Sports and Games,Settling the Score (The Summer Games #1),2,44.91,In stock,https://books.toscrape.com/catalogue/settling-the-score-the-summer-games-1_50/index.html
-Sports and Games,Icing (Aces Hockey #2),4,40.44,In stock,https://books.toscrape.com/catalogue/icing-aces-hockey-2_25/index.html
 Nonfiction,Between the World and Me,4,56.91,In stock,https://books.toscrape.com/catalogue/between-the-world-and-me_513/index.html
 Nonfiction,Being Mortal: Medicine and What Matters in the End,4,55.06,In stock,https://books.toscrape.com/catalogue/being-mortal-medicine-and-what-matters-in-the-end_512/index.html
 Nonfiction,"A Murder Over a Girl: Justice, Gender, Junior High",3,13.2,In stock,https://books.toscrape.com/catalogue/a-murder-over-a-girl-justice-gender-junior-high_511/index.html
@@ -480,26 +480,6 @@ Nonfiction,We the People: The Modern-Day Figures Who Have Reshaped and Affirmed 
 Nonfiction,Very Good Lives: The Fringe Benefits of Failure and the Importance of Imagination,3,50.66,In stock,https://books.toscrape.com/catalogue/very-good-lives-the-fringe-benefits-of-failure-and-the-importance-of-imagination_298/index.html
 Nonfiction,"Unstuffed: Decluttering Your Home, Mind, and Soul",1,58.09,In stock,https://books.toscrape.com/catalogue/unstuffed-decluttering-your-home-mind-and-soul_296/index.html
 Nonfiction,Under the Banner of Heaven: A Story of Violent Faith,1,30.0,In stock,https://books.toscrape.com/catalogue/under-the-banner-of-heaven-a-story-of-violent-faith_295/index.html
-Default,The Rosie Project (Don Tillman #1),1,54.04,In stock,https://books.toscrape.com/catalogue/the-rosie-project-don-tillman-1_761/index.html
-Default,The Power of Habit: Why We Do What We Do in Life and Business,3,16.88,In stock,https://books.toscrape.com/catalogue/the-power-of-habit-why-we-do-what-we-do-in-life-and-business_760/index.html
-Default,Steve Jobs,5,39.5,In stock,https://books.toscrape.com/catalogue/steve-jobs_737/index.html
-Default,Luckiest Girl Alive,3,49.83,In stock,https://books.toscrape.com/catalogue/luckiest-girl-alive_713/index.html
-Default,"Living Leadership by Insight: A Good Leader Achieves, a Great Leader Builds Monuments",4,46.91,In stock,https://books.toscrape.com/catalogue/living-leadership-by-insight-a-good-leader-achieves-a-great-leader-builds-monuments_709/index.html
-Default,Lady Midnight (The Dark Artifices #1),5,16.28,In stock,https://books.toscrape.com/catalogue/lady-midnight-the-dark-artifices-1_707/index.html
-Default,"Hush, Hush (Hush, Hush #1)",3,47.02,In stock,https://books.toscrape.com/catalogue/hush-hush-hush-hush-1_701/index.html
-Default,Greek Mythic History,5,10.23,In stock,https://books.toscrape.com/catalogue/greek-mythic-history_698/index.html
-Default,Every Last Word,3,46.47,In stock,https://books.toscrape.com/catalogue/every-last-word_693/index.html
-Default,Daily Fantasy Sports,1,36.58,In stock,https://books.toscrape.com/catalogue/daily-fantasy-sports_683/index.html
-Default,Clockwork Angel (The Infernal Devices #1),1,44.14,In stock,https://books.toscrape.com/catalogue/clockwork-angel-the-infernal-devices-1_679/index.html
-Default,City of Fallen Angels (The Mortal Instruments #4),4,11.23,In stock,https://books.toscrape.com/catalogue/city-of-fallen-angels-the-mortal-instruments-4_677/index.html
-Default,City of Bones (The Mortal Instruments #1),1,43.28,In stock,https://books.toscrape.com/catalogue/city-of-bones-the-mortal-instruments-1_676/index.html
-Default,City of Ashes (The Mortal Instruments #2),1,47.27,In stock,https://books.toscrape.com/catalogue/city-of-ashes-the-mortal-instruments-2_675/index.html
-Default,"Carry On, Warrior: Thoughts on Life Unarmed",3,31.85,In stock,https://books.toscrape.com/catalogue/carry-on-warrior-thoughts-on-life-unarmed_672/index.html
-Default,Carrie,2,46.23,In stock,https://books.toscrape.com/catalogue/carrie_671/index.html
-Default,Angels & Demons (Robert Langdon #1),3,51.48,In stock,https://books.toscrape.com/catalogue/angels-demons-robert-langdon-1_661/index.html
-Default,"The Three Searches, Meaning, and the Story",3,13.33,In stock,https://books.toscrape.com/catalogue/the-three-searches-meaning-and-the-story_649/index.html
-Default,Raspberry Pi Electronics Projects for the Evil Genius,4,49.67,In stock,https://books.toscrape.com/catalogue/raspberry-pi-electronics-projects-for-the-evil-genius_630/index.html
-Default,How to Speak Golf: An Illustrated Guide to Links Lingo,5,58.32,In stock,https://books.toscrape.com/catalogue/how-to-speak-golf-an-illustrated-guide-to-links-lingo_621/index.html
 Add a comment,The Torch Is Passed: A Harding Family Story,1,19.09,In stock,https://books.toscrape.com/catalogue/the-torch-is-passed-a-harding-family-story_945/index.html
 Add a comment,"The Mindfulness and Acceptance Workbook for Anxiety: A Guide to Breaking Free from Anxiety, Phobias, and Worry Using Acceptance and Commitment Therapy",4,23.89,In stock,https://books.toscrape.com/catalogue/the-mindfulness-and-acceptance-workbook-for-anxiety-a-guide-to-breaking-free-from-anxiety-phobias-and-worry-using-acceptance-and-commitment-therapy_937/index.html
 Add a comment,The Art Forger,3,40.76,In stock,https://books.toscrape.com/catalogue/the-art-forger_930/index.html
@@ -520,6 +500,26 @@ Add a comment,A Peoples History of the United States,2,40.79,In stock,https://bo
 Add a comment,A Brush of Wings (Angels Walking #3),1,55.51,In stock,https://books.toscrape.com/catalogue/a-brush-of-wings-angels-walking-3_651/index.html
 Add a comment,Rook,4,37.86,In stock,https://books.toscrape.com/catalogue/rook_647/index.html
 Add a comment,The Midnight Watch: A Novel of the Titanic and the Californian,1,26.2,In stock,https://books.toscrape.com/catalogue/the-midnight-watch-a-novel-of-the-titanic-and-the-californian_640/index.html
+Default,The Rosie Project (Don Tillman #1),1,54.04,In stock,https://books.toscrape.com/catalogue/the-rosie-project-don-tillman-1_761/index.html
+Default,The Power of Habit: Why We Do What We Do in Life and Business,3,16.88,In stock,https://books.toscrape.com/catalogue/the-power-of-habit-why-we-do-what-we-do-in-life-and-business_760/index.html
+Default,Steve Jobs,5,39.5,In stock,https://books.toscrape.com/catalogue/steve-jobs_737/index.html
+Default,Luckiest Girl Alive,3,49.83,In stock,https://books.toscrape.com/catalogue/luckiest-girl-alive_713/index.html
+Default,"Living Leadership by Insight: A Good Leader Achieves, a Great Leader Builds Monuments",4,46.91,In stock,https://books.toscrape.com/catalogue/living-leadership-by-insight-a-good-leader-achieves-a-great-leader-builds-monuments_709/index.html
+Default,Lady Midnight (The Dark Artifices #1),5,16.28,In stock,https://books.toscrape.com/catalogue/lady-midnight-the-dark-artifices-1_707/index.html
+Default,"Hush, Hush (Hush, Hush #1)",3,47.02,In stock,https://books.toscrape.com/catalogue/hush-hush-hush-hush-1_701/index.html
+Default,Greek Mythic History,5,10.23,In stock,https://books.toscrape.com/catalogue/greek-mythic-history_698/index.html
+Default,Every Last Word,3,46.47,In stock,https://books.toscrape.com/catalogue/every-last-word_693/index.html
+Default,Daily Fantasy Sports,1,36.58,In stock,https://books.toscrape.com/catalogue/daily-fantasy-sports_683/index.html
+Default,Clockwork Angel (The Infernal Devices #1),1,44.14,In stock,https://books.toscrape.com/catalogue/clockwork-angel-the-infernal-devices-1_679/index.html
+Default,City of Fallen Angels (The Mortal Instruments #4),4,11.23,In stock,https://books.toscrape.com/catalogue/city-of-fallen-angels-the-mortal-instruments-4_677/index.html
+Default,City of Bones (The Mortal Instruments #1),1,43.28,In stock,https://books.toscrape.com/catalogue/city-of-bones-the-mortal-instruments-1_676/index.html
+Default,City of Ashes (The Mortal Instruments #2),1,47.27,In stock,https://books.toscrape.com/catalogue/city-of-ashes-the-mortal-instruments-2_675/index.html
+Default,"Carry On, Warrior: Thoughts on Life Unarmed",3,31.85,In stock,https://books.toscrape.com/catalogue/carry-on-warrior-thoughts-on-life-unarmed_672/index.html
+Default,Carrie,2,46.23,In stock,https://books.toscrape.com/catalogue/carrie_671/index.html
+Default,Angels & Demons (Robert Langdon #1),3,51.48,In stock,https://books.toscrape.com/catalogue/angels-demons-robert-langdon-1_661/index.html
+Default,"The Three Searches, Meaning, and the Story",3,13.33,In stock,https://books.toscrape.com/catalogue/the-three-searches-meaning-and-the-story_649/index.html
+Default,Raspberry Pi Electronics Projects for the Evil Genius,4,49.67,In stock,https://books.toscrape.com/catalogue/raspberry-pi-electronics-projects-for-the-evil-genius_630/index.html
+Default,How to Speak Golf: An Illustrated Guide to Links Lingo,5,58.32,In stock,https://books.toscrape.com/catalogue/how-to-speak-golf-an-illustrated-guide-to-links-lingo_621/index.html
 Nonfiction,"Trespassing Across America: One Mans Epic, Never-Done-Before (and Sort of Illegal) Hike Across the Heartland",1,53.51,In stock,https://books.toscrape.com/catalogue/trespassing-across-america-one-mans-epic-never-done-before-and-sort-of-illegal-hike-across-the-heartland_291/index.html
 Nonfiction,The Name of God is Mercy,2,37.25,In stock,https://books.toscrape.com/catalogue/the-name-of-god-is-mercy_264/index.html
 Nonfiction,Stiff: The Curious Lives of Human Cadavers,3,36.74,In stock,https://books.toscrape.com/catalogue/stiff-the-curious-lives-of-human-cadavers_226/index.html
@@ -540,26 +540,6 @@ Nonfiction,Disrupted: My Misadventure in the Start-Up Bubble,5,15.28,In stock,ht
 Nonfiction,Brave Enough,5,51.32,In stock,https://books.toscrape.com/catalogue/brave-enough_135/index.html
 Nonfiction,"Born to Run: A Hidden Tribe, Superathletes, and the Greatest Race the World Has Never Seen",2,27.35,In stock,https://books.toscrape.com/catalogue/born-to-run-a-hidden-tribe-superathletes-and-the-greatest-race-the-world-has-never-seen_133/index.html
 Nonfiction,Blink: The Power of Thinking Without Thinking,5,21.74,In stock,https://books.toscrape.com/catalogue/blink-the-power-of-thinking-without-thinking_132/index.html
-Default,Eleanor & Park,5,56.51,In stock,https://books.toscrape.com/catalogue/eleanor-park_616/index.html
-Default,Troublemaker: Surviving Hollywood and Scientology,2,48.39,In stock,https://books.toscrape.com/catalogue/troublemaker-surviving-hollywood-and-scientology_610/index.html
-Default,Adultery,5,20.88,In stock,https://books.toscrape.com/catalogue/adultery_586/index.html
-Default,Unlimited Intuition Now,4,58.87,In stock,https://books.toscrape.com/catalogue/unlimited-intuition-now_578/index.html
-Default,Underlying Notes,2,11.82,In stock,https://books.toscrape.com/catalogue/underlying-notes_577/index.html
-Default,The New Brand You: Your New Image Makes the Sale for You,5,44.05,In stock,https://books.toscrape.com/catalogue/the-new-brand-you-your-new-image-makes-the-sale-for-you_575/index.html
-Default,The Flowers Lied,2,16.68,In stock,https://books.toscrape.com/catalogue/the-flowers-lied_573/index.html
-Default,"NaNo What Now? Finding your editing process, revising your NaNoWriMo book and building a writing career through publishing and beyond",4,10.41,In stock,https://books.toscrape.com/catalogue/nano-what-now-finding-your-editing-process-revising-your-nanowrimo-book-and-building-a-writing-career-through-publishing-and-beyond_566/index.html
-Default,Modern Day Fables,2,47.44,In stock,https://books.toscrape.com/catalogue/modern-day-fables_565/index.html
-Default,The Unlikely Pilgrimage of Harold Fry (Harold Fry #1),5,43.62,In stock,https://books.toscrape.com/catalogue/the-unlikely-pilgrimage-of-harold-fry-harold-fry-1_551/index.html
-Default,The Martian (The Martian #1),2,41.39,In stock,https://books.toscrape.com/catalogue/the-martian-the-martian-1_548/index.html
-Default,Left Behind (Left Behind #1),2,40.72,In stock,https://books.toscrape.com/catalogue/left-behind-left-behind-1_529/index.html
-Default,John Vassos: Industrial Design for Modern Life,4,20.22,In stock,https://books.toscrape.com/catalogue/john-vassos-industrial-design-for-modern-life_526/index.html
-Default,Ill Give You the Sun,1,56.48,In stock,https://books.toscrape.com/catalogue/ill-give-you-the-sun_525/index.html
-Default,Heaven is for Real: A Little Boys Astounding Story of His Trip to Heaven and Back,2,52.86,In stock,https://books.toscrape.com/catalogue/heaven-is-for-real-a-little-boys-astounding-story-of-his-trip-to-heaven-and-back_520/index.html
-Default,Enders Game (The Ender Quintet #1),1,43.64,In stock,https://books.toscrape.com/catalogue/enders-game-the-ender-quintet-1_518/index.html
-Default,Death by Leisure: A Cautionary Tale,4,37.51,In stock,https://books.toscrape.com/catalogue/death-by-leisure-a-cautionary-tale_516/index.html
-Default,Wildlife of New York: A Five-Borough Coloring Book,2,22.14,In stock,https://books.toscrape.com/catalogue/wildlife-of-new-york-a-five-borough-coloring-book_507/index.html
-Default,The Year of Living Biblically: One Mans Humble Quest to Follow the Bible as Literally as Possible,1,34.72,In stock,https://books.toscrape.com/catalogue/the-year-of-living-biblically-one-mans-humble-quest-to-follow-the-bible-as-literally-as-possible_502/index.html
-Default,The Great Gatsby,4,36.05,In stock,https://books.toscrape.com/catalogue/the-great-gatsby_498/index.html
 Add a comment,The Gray Rhino: How to Recognize and Act on the Obvious Dangers We Ignore,4,59.15,In stock,https://books.toscrape.com/catalogue/the-gray-rhino-how-to-recognize-and-act-on-the-obvious-dangers-we-ignore_638/index.html
 Add a comment,The Children,3,11.88,In stock,https://books.toscrape.com/catalogue/the-children_633/index.html
 Add a comment,One with You (Crossfire #5),4,15.71,In stock,https://books.toscrape.com/catalogue/one-with-you-crossfire-5_626/index.html
@@ -590,26 +570,26 @@ Nonfiction,Travels with Charley: In Search of America,5,57.82,In stock,https://b
 Nonfiction,The Tumor,5,41.56,In stock,https://books.toscrape.com/catalogue/the-tumor_85/index.html
 Nonfiction,The End of the Jesus Era (An Investigation #1),1,14.4,In stock,https://books.toscrape.com/catalogue/the-end-of-the-jesus-era-an-investigation-1_64/index.html
 Nonfiction,"Eat, Pray, Love",3,51.32,In stock,https://books.toscrape.com/catalogue/eat-pray-love_16/index.html
-Default,The Good Girl,3,49.03,In stock,https://books.toscrape.com/catalogue/the-good-girl_497/index.html
-Default,The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change,4,33.17,In stock,https://books.toscrape.com/catalogue/the-7-habits-of-highly-effective-people-powerful-lessons-in-personal-change_489/index.html
-Default,Steal Like an Artist: 10 Things Nobody Told You About Being Creative,2,20.9,In stock,https://books.toscrape.com/catalogue/steal-like-an-artist-10-things-nobody-told-you-about-being-creative_487/index.html
-Default,Life of Pi,4,13.22,In stock,https://books.toscrape.com/catalogue/life-of-pi_475/index.html
-Default,The Sound Of Love,5,57.84,In stock,https://books.toscrape.com/catalogue/the-sound-of-love_455/index.html
-Default,The Perks of Being a Wallflower,3,55.02,In stock,https://books.toscrape.com/catalogue/the-perks-of-being-a-wallflower_453/index.html
-Default,The Makings of a Fatherless Child,2,31.58,In stock,https://books.toscrape.com/catalogue/the-makings-of-a-fatherless-child_450/index.html
-Default,The Hobbit (Middle-Earth Universe),5,17.8,In stock,https://books.toscrape.com/catalogue/the-hobbit-middle-earth-universe_447/index.html
-Default,The Fellowship of the Ring (The Lord of the Rings #1),2,10.27,In stock,https://books.toscrape.com/catalogue/the-fellowship-of-the-ring-the-lord-of-the-rings-1_442/index.html
-Default,Ship Leaves Harbor: Essays on Travel by a Recovering Journeyman,3,30.6,In stock,https://books.toscrape.com/catalogue/ship-leaves-harbor-essays-on-travel-by-a-recovering-journeyman_438/index.html
-Default,Musicophilia: Tales of Music and the Brain,1,46.58,In stock,https://books.toscrape.com/catalogue/musicophilia-tales-of-music-and-the-brain_436/index.html
-Default,What If?: Serious Scientific Answers to Absurd Hypothetical Questions,4,53.68,In stock,https://books.toscrape.com/catalogue/what-if-serious-scientific-answers-to-absurd-hypothetical-questions_416/index.html
-Default,The Fault in Our Stars,1,47.22,In stock,https://books.toscrape.com/catalogue/the-fault-in-our-stars_403/index.html
-Default,The Dream Thieves (The Raven Cycle #2),1,34.5,In stock,https://books.toscrape.com/catalogue/the-dream-thieves-the-raven-cycle-2_400/index.html
-Default,The 5th Wave (The 5th Wave #1),2,11.83,In stock,https://books.toscrape.com/catalogue/the-5th-wave-the-5th-wave-1_397/index.html
-Default,Shiver (The Wolves of Mercy Falls #1),5,16.23,In stock,https://books.toscrape.com/catalogue/shiver-the-wolves-of-mercy-falls-1_392/index.html
-Default,Remember Me?,3,11.48,In stock,https://books.toscrape.com/catalogue/remember-me_391/index.html
-Default,If I Stay (If I Stay #1),5,38.13,In stock,https://books.toscrape.com/catalogue/if-i-stay-if-i-stay-1_379/index.html
-Default,I Know Why the Caged Bird Sings (Maya Angelous Autobiography #1),2,36.55,In stock,https://books.toscrape.com/catalogue/i-know-why-the-caged-bird-sings-maya-angelous-autobiography-1_378/index.html
-Default,Harry Potter and the Deathly Hallows (Harry Potter #7),1,23.32,In stock,https://books.toscrape.com/catalogue/harry-potter-and-the-deathly-hallows-harry-potter-7_377/index.html
+Default,Eleanor & Park,5,56.51,In stock,https://books.toscrape.com/catalogue/eleanor-park_616/index.html
+Default,Troublemaker: Surviving Hollywood and Scientology,2,48.39,In stock,https://books.toscrape.com/catalogue/troublemaker-surviving-hollywood-and-scientology_610/index.html
+Default,Adultery,5,20.88,In stock,https://books.toscrape.com/catalogue/adultery_586/index.html
+Default,Unlimited Intuition Now,4,58.87,In stock,https://books.toscrape.com/catalogue/unlimited-intuition-now_578/index.html
+Default,Underlying Notes,2,11.82,In stock,https://books.toscrape.com/catalogue/underlying-notes_577/index.html
+Default,The New Brand You: Your New Image Makes the Sale for You,5,44.05,In stock,https://books.toscrape.com/catalogue/the-new-brand-you-your-new-image-makes-the-sale-for-you_575/index.html
+Default,The Flowers Lied,2,16.68,In stock,https://books.toscrape.com/catalogue/the-flowers-lied_573/index.html
+Default,"NaNo What Now? Finding your editing process, revising your NaNoWriMo book and building a writing career through publishing and beyond",4,10.41,In stock,https://books.toscrape.com/catalogue/nano-what-now-finding-your-editing-process-revising-your-nanowrimo-book-and-building-a-writing-career-through-publishing-and-beyond_566/index.html
+Default,Modern Day Fables,2,47.44,In stock,https://books.toscrape.com/catalogue/modern-day-fables_565/index.html
+Default,The Unlikely Pilgrimage of Harold Fry (Harold Fry #1),5,43.62,In stock,https://books.toscrape.com/catalogue/the-unlikely-pilgrimage-of-harold-fry-harold-fry-1_551/index.html
+Default,The Martian (The Martian #1),2,41.39,In stock,https://books.toscrape.com/catalogue/the-martian-the-martian-1_548/index.html
+Default,Left Behind (Left Behind #1),2,40.72,In stock,https://books.toscrape.com/catalogue/left-behind-left-behind-1_529/index.html
+Default,John Vassos: Industrial Design for Modern Life,4,20.22,In stock,https://books.toscrape.com/catalogue/john-vassos-industrial-design-for-modern-life_526/index.html
+Default,Ill Give You the Sun,1,56.48,In stock,https://books.toscrape.com/catalogue/ill-give-you-the-sun_525/index.html
+Default,Heaven is for Real: A Little Boys Astounding Story of His Trip to Heaven and Back,2,52.86,In stock,https://books.toscrape.com/catalogue/heaven-is-for-real-a-little-boys-astounding-story-of-his-trip-to-heaven-and-back_520/index.html
+Default,Enders Game (The Ender Quintet #1),1,43.64,In stock,https://books.toscrape.com/catalogue/enders-game-the-ender-quintet-1_518/index.html
+Default,Death by Leisure: A Cautionary Tale,4,37.51,In stock,https://books.toscrape.com/catalogue/death-by-leisure-a-cautionary-tale_516/index.html
+Default,Wildlife of New York: A Five-Borough Coloring Book,2,22.14,In stock,https://books.toscrape.com/catalogue/wildlife-of-new-york-a-five-borough-coloring-book_507/index.html
+Default,The Year of Living Biblically: One Mans Humble Quest to Follow the Bible as Literally as Possible,1,34.72,In stock,https://books.toscrape.com/catalogue/the-year-of-living-biblically-one-mans-humble-quest-to-follow-the-bible-as-literally-as-possible_502/index.html
+Default,The Great Gatsby,4,36.05,In stock,https://books.toscrape.com/catalogue/the-great-gatsby_498/index.html
 Add a comment,Evicted: Poverty and Profit in the American City,1,42.27,In stock,https://books.toscrape.com/catalogue/evicted-poverty-and-profit-in-the-american-city_372/index.html
 Add a comment,A Game of Thrones (A Song of Ice and Fire #1),2,46.42,In stock,https://books.toscrape.com/catalogue/a-game-of-thrones-a-song-of-ice-and-fire-1_358/index.html
 Add a comment,A Clash of Kings (A Song of Ice and Fire #2),3,10.79,In stock,https://books.toscrape.com/catalogue/a-clash-of-kings-a-song-of-ice-and-fire-2_356/index.html
@@ -650,6 +630,26 @@ Fantasy,Searching for Meaning in Gailana,1,38.73,In stock,https://books.toscrape
 Fantasy,The Star-Touched Queen,5,32.3,In stock,https://books.toscrape.com/catalogue/the-star-touched-queen_642/index.html
 Fantasy,A Shard of Ice (The Black Symphony Saga #1),3,56.63,In stock,https://books.toscrape.com/catalogue/a-shard-of-ice-the-black-symphony-saga-1_558/index.html
 Fantasy,Kings Folly (The Kinsman Chronicles #1),5,39.61,In stock,https://books.toscrape.com/catalogue/kings-folly-the-kinsman-chronicles-1_473/index.html
+Default,The Good Girl,3,49.03,In stock,https://books.toscrape.com/catalogue/the-good-girl_497/index.html
+Default,The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change,4,33.17,In stock,https://books.toscrape.com/catalogue/the-7-habits-of-highly-effective-people-powerful-lessons-in-personal-change_489/index.html
+Default,Steal Like an Artist: 10 Things Nobody Told You About Being Creative,2,20.9,In stock,https://books.toscrape.com/catalogue/steal-like-an-artist-10-things-nobody-told-you-about-being-creative_487/index.html
+Default,Life of Pi,4,13.22,In stock,https://books.toscrape.com/catalogue/life-of-pi_475/index.html
+Default,The Sound Of Love,5,57.84,In stock,https://books.toscrape.com/catalogue/the-sound-of-love_455/index.html
+Default,The Perks of Being a Wallflower,3,55.02,In stock,https://books.toscrape.com/catalogue/the-perks-of-being-a-wallflower_453/index.html
+Default,The Makings of a Fatherless Child,2,31.58,In stock,https://books.toscrape.com/catalogue/the-makings-of-a-fatherless-child_450/index.html
+Default,The Hobbit (Middle-Earth Universe),5,17.8,In stock,https://books.toscrape.com/catalogue/the-hobbit-middle-earth-universe_447/index.html
+Default,The Fellowship of the Ring (The Lord of the Rings #1),2,10.27,In stock,https://books.toscrape.com/catalogue/the-fellowship-of-the-ring-the-lord-of-the-rings-1_442/index.html
+Default,Ship Leaves Harbor: Essays on Travel by a Recovering Journeyman,3,30.6,In stock,https://books.toscrape.com/catalogue/ship-leaves-harbor-essays-on-travel-by-a-recovering-journeyman_438/index.html
+Default,Musicophilia: Tales of Music and the Brain,1,46.58,In stock,https://books.toscrape.com/catalogue/musicophilia-tales-of-music-and-the-brain_436/index.html
+Default,What If?: Serious Scientific Answers to Absurd Hypothetical Questions,4,53.68,In stock,https://books.toscrape.com/catalogue/what-if-serious-scientific-answers-to-absurd-hypothetical-questions_416/index.html
+Default,The Fault in Our Stars,1,47.22,In stock,https://books.toscrape.com/catalogue/the-fault-in-our-stars_403/index.html
+Default,The Dream Thieves (The Raven Cycle #2),1,34.5,In stock,https://books.toscrape.com/catalogue/the-dream-thieves-the-raven-cycle-2_400/index.html
+Default,The 5th Wave (The 5th Wave #1),2,11.83,In stock,https://books.toscrape.com/catalogue/the-5th-wave-the-5th-wave-1_397/index.html
+Default,Shiver (The Wolves of Mercy Falls #1),5,16.23,In stock,https://books.toscrape.com/catalogue/shiver-the-wolves-of-mercy-falls-1_392/index.html
+Default,Remember Me?,3,11.48,In stock,https://books.toscrape.com/catalogue/remember-me_391/index.html
+Default,If I Stay (If I Stay #1),5,38.13,In stock,https://books.toscrape.com/catalogue/if-i-stay-if-i-stay-1_379/index.html
+Default,I Know Why the Caged Bird Sings (Maya Angelous Autobiography #1),2,36.55,In stock,https://books.toscrape.com/catalogue/i-know-why-the-caged-bird-sings-maya-angelous-autobiography-1_378/index.html
+Default,Harry Potter and the Deathly Hallows (Harry Potter #7),1,23.32,In stock,https://books.toscrape.com/catalogue/harry-potter-and-the-deathly-hallows-harry-potter-7_377/index.html
 Add a comment,The Sense of an Ending,3,31.38,In stock,https://books.toscrape.com/catalogue/the-sense-of-an-ending_111/index.html
 Add a comment,The Republic,3,33.78,In stock,https://books.toscrape.com/catalogue/the-republic_78/index.html
 Add a comment,The Odyssey,3,29.64,In stock,https://books.toscrape.com/catalogue/the-odyssey_77/index.html
@@ -657,26 +657,6 @@ Add a comment,The Light of the Fireflies,1,54.43,In stock,https://books.toscrape
 Add a comment,The Iliad,1,16.16,In stock,https://books.toscrape.com/catalogue/the-iliad_69/index.html
 Add a comment,The Communist Manifesto,3,14.76,In stock,https://books.toscrape.com/catalogue/the-communist-manifesto_61/index.html
 Add a comment,Lord of the Flies,3,24.89,In stock,https://books.toscrape.com/catalogue/lord-of-the-flies_30/index.html
-Default,Fool Me Once,1,16.96,In stock,https://books.toscrape.com/catalogue/fool-me-once_374/index.html
-Default,Drama,2,38.7,In stock,https://books.toscrape.com/catalogue/drama_371/index.html
-Default,"Blue Lily, Lily Blue (The Raven Cycle #3)",5,34.13,In stock,https://books.toscrape.com/catalogue/blue-lily-lily-blue-the-raven-cycle-3_364/index.html
-Default,Alight (The Generations Trilogy #2),4,58.59,In stock,https://books.toscrape.com/catalogue/alight-the-generations-trilogy-2_360/index.html
-Default,Vogue Colors A to Z: A Fashion Coloring Book,4,52.35,In stock,https://books.toscrape.com/catalogue/vogue-colors-a-to-z-a-fashion-coloring-book_355/index.html
-Default,The Shining (The Shining #1),3,27.88,In stock,https://books.toscrape.com/catalogue/the-shining-the-shining-1_354/index.html
-Default,The Hunger Games (The Hunger Games #1),5,29.85,In stock,https://books.toscrape.com/catalogue/the-hunger-games-the-hunger-games-1_349/index.html
-Default,Outlander (Outlander #1),5,19.67,In stock,https://books.toscrape.com/catalogue/outlander-outlander-1_338/index.html
-Default,Mockingjay (The Hunger Games #3),4,20.44,In stock,https://books.toscrape.com/catalogue/mockingjay-the-hunger-games-3_333/index.html
-Default,Harry Potter and the Sorcerers Stone (Harry Potter #1),3,13.9,In stock,https://books.toscrape.com/catalogue/harry-potter-and-the-sorcerers-stone-harry-potter-1_329/index.html
-Default,Confessions of a Shopaholic (Shopaholic #1),2,48.94,In stock,https://books.toscrape.com/catalogue/confessions-of-a-shopaholic-shopaholic-1_318/index.html
-Default,Zero History (Blue Ant #3),1,34.77,In stock,https://books.toscrape.com/catalogue/zero-history-blue-ant-3_308/index.html
-Default,World War Z: An Oral History of the Zombie War,1,21.8,In stock,https://books.toscrape.com/catalogue/world-war-z-an-oral-history-of-the-zombie-war_306/index.html
-Default,Wild: From Lost to Found on the Pacific Crest Trail,3,46.02,In stock,https://books.toscrape.com/catalogue/wild-from-lost-to-found-on-the-pacific-crest-trail_305/index.html
-Default,"Whered You Go, Bernadette",1,18.13,In stock,https://books.toscrape.com/catalogue/whered-you-go-bernadette_304/index.html
-Default,Twilight (Twilight #1),2,41.93,In stock,https://books.toscrape.com/catalogue/twilight-twilight-1_293/index.html
-Default,The Paris Wife,3,36.8,In stock,https://books.toscrape.com/catalogue/the-paris-wife_269/index.html
-Default,The Maze Runner (The Maze Runner #1),1,20.93,In stock,https://books.toscrape.com/catalogue/the-maze-runner-the-maze-runner-1_263/index.html
-Default,The Lovers Dictionary,2,58.09,In stock,https://books.toscrape.com/catalogue/the-lovers-dictionary_262/index.html
-Default,The Goldfinch,3,43.58,In stock,https://books.toscrape.com/catalogue/the-goldfinch_252/index.html
 Fantasy,Every Heart a Doorway (Every Heart A Doorway #1),5,12.16,In stock,https://books.toscrape.com/catalogue/every-heart-a-doorway-every-heart-a-doorway-1_465/index.html
 Fantasy,A Gathering of Shadows (Shades of Magic #2),4,44.81,In stock,https://books.toscrape.com/catalogue/a-gathering-of-shadows-shades-of-magic-2_456/index.html
 Fantasy,The Raven Boys (The Raven Cycle #1),4,57.74,In stock,https://books.toscrape.com/catalogue/the-raven-boys-the-raven-cycle-1_411/index.html
@@ -697,6 +677,26 @@ Fantasy,Eragon (The Inheritance Cycle #1),3,43.87,In stock,https://books.toscrap
 Fantasy,Darkfever (Fever #1),1,56.02,In stock,https://books.toscrape.com/catalogue/darkfever-fever-1_145/index.html
 Fantasy,Ash,4,22.06,In stock,https://books.toscrape.com/catalogue/ash_123/index.html
 Fantasy,A Storm of Swords (A Song of Ice and Fire #3),2,31.22,In stock,https://books.toscrape.com/catalogue/a-storm-of-swords-a-song-of-ice-and-fire-3_116/index.html
+Default,Fool Me Once,1,16.96,In stock,https://books.toscrape.com/catalogue/fool-me-once_374/index.html
+Default,Drama,2,38.7,In stock,https://books.toscrape.com/catalogue/drama_371/index.html
+Default,"Blue Lily, Lily Blue (The Raven Cycle #3)",5,34.13,In stock,https://books.toscrape.com/catalogue/blue-lily-lily-blue-the-raven-cycle-3_364/index.html
+Default,Alight (The Generations Trilogy #2),4,58.59,In stock,https://books.toscrape.com/catalogue/alight-the-generations-trilogy-2_360/index.html
+Default,Vogue Colors A to Z: A Fashion Coloring Book,4,52.35,In stock,https://books.toscrape.com/catalogue/vogue-colors-a-to-z-a-fashion-coloring-book_355/index.html
+Default,The Shining (The Shining #1),3,27.88,In stock,https://books.toscrape.com/catalogue/the-shining-the-shining-1_354/index.html
+Default,The Hunger Games (The Hunger Games #1),5,29.85,In stock,https://books.toscrape.com/catalogue/the-hunger-games-the-hunger-games-1_349/index.html
+Default,Outlander (Outlander #1),5,19.67,In stock,https://books.toscrape.com/catalogue/outlander-outlander-1_338/index.html
+Default,Mockingjay (The Hunger Games #3),4,20.44,In stock,https://books.toscrape.com/catalogue/mockingjay-the-hunger-games-3_333/index.html
+Default,Harry Potter and the Sorcerers Stone (Harry Potter #1),3,13.9,In stock,https://books.toscrape.com/catalogue/harry-potter-and-the-sorcerers-stone-harry-potter-1_329/index.html
+Default,Confessions of a Shopaholic (Shopaholic #1),2,48.94,In stock,https://books.toscrape.com/catalogue/confessions-of-a-shopaholic-shopaholic-1_318/index.html
+Default,Zero History (Blue Ant #3),1,34.77,In stock,https://books.toscrape.com/catalogue/zero-history-blue-ant-3_308/index.html
+Default,World War Z: An Oral History of the Zombie War,1,21.8,In stock,https://books.toscrape.com/catalogue/world-war-z-an-oral-history-of-the-zombie-war_306/index.html
+Default,Wild: From Lost to Found on the Pacific Crest Trail,3,46.02,In stock,https://books.toscrape.com/catalogue/wild-from-lost-to-found-on-the-pacific-crest-trail_305/index.html
+Default,"Whered You Go, Bernadette",1,18.13,In stock,https://books.toscrape.com/catalogue/whered-you-go-bernadette_304/index.html
+Default,Twilight (Twilight #1),2,41.93,In stock,https://books.toscrape.com/catalogue/twilight-twilight-1_293/index.html
+Default,The Paris Wife,3,36.8,In stock,https://books.toscrape.com/catalogue/the-paris-wife_269/index.html
+Default,The Maze Runner (The Maze Runner #1),1,20.93,In stock,https://books.toscrape.com/catalogue/the-maze-runner-the-maze-runner-1_263/index.html
+Default,The Lovers Dictionary,2,58.09,In stock,https://books.toscrape.com/catalogue/the-lovers-dictionary_262/index.html
+Default,The Goldfinch,3,43.58,In stock,https://books.toscrape.com/catalogue/the-goldfinch_252/index.html
 New Adult,Without Borders (Wanderlove #1),2,45.07,In stock,https://books.toscrape.com/catalogue/without-borders-wanderlove-1_956/index.html
 New Adult,The Mistake (Off-Campus #2),3,43.29,In stock,https://books.toscrape.com/catalogue/the-mistake-off-campus-2_851/index.html
 New Adult,The Matchmakers Playbook (Wingmen Inc. #1),1,55.85,In stock,https://books.toscrape.com/catalogue/the-matchmakers-playbook-wingmen-inc-1_850/index.html
@@ -817,14 +817,6 @@ Poetry,The Crossover,4,38.77,In stock,https://books.toscrape.com/catalogue/the-c
 Poetry,Booked,5,17.49,In stock,https://books.toscrape.com/catalogue/booked_365/index.html
 Poetry,Twenty Love Poems and a Song of Despair,4,30.95,In stock,https://books.toscrape.com/catalogue/twenty-love-poems-and-a-song-of-despair_91/index.html
 Paranormal,"Vampire Knight, Vol. 1 (Vampire Knight #1)",1,15.4,In stock,https://books.toscrape.com/catalogue/vampire-knight-vol-1-vampire-knight-1_93/index.html
-Art,Wall and Piece,4,44.18,In stock,https://books.toscrape.com/catalogue/wall-and-piece_971/index.html
-Art,Feathers: Displays of Brilliant Plumage,3,49.05,In stock,https://books.toscrape.com/catalogue/feathers-displays-of-brilliant-plumage_695/index.html
-Art,Art and Fear: Observations on the Perils (and Rewards) of Artmaking,4,48.63,In stock,https://books.toscrape.com/catalogue/art-and-fear-observations-on-the-perils-and-rewards-of-artmaking_559/index.html
-Art,The New Drawing on the Right Side of the Brain,3,43.02,In stock,https://books.toscrape.com/catalogue/the-new-drawing-on-the-right-side-of-the-brain_550/index.html
-Art,History of Beauty,4,10.29,In stock,https://books.toscrape.com/catalogue/history-of-beauty_521/index.html
-Art,The Story of Art,4,41.14,In stock,https://books.toscrape.com/catalogue/the-story-of-art_500/index.html
-Art,The Art Book,2,32.34,In stock,https://books.toscrape.com/catalogue/the-art-book_490/index.html
-Art,Ways of Seeing,5,39.51,In stock,https://books.toscrape.com/catalogue/ways-of-seeing_94/index.html
 Young Adult,Two Boys Kissing,2,32.74,In stock,https://books.toscrape.com/catalogue/two-boys-kissing_294/index.html
 Young Adult,The New Guy (and Other Senior Year Distractions),3,44.92,In stock,https://books.toscrape.com/catalogue/the-new-guy-and-other-senior-year-distractions_266/index.html
 Young Adult,"The Land of 10,000 Madonnas",4,29.64,In stock,https://books.toscrape.com/catalogue/the-land-of-10000-madonnas_258/index.html
@@ -839,6 +831,14 @@ Young Adult,New Moon (Twilight #2),4,12.86,In stock,https://books.toscrape.com/c
 Young Adult,Girl Online On Tour (Girl Online #2),1,53.47,In stock,https://books.toscrape.com/catalogue/girl-online-on-tour-girl-online-2_101/index.html
 Young Adult,The Haters,5,27.89,In stock,https://books.toscrape.com/catalogue/the-haters_67/index.html
 Young Adult,The Art of Not Breathing,4,40.83,In stock,https://books.toscrape.com/catalogue/the-art-of-not-breathing_58/index.html
+Art,Wall and Piece,4,44.18,In stock,https://books.toscrape.com/catalogue/wall-and-piece_971/index.html
+Art,Feathers: Displays of Brilliant Plumage,3,49.05,In stock,https://books.toscrape.com/catalogue/feathers-displays-of-brilliant-plumage_695/index.html
+Art,Art and Fear: Observations on the Perils (and Rewards) of Artmaking,4,48.63,In stock,https://books.toscrape.com/catalogue/art-and-fear-observations-on-the-perils-and-rewards-of-artmaking_559/index.html
+Art,The New Drawing on the Right Side of the Brain,3,43.02,In stock,https://books.toscrape.com/catalogue/the-new-drawing-on-the-right-side-of-the-brain_550/index.html
+Art,History of Beauty,4,10.29,In stock,https://books.toscrape.com/catalogue/history-of-beauty_521/index.html
+Art,The Story of Art,4,41.14,In stock,https://books.toscrape.com/catalogue/the-story-of-art_500/index.html
+Art,The Art Book,2,32.34,In stock,https://books.toscrape.com/catalogue/the-art-book_490/index.html
+Art,Ways of Seeing,5,39.51,In stock,https://books.toscrape.com/catalogue/ways-of-seeing_94/index.html
 Psychology,The Lucifer Effect: Understanding How Good People Turn Evil,1,10.4,In stock,https://books.toscrape.com/catalogue/the-lucifer-effect-understanding-how-good-people-turn-evil_758/index.html
 Psychology,The Golden Condom: And Other Essays on Love Lost and Found,1,39.43,In stock,https://books.toscrape.com/catalogue/the-golden-condom-and-other-essays-on-love-lost-and-found_637/index.html
 Psychology,It Didnt Start with You: How Inherited Family Trauma Shapes Who We Are and How to End the Cycle,3,56.27,In stock,https://books.toscrape.com/catalogue/it-didnt-start-with-you-how-inherited-family-trauma-shapes-who-we-are-and-how-to-end-the-cycle_593/index.html
@@ -846,7 +846,6 @@ Psychology,An Unquiet Mind: A Memoir of Moods and Madness,3,21.3,In stock,https:
 Psychology,"Thinking, Fast and Slow",1,21.14,In stock,https://books.toscrape.com/catalogue/thinking-fast-and-slow_289/index.html
 Psychology,Civilization and Its Discontents,2,59.95,In stock,https://books.toscrape.com/catalogue/civilization-and-its-discontents_140/index.html
 Psychology,8 Keys to Mental Health Through Exercise,1,31.04,In stock,https://books.toscrape.com/catalogue/8-keys-to-mental-health-through-exercise_114/index.html
-Parenting,Catastrophic Happiness: Finding Joy in Childhoods Messy Years,2,37.35,In stock,https://books.toscrape.com/catalogue/catastrophic-happiness-finding-joy-in-childhoods-messy-years_138/index.html
 Autobiography,The Argonauts,2,10.93,In stock,https://books.toscrape.com/catalogue/the-argonauts_837/index.html
 Autobiography,M Train,1,27.18,In stock,https://books.toscrape.com/catalogue/m-train_598/index.html
 Autobiography,Lab Girl,1,40.85,In stock,https://books.toscrape.com/catalogue/lab-girl_595/index.html
@@ -856,6 +855,7 @@ Autobiography,Me Talk Pretty One Day,2,57.6,In stock,https://books.toscrape.com/
 Autobiography,Lust & Wonder,2,11.87,In stock,https://books.toscrape.com/catalogue/lust-wonder_191/index.html
 Autobiography,Life Without a Recipe,5,59.04,In stock,https://books.toscrape.com/catalogue/life-without-a-recipe_188/index.html
 Autobiography,A Heartbreaking Work of Staggering Genius,5,54.29,In stock,https://books.toscrape.com/catalogue/a-heartbreaking-work-of-staggering-genius_115/index.html
+Parenting,Catastrophic Happiness: Finding Joy in Childhoods Messy Years,2,37.35,In stock,https://books.toscrape.com/catalogue/catastrophic-happiness-finding-joy-in-childhoods-messy-years_138/index.html
 Adult Fiction,Fifty Shades Freed (Fifty Shades #3),5,15.36,In stock,https://books.toscrape.com/catalogue/fifty-shades-freed-fifty-shades-3_156/index.html
 Humor,The Long Haul (Diary of a Wimpy Kid #9),1,44.07,In stock,https://books.toscrape.com/catalogue/the-long-haul-diary-of-a-wimpy-kid-9_757/index.html
 Humor,Old School (Diary of a Wimpy Kid #10),5,11.83,In stock,https://books.toscrape.com/catalogue/old-school-diary-of-a-wimpy-kid-10_723/index.html
@@ -902,12 +902,6 @@ History,The Hiding Place,4,55.91,In stock,https://books.toscrape.com/catalogue/t
 History,Americas War for the Greater Middle East: A Military History,2,51.22,In stock,https://books.toscrape.com/catalogue/americas-war-for-the-greater-middle-east-a-military-history_361/index.html
 History,The Guns of August,2,14.54,In stock,https://books.toscrape.com/catalogue/the-guns-of-august_254/index.html
 History,"House of Lost Worlds: Dinosaurs, Dynasties, and the Story of Life on Earth",2,43.7,In stock,https://books.toscrape.com/catalogue/house-of-lost-worlds-dinosaurs-dynasties-and-the-story-of-life-on-earth_170/index.html
-Christian Fiction,Redeeming Love,5,20.47,In stock,https://books.toscrape.com/catalogue/redeeming-love_826/index.html
-Christian Fiction,Close to You,4,49.46,In stock,https://books.toscrape.com/catalogue/close-to-you_798/index.html
-Christian Fiction,Shadows of the Past (Logan Point #1),5,39.67,In stock,https://books.toscrape.com/catalogue/shadows-of-the-past-logan-point-1_541/index.html
-Christian Fiction,Like Never Before (Walker Family #2),2,28.77,In stock,https://books.toscrape.com/catalogue/like-never-before-walker-family-2_476/index.html
-Christian Fiction,Counted With the Stars (Out from Egypt #1),5,17.97,In stock,https://books.toscrape.com/catalogue/counted-with-the-stars-out-from-egypt-1_463/index.html
-Christian Fiction,If I Run (If I Run #1),4,49.97,In stock,https://books.toscrape.com/catalogue/if-i-run-if-i-run-1_174/index.html
 Food and Drink,"Foolproof Preserving: A Guide to Small Batch Jams, Jellies, Pickles, Condiments, and More: A Foolproof Guide to Making Small Batch Jams, Jellies, Pickles, Condiments, and More",3,30.52,In stock,https://books.toscrape.com/catalogue/foolproof-preserving-a-guide-to-small-batch-jams-jellies-pickles-condiments-and-more-a-foolproof-guide-to-making-small-batch-jams-jellies-pickles-condiments-and-more_978/index.html
 Food and Drink,"The Pioneer Woman Cooks: Dinnertime: Comfort Classics, Freezer Food, 16-Minute Meals, and Other Delicious Ways to Solve Supper!",1,56.41,In stock,https://books.toscrape.com/catalogue/the-pioneer-woman-cooks-dinnertime-comfort-classics-freezer-food-16-minute-meals-and-other-delicious-ways-to-solve-supper_943/index.html
 Food and Drink,My Paris Kitchen: Recipes and Stories,2,33.37,In stock,https://books.toscrape.com/catalogue/my-paris-kitchen-recipes-and-stories_910/index.html
@@ -928,6 +922,12 @@ Food and Drink,Cravings: Recipes for What You Want to Eat,3,20.5,In stock,https:
 Food and Drink,"The Moosewood Cookbook: Recipes from Moosewood Restaurant, Ithaca, New York",4,12.34,In stock,https://books.toscrape.com/catalogue/the-moosewood-cookbook-recipes-from-moosewood-restaurant-ithaca-new-york_574/index.html
 Food and Drink,32 Yolks,2,53.63,In stock,https://books.toscrape.com/catalogue/32-yolks_510/index.html
 Food and Drink,"Naturally Lean: 125 Nourishing Gluten-Free, Plant-Based Recipes--All Under 300 Calories",5,11.38,In stock,https://books.toscrape.com/catalogue/naturally-lean-125-nourishing-gluten-free-plant-based-recipes-all-under-300-calories_479/index.html
+Christian Fiction,Redeeming Love,5,20.47,In stock,https://books.toscrape.com/catalogue/redeeming-love_826/index.html
+Christian Fiction,Close to You,4,49.46,In stock,https://books.toscrape.com/catalogue/close-to-you_798/index.html
+Christian Fiction,Shadows of the Past (Logan Point #1),5,39.67,In stock,https://books.toscrape.com/catalogue/shadows-of-the-past-logan-point-1_541/index.html
+Christian Fiction,Like Never Before (Walker Family #2),2,28.77,In stock,https://books.toscrape.com/catalogue/like-never-before-walker-family-2_476/index.html
+Christian Fiction,Counted With the Stars (Out from Egypt #1),5,17.97,In stock,https://books.toscrape.com/catalogue/counted-with-the-stars-out-from-egypt-1_463/index.html
+Christian Fiction,If I Run (If I Run #1),4,49.97,In stock,https://books.toscrape.com/catalogue/if-i-run-if-i-run-1_174/index.html
 Business,The Dirty Little Secrets of Getting Your Dream Job,4,33.34,In stock,https://books.toscrape.com/catalogue/the-dirty-little-secrets-of-getting-your-dream-job_994/index.html
 Business,The Third Wave: An Entrepreneurâs Vision of the Future,5,12.61,In stock,https://books.toscrape.com/catalogue/the-third-wave-an-entrepreneurs-vision-of-the-future_862/index.html
 Business,The 10% Entrepreneur: Live Your Startup Dream Without Quitting Your Day Job,3,27.55,In stock,https://books.toscrape.com/catalogue/the-10-entrepreneur-live-your-startup-dream-without-quitting-your-day-job_836/index.html
@@ -940,11 +940,6 @@ Business,The E-Myth Revisited: Why Most Small Businesses Dont Work and What to D
 Business,"Rich Dad, Poor Dad",1,51.74,In stock,https://books.toscrape.com/catalogue/rich-dad-poor-dad_483/index.html
 Business,The Lean Startup: How Todays Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses,3,33.92,In stock,https://books.toscrape.com/catalogue/the-lean-startup-how-todays-entrepreneurs-use-continuous-innovation-to-create-radically-successful-businesses_260/index.html
 Business,Rework,2,44.88,In stock,https://books.toscrape.com/catalogue/rework_212/index.html
-Biography,Louisa: The Extraordinary Life of Mrs. Adams,2,16.85,In stock,https://books.toscrape.com/catalogue/louisa-the-extraordinary-life-of-mrs-adams_818/index.html
-Biography,"Setting the World on Fire: The Brief, Astonishing Life of St. Catherine of Siena",2,21.15,In stock,https://books.toscrape.com/catalogue/setting-the-world-on-fire-the-brief-astonishing-life-of-st-catherine-of-siena_603/index.html
-Biography,The Faith of Christopher Hitchens: The Restless Soul of the Worlds Most Notorious Atheist,1,39.55,In stock,https://books.toscrape.com/catalogue/the-faith-of-christopher-hitchens-the-restless-soul-of-the-worlds-most-notorious-atheist_495/index.html
-Biography,Benjamin Franklin: An American Life,3,48.19,In stock,https://books.toscrape.com/catalogue/benjamin-franklin-an-american-life_460/index.html
-Biography,The Rise of Theodore Roosevelt (Theodore Roosevelt #1),3,42.57,In stock,https://books.toscrape.com/catalogue/the-rise-of-theodore-roosevelt-theodore-roosevelt-1_276/index.html
 Food and Drink,How to Cook Everything Vegetarian: Simple Meatless Recipes for Great Food (How to Cook Everything),4,46.01,In stock,https://books.toscrape.com/catalogue/how-to-cook-everything-vegetarian-simple-meatless-recipes-for-great-food-how-to-cook-everything_471/index.html
 Food and Drink,How to Be a Domestic Goddess: Baking and the Art of Comfort Cooking,2,28.25,In stock,https://books.toscrape.com/catalogue/how-to-be-a-domestic-goddess-baking-and-the-art-of-comfort-cooking_470/index.html
 Food and Drink,The Barefoot Contessa Cookbook,5,59.92,In stock,https://books.toscrape.com/catalogue/the-barefoot-contessa-cookbook_440/index.html
@@ -955,6 +950,11 @@ Food and Drink,Vegan Vegetarian Omnivore: Dinner for Everyone at the Table,2,13.
 Food and Drink,The Smitten Kitchen Cookbook,1,23.59,In stock,https://books.toscrape.com/catalogue/the-smitten-kitchen-cookbook_281/index.html
 Food and Drink,"The Art of Simple Food: Notes, Lessons, and Recipes from a Delicious Revolution",3,34.32,In stock,https://books.toscrape.com/catalogue/the-art-of-simple-food-notes-lessons-and-recipes-from-a-delicious-revolution_229/index.html
 Food and Drink,Hungry Girl Clean & Hungry: Easy All-Natural Recipes for Healthy Eating in the Real World,3,33.14,In stock,https://books.toscrape.com/catalogue/hungry-girl-clean-hungry-easy-all-natural-recipes-for-healthy-eating-in-the-real-world_171/index.html
+Biography,Louisa: The Extraordinary Life of Mrs. Adams,2,16.85,In stock,https://books.toscrape.com/catalogue/louisa-the-extraordinary-life-of-mrs-adams_818/index.html
+Biography,"Setting the World on Fire: The Brief, Astonishing Life of St. Catherine of Siena",2,21.15,In stock,https://books.toscrape.com/catalogue/setting-the-world-on-fire-the-brief-astonishing-life-of-st-catherine-of-siena_603/index.html
+Biography,The Faith of Christopher Hitchens: The Restless Soul of the Worlds Most Notorious Atheist,1,39.55,In stock,https://books.toscrape.com/catalogue/the-faith-of-christopher-hitchens-the-restless-soul-of-the-worlds-most-notorious-atheist_495/index.html
+Biography,Benjamin Franklin: An American Life,3,48.19,In stock,https://books.toscrape.com/catalogue/benjamin-franklin-an-american-life_460/index.html
+Biography,The Rise of Theodore Roosevelt (Theodore Roosevelt #1),3,42.57,In stock,https://books.toscrape.com/catalogue/the-rise-of-theodore-roosevelt-theodore-roosevelt-1_276/index.html
 Thriller,In Her Wake,1,12.84,In stock,https://books.toscrape.com/catalogue/in-her-wake_980/index.html
 Thriller,The Elephant Tree,5,23.82,In stock,https://books.toscrape.com/catalogue/the-elephant-tree_968/index.html
 Thriller,Behind Closed Doors,4,52.22,In stock,https://books.toscrape.com/catalogue/behind-closed-doors_962/index.html

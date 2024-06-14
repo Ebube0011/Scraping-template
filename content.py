@@ -17,4 +17,9 @@ class Dataset:
     
     def dataframe(self):
         return pd.json_normalize(
-            [asdict(record) for record in self.records])
+            data=[asdict(record) for record in self.records],
+            # record_path="counties", 
+            # meta=["state", "shortname", ["info", "governor"]],
+            # errors='ignore',
+            # max_level=1,
+            )

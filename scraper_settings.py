@@ -1,7 +1,7 @@
 import os
 
 ''' WORKERS '''
-MAX_WORKERS:int = 3
+MAX_WORKERS:int = 25
 
 ''' STORAGE '''
 STORAGE_TYPE:str = 'csv'#'db','obj', 'csv', 'excel'
@@ -9,7 +9,7 @@ STORAGE_TYPE:str = 'csv'#'db','obj', 'csv', 'excel'
 
 ''' PIPELINE STEPS '''
 STEPS:list[str] = ['remove_nulls', 'clean_title', 'clean_rating', 
-         'clean_price', 'clean_link']
+                   'clean_price', 'clean_link']
 
 
 ''' WEBSITE '''
@@ -25,14 +25,14 @@ DB_PORT:int = 3306
 
 
 ''' AWS '''
-KEY='<key>' # os.environ.get('AWS_KEY')
-SECRET='<secret>' # os.environ.get('AWS_SECRET_KEY')
-REGION='us-east-1' # os.environ.get('AWS_REGION')
+KEY:str='<key>' # os.environ.get('AWS_KEY')
+SECRET:str='<secret>' # os.environ.get('AWS_SECRET_KEY')
+REGION:str='us-east-1' # os.environ.get('AWS_REGION')
 
 ''' AWS OBJECT STORAGE '''
-#S3_STAGING_DIR='s3://ebube-scraping_projects/output/' # os.environ.get('S3_STAGING_DIR')
-S3_BUCKET_NAME='ScrapingProjects'# ebube-test-bucket # os.environ.get('S3_BUCKET_NAME')
-S3_OUTPUT_DIR='Output' # os.environ.get('S3_OUTPUT_DIR')
+#S3_STAGING_DIR:str='s3://ebube-scraping_projects/output/' # os.environ.get('S3_STAGING_DIR')
+S3_BUCKET_NAME:str='ScrapingProjects'# ebube-test-bucket # os.environ.get('S3_BUCKET_NAME')
+S3_OUTPUT_DIR:str='Output' # os.environ.get('S3_OUTPUT_DIR')
 
 
 ''' FILE STORAGE '''

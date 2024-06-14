@@ -79,9 +79,12 @@ def get_pool():
         return
     
     if (MAX_WORKERS == None):
-        size = 5
+        size = 25
     else:
-        size = MAX_WORKERS + 1
+        if (MAX_WORKERS < 25):
+            size = MAX_WORKERS + 1
+        else:
+            size = 25
 
     try:
         logger.info(f'Connecting to database {DB_NAME}')
