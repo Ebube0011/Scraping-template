@@ -3,8 +3,6 @@ import os
 from io import StringIO
 import asyncio
 import boto3
-# from mysql.connector.aio import connect
-# import mysql.connector
 import aiomysql
 from scraper_settings import DB_USER, DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT
 from scraper_settings import STORAGE_TYPE, MAX_WORKERS
@@ -77,6 +75,18 @@ async def get_pool():
     Creates a modular connection pool variable for database connections
     '''
     global cnx_pool
+
+    if (cnx_pool != None): #  and (cnx_pool.is_connected()):
+        return
+    
+    if (MAX_WORKERS == None):
+        size = 25
+    else:
+        if (MAX_WORKERS < 25):
+            size = MAX_WORKERS + 1
+        else:
+            size = 25
+
     try:
         logger.info(f'Connecting to database {DB_NAME}')
         cnx_pool = await aiomysql.create_pool(
@@ -85,7 +95,7 @@ async def get_pool():
             password= DB_PASSWORD,
             port= DB_PORT,
             charset='utf8',
-            maxsize=MAX_WORKERS + 1,
+            maxsize=size,
             #loop=loop
             )
     except Exception as e:
@@ -99,12 +109,11 @@ async def close_pool():
     if (cnx_pool != None):
         cnx_pool.close()
         await cnx_pool.wait_closed()
+        cnx_pool = None
 
 
 class DB_Storage:
     def __init__(self):
-        #self.cnx = None
-        #self.cur = None
         #self.connect_to_db()
         pass
 
@@ -168,7 +177,7 @@ class DB_Storage:
                         sql = f'''SELECT bookId 
                                 FROM scraping.{table_name} 
                                 WHERE title = "{title}"'''
-                            #print(f'Book Title: {title}')
+                        logger.debug(sql)
                         try:
                             #await cur.reset()
                             await cur.execute(sql)
@@ -180,11 +189,6 @@ class DB_Storage:
                             logger.info('Saving to file instead')
                             save_to_csv(filename=f'{table_name} failed_data.csv', df=df)
                             return
-                            #print(await self.cur.fetchone()[0])
-                            
-                            # if not, insert new record
-                            #print(f'Acquired book id is: {await self.cur.fetchone()[0]}')
-                            #print(f'Row count: {await self.cur.rowcount}')
                         else:
                             if (cur.rowcount == 0):
                                 #await cur.reset()

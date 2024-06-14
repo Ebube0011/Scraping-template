@@ -26,7 +26,6 @@ async def remove_nulls(**kwargs):
         return df
 
 
-
 async def clean_title(**kwargs):
     '''
     Clean the title and change the data type
@@ -45,7 +44,6 @@ async def clean_title(**kwargs):
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     finally:
         return df
-
 
 
 async def clean_rating(**kwargs):
@@ -152,9 +150,9 @@ async def save_to_csv(**kwargs):
     except Exception as e:
         logger.error('Failed to save data to file!!!')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-        return df
     else:
         logger.info(filename + ' saved Successfully!')
+    finally:
         return df
 
 
@@ -173,27 +171,25 @@ async def save_to_excel(**kwargs):
     except Exception as e:
         logger.error('Failed to save data to file!!!')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-        return df
     else:
         logger.debug(filename + ' saved Successfully!')
+    finally:
         return df
 
 async def save_to_db(**kwargs):
     '''
     inserts dataframe data into database
     '''
-    # if (kwargs['obj'].storage == None):
-    #     kwargs['obj'].storage = get_storage()
 
     df = kwargs['df'].copy()
     table_name = kwargs['filename']
     storage = kwargs['obj'].storage
     
     try:
+        logger.info(f'saving data to Database storage, table: {table_name}')
         await storage.insert_data(table_name, df)
     except AttributeError:
         logger.error('Unable to insert data into database!!!')
         logger.error('No database storage object available!!!')
-        return df
     finally:
         return df

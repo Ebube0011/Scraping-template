@@ -3,9 +3,10 @@ import re
 import time
 #import requests
 import httpx
+from requests_html import AsyncHTMLSession
 import asyncio
 from scraper_settings import STEPS, STORAGE_TYPE
-from scraper_settings import PROXIES, MAX_WORKERS, WAIT_TIME
+from scraper_settings import PROXIES, MAX_WORKERS, WAIT_TIME, HEADERS
 from inspect import getmembers, isfunction
 import pipeline_funcs
 from content import Content, Dataset
@@ -26,14 +27,34 @@ def get_user_agent():
     user_agent = ua.random
     return user_agent
 
-# get pipeline functions
-p_funcs = getmembers(pipeline_funcs, isfunction)
+def check_for_proxies():
+    '''
+    check if proxies are provided
+    '''
+    try:
+        check = PROXIES['https']
+        check = PROXIES['http']
+    except KeyError:
+        return False
+    else:
+        return True
 
-# add to dictionary
-funcs = {}
-for p_func in p_funcs:
-    func_name, func = p_func
-    funcs[func_name] = func
+def get_pipeline_funcs():
+    '''
+    Get all the functions in the pipeline funcs module
+    and return them in a dictionary with the name and 
+    function address
+    '''
+    # get pipeline functions
+    p_funcs = getmembers(pipeline_funcs, isfunction)
+
+    # add to dictionary
+    funcs = {}
+    for p_func in p_funcs:
+        func_name, func = p_func
+        funcs[func_name] = func
+
+    return funcs
 
 #user_agent = get_user_agent()
 
@@ -42,22 +63,34 @@ class BeautifulCrawler:
         #self.session = requests.Session()
         self.session = httpx.AsyncClient(event_hooks={'request':[self.log_request],
                                                       'response':[self.log_response]})
+        # self.js_session = AsyncHTMLSession()
         self.visited = set()
-        self.storage = get_repo()
-        self.pipeline_functions: dict = funcs
+        # self.found = set()
+        self.storage = None
+        self.pipeline_functions: dict = get_pipeline_funcs()
         self.steps: list[str] = STEPS
         self.proxies_available: bool = self.check_for_proxies()
         self.work_queue = asyncio.Queue()
+        self.items_scraped:int = 0
 
         # add storage func to pipeline steps
         if (STORAGE_TYPE == 'db') and (not 'save_to_db' in self.steps):
+            logger.debug('Database storage method selected!')
+            self.storage = get_repo()
             self.steps.append('save_to_db')
         elif (STORAGE_TYPE == 'obj') and (not 'save_to_obj' in self.steps):
+            logger.debug('Object storage method selected!')
+            self.storage = get_repo()
             self.steps.append('save_to_obj')
         elif (STORAGE_TYPE == 'excel') and (not 'save_to_excel' in self.steps):
+            logger.debug('File storage method selected, data will be stored in .xlsx format')
             self.steps.append('save_to_excel')
         elif (STORAGE_TYPE == 'csv') and (not 'save_to_csv' in self.steps):
+            logger.debug('File storage method selected, data will be stored in .csv format')
             self.steps.append('save_to_csv')
+        else:
+            logger.debug('No valid storage method selected, data will be printed')
+            self.steps.append('print_it')
 
     async def __aenter__(self):
         '''
@@ -77,15 +110,44 @@ class BeautifulCrawler:
         logger.info(f'Response: {request.method} {request.url} - Status {response.status_code}')
     
     
+    def get_headers(self):
+        '''
+        Check for provision of headers
+        return headers if available, if not return none
+        '''
+        try:
+            check = HEADERS['User-Agent']
+        except KeyError:
+            return None
+        else:
+            return HEADERS
+    
+    def get_proxies(self):
+        '''
+        Check for provision of proxies
+        return proxies if available, if not return none
+        '''
+        if(self.proxies_available):
+            return PROXIES
+        else:
+            return None
+    
     async def get_page(self, url):
         '''
         Gets the html of the page and converts it to beautiful soup
         Returns beautiful soup object or None if page was no found
         '''
+        # set the headers
+        headers = self.get_headers()
+        # add proxies
+        proxies = self.get_proxies()
+
         try:
             await asyncio.sleep(WAIT_TIME)
             logger.info(f'Getting page: {url}')
-            response = await self.session.get(url, 
+            response = await self.session.get(url,
+                                            #   headers=headers, 
+                                            #   proxies=proxies,
                                               #allow_redirects=True
                                               )
         # except requests.exceptions.RequestException as e:
@@ -101,13 +163,63 @@ class BeautifulCrawler:
             if (response.status_code == 200):
                 html = response.text
                 return BeautifulSoup(html, 'lxml')
+            elif (response.status_code == 404):
+                logger.info(f'Bad url: Page({url}) not found')
+                return None
             elif (response.status_code in server_error):
                 logger.info(f'Unable to get page({url}) due to server error')
                 return None
             elif (response.status_code in un_authorized):
                 logger.info(f'Unable to get page({url}) due to being UnAuthorized')
-                logger.info(f'Attempting to get page with masking')
-                self.anon_get_page(url)
+                if (headers == None) or (proxies == None):
+                    logger.info('Add proxy or change headers and try again!!')
+                else:
+                    logger.info('Look for another solution and try again!!')
+    
+    
+    # async def get_js_page(self, url):
+    #     '''
+    #     Gets the html of the page and converts it to beautiful soup
+    #     Returns beautiful soup object or None if page was no found
+    #     '''
+    #     # set the headers
+    #     headers = self.get_headers()
+    #     # add proxies
+    #     proxies = self.get_proxies()
+
+    #     try:
+    #         await asyncio.sleep(WAIT_TIME)
+    #         logger.info(f'Getting page: {url}')
+    #         response = await self.js_session.get(url,
+    #                                         #   headers=headers, 
+    #                                         #   proxies=proxies,
+    #                                           #allow_redirects=True
+    #                                           )
+    #     # except requests.exceptions.RequestException as e:
+    #     #     logger.error('Unable to get page!!!')
+    #     #     logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+    #     #     return None
+    #     except Exception as e:
+    #         logger.error('Unable to get page!!!')
+    #         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+    #     else:
+    #         un_authorized = [401, 403]
+    #         server_error = [500, 501]
+    #         if (response.status_code == 200):
+    #             html = response.text
+    #             return BeautifulSoup(html, 'lxml')
+    #         elif (response.status_code == 404):
+    #             logger.info(f'Bad url: Page({url}) not found')
+    #             return None
+    #         elif (response.status_code in server_error):
+    #             logger.info(f'Unable to get page({url}) due to server error')
+    #             return None
+    #         elif (response.status_code in un_authorized):
+    #             logger.info(f'Unable to get page({url}) due to being UnAuthorized')
+    #             if (headers == None) or (proxies == None):
+    #                 logger.info('Add proxy or change headers and try again!!')
+    #             else:
+    #                 logger.info('Look for another solution and try again!!')
 
     def check_for_proxies(self):
         '''
@@ -120,48 +232,6 @@ class BeautifulCrawler:
             return False
         else:
             return True
-
-    async def anon_get_page(self, url):
-        '''
-        Gets the html of the page anonymously and converts it to beautiful soup
-        Returns beautiful soup object or None if page was no found
-        '''
-        headers = {'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0',
-                   'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-                   'Accept-Language': 'en-GB,en;q=0.9,en-US;q=0.8'
-                  }
-    
-        #requests.get('https://icanhazip.com', proxies=proxies).text.strip()
-        # get the webpage
-        try:
-            await asyncio.sleep(WAIT_TIME)
-            logger.info(f'Getting page: {url}')
-            if(self.proxies_available):
-                proxies = PROXIES
-            else:
-                proxies = None
-
-            response = await self.session.get(url, 
-                                    headers=headers, 
-                                    proxies=proxies,
-                                    #allow_redirects=True,
-                                )
-        # except requests.exceptions.RequestException as e:
-        #     logger.info('Unable to get page!!!')
-        #     logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-        #     return None
-        except Exception as e:
-            logger.info('Unable to get page!!!')
-            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-            return None
-        else:
-            server_error = [500, 501]
-            if (response.status_code == 200):
-                html = response.text
-                return BeautifulSoup(html, 'lxml')
-            elif (response.status_code in server_error):
-                logger.info(f'Unable to get page({url}) due to server error')
-                return None
 
     def clean_attrs(self, attrs):
         '''
@@ -273,18 +343,20 @@ class BeautifulCrawler:
             return
             
         # instantiate the dataset object
-        dataset = Dataset(endpoint= website.name)
+        dataset = Dataset()
+        dataset.endpoint = website.name
         
         # loop through all product data
         for product in products:
             # instantiate the content object
-            content = Content(category= category,
-                              title= self.safe_get(product, website.titleTag),
-                              rating = self.safe_get(product, website.ratingTag),
-                              price = self.safe_get(product, website.priceTag),
-                              availability = self.safe_get(product, website.availabilityTag),
-                              link = self.safe_get(product, website.linkTag)
-            )
+            content = Content()
+            content.category= category
+            content.title= self.safe_get(product, website.titleTag)
+            content.rating = self.safe_get(product, website.ratingTag)
+            content.price = self.safe_get(product, website.priceTag)
+            content.availability = self.safe_get(product, website.availabilityTag)
+            content.link = self.safe_get(product, website.linkTag)
+            
             if (website.linkTag['r-url']) and (content.link != ''):
                 content.link = '{}/{}'.format(website.url, content.link)
                 
@@ -364,9 +436,6 @@ class BeautifulCrawler:
                         # parse page data
                         await self.parse(targetPage, website)
                         #logger.info('-' * 50)
-        # end_time = time.perf_counter()
-        # logger.info(f"Exhausted time: {end_time - start_time:.2f}s")
-        # logger.info(f"Crawling Complete!!")
 
     async def pipeline(self, dataset:Dataset):
         '''
@@ -384,10 +453,10 @@ class BeautifulCrawler:
                 return
             
             # create dataframe
+            self.items_scraped += len(dataset.records)
             df = dataset.dataframe()
 
             # run pipeline steps/stages
-            print_data = True
             if (self.steps != None) and (len(self.steps) > 0):
                 for step in self.steps:
                     for func_name, func in self.pipeline_functions.items():
@@ -395,14 +464,10 @@ class BeautifulCrawler:
                             logger.debug(f'Executing {func_name} on dataset')
                             df = await func(df=df, filename=dataset.endpoint, obj=self)
                             logger.debug(f'Finished execution of {func_name} on dataset')
-                        if ('save' in func_name):
-                            print_data = False
-
-            # store the data
-            if (print_data):
-                records = df.to_dict(orient='records')
-                for record in records:
-                    logger.info(f'Data: {record}')
+                        elif (step == 'print_it'):
+                            records = df.to_dict(orient='records')
+                            for record in records:
+                                logger.info(f'Data: {record}')
         
         logger.info('Pipeline process complete')
         #logger.info('>'*25)
@@ -418,19 +483,27 @@ class BeautifulCrawler:
         
 
         # start workers
+        if(len(sites) < MAX_WORKERS):
+            no_workers = len(sites)
+        else:
+            no_workers = MAX_WORKERS
+
         tasks = [asyncio.create_task(self.task(str(index))) 
-                for index in range(1, MAX_WORKERS+1)]
-        # done, pending = await asyncio.wait(tasks)
+                for index in range(1, no_workers+1)]
+        
         logger.info(f"Worker(s) starting work...")
         
         # record start timer
         start = time.perf_counter()
 
-        await asyncio.wait(tasks)
+        done, pending = await asyncio.wait(tasks)
+        # await asyncio.wait(tasks)
 
 
-        duration = time.perf_counter() - start
-        logger.info(f"Worker(s) finished all work in time: {duration:.2f}s")
+        fin = time.perf_counter() - start
+        logger.info(f"Total number of pages scraped: {len(self.visited)}")
+        logger.info(f"Total number of items scraped: {self.items_scraped}")
+        logger.info(f"Worker(s) finished all work in time: {fin:.2f}s")
         # clean up async shit that can't be done in the exit func
         #await self.clean_up()
         
@@ -444,26 +517,28 @@ class BeautifulCrawler:
         while not self.work_queue.empty():
             # get site data from the work queue
             site = await self.work_queue.get()
+
             # instantiate the website object
-            website = Website(name= site['name'],
-                              url = site['url'],
-                              targetPattern = site['targetTag'],
-                              absoluteUrl = site['AbsoluteUrl'],
-                              paginationTag = site['nextPageTag'],
-                              itemsTag = site['itemsTag'],
-                              categoryTag = site['categoryTag'],
-                              titleTag = site['titleTag'],
-                              ratingTag = site['ratingTag'],
-                              priceTag = site['priceTag'],
-                              availabilityTag = site['availabilityTag'],
-                              linkTag = site['linkTag']
-                          )
+            website = Website()
+            website.name = site['name']
+            website.url = site['url']
+            website.targetPattern = site['targetTag']
+            website.absoluteUrl = site['AbsoluteUrl']
+            website.paginationTag = site['nextPageTag']
+            website.itemsTag = site['itemsTag']
+            website.categoryTag = site['categoryTag']
+            website.titleTag = site['titleTag']
+            website.ratingTag = site['ratingTag']
+            website.priceTag = site['priceTag']
+            website.availabilityTag = site['availabilityTag']
+            website.linkTag = site['linkTag']
+
             # do the actual task of crawling/scraping
             logger.info(f"Worker-{name} crawling {website.name}")
             start = time.perf_counter()
             await self.crawl(website)
-            duration = time.perf_counter() - start
-            logger.info(f"Worker-{name} completed task in time: {duration: .2f}s")
+            fin = time.perf_counter() - start
+            logger.info(f"Worker-{name} finished crawling {website.name} in time: {fin: .2f}s")
         
 
     async def __aexit__(self, type, value, traceback):
@@ -471,8 +546,9 @@ class BeautifulCrawler:
         Closes the storage pool on exit from context manager
         '''
 
-        # close the connection pool
-        await close_pool()
+        # close the database connection pool if storage type used was database
+        if (STORAGE_TYPE == 'db'):
+            await close_pool()
 
         # close the session
         await self.session.aclose()
