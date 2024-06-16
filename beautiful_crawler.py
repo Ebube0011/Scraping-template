@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
 import re
 import time
-#import requests
-import httpx
-from requests_html import AsyncHTMLSession
+import requests
+# import httpx
+from requests_html import AsyncHTMLSession, HTML
 import asyncio
 from scraper_settings import STEPS, STORAGE_TYPE
 from scraper_settings import PROXIES, MAX_WORKERS, WAIT_TIME, HEADERS
@@ -61,9 +61,9 @@ def get_pipeline_funcs():
 class BeautifulCrawler:
     def __init__(self):
         #self.session = requests.Session()
-        self.session = httpx.AsyncClient(event_hooks={'request':[self.log_request],
-                                                      'response':[self.log_response]})
-        # self.js_session = AsyncHTMLSession()
+        # self.session = httpx.AsyncClient(event_hooks={'request':[self.log_request],
+        #                                               'response':[self.log_response]})
+        self.session = AsyncHTMLSession()
         self.visited = set()
         # self.found = set()
         self.storage = None
@@ -101,13 +101,14 @@ class BeautifulCrawler:
             await self.storage.create_tables()
         return self
     
-    async def log_request(self, request):
-        logger.debug(f'Request: {request.method} {request.url}')
+    def get_html_doc(self, doc:str):
+        '''
+        Takes a html string and converts it to a beautiful soup
+        object
+        '''
+        html = HTML(html=doc, async_=True)
 
-    
-    async def log_response(self, response):
-        request = response.request
-        logger.info(f'Response: {request.method} {request.url} - Status {response.status_code}')
+        return BeautifulSoup(html, 'lxml')
     
     
     def get_headers(self):
@@ -142,84 +143,69 @@ class BeautifulCrawler:
         # add proxies
         proxies = self.get_proxies()
 
+        # to update the cookies
+        # self.session.cookies.update(other)
+
+        # to see domains
+        # cookies.list_domains()
+        # cookes.list_paths()
+
+        # clearing cookies
+        # self.session.cookies.clear(
+        #     # domain=None,
+        #     # path=None,
+        #     # name=None
+        #     )
+        # self.session.cookies.copy()
+        self.session.cookies.clear_session_cookies()
+
+        # make request
         try:
             await asyncio.sleep(WAIT_TIME)
             logger.info(f'Getting page: {url}')
+            # response = self.session.get('https://icanhazip.com', proxies=proxies)
+            # return response.text.strip()
             response = await self.session.get(url,
-                                            #   headers=headers, 
-                                            #   proxies=proxies,
-                                              #allow_redirects=True
+                                              headers=headers, 
+                                              proxies=proxies,
+                                              allow_redirects=True
                                               )
-        # except requests.exceptions.RequestException as e:
-        #     logger.error('Unable to get page!!!')
-        #     logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-        #     return None
+        except requests.exceptions.ConnectionError as e:
+            logger.error('Unable to get page due to lack of network connection!!!')
+            return None
         except Exception as e:
             logger.error('Unable to get page!!!')
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
         else:
-            un_authorized = [401, 403]
-            server_error = [500, 501]
-            if (response.status_code == 200):
-                html = response.text
+            if (response.status_code == requests.codes.ok):#(response.status_code == 200):
+                # response.html.arender(
+                #     script=script,
+                #     retries= 3,
+                #     wait=1.2,
+                #     scrolldown=10,
+                #     sleep=1,
+                #     keep_page=True,
+                #     timeout=30,
+                # )
+                # html = response.text
+                html = response.html.html
                 return BeautifulSoup(html, 'lxml')
-            elif (response.status_code == 404):
-                logger.info(f'Bad url: Page({url}) not found')
-                return None
-            elif (response.status_code in server_error):
-                logger.info(f'Unable to get page({url}) due to server error')
-                return None
-            elif (response.status_code in un_authorized):
-                logger.info(f'Unable to get page({url}) due to being UnAuthorized')
-                if (headers == None) or (proxies == None):
-                    logger.info('Add proxy or change headers and try again!!')
+            else:
+                if (response.status_code == 400):
+                    err_message = "Your request is either wrong or missing some information."
+                elif (response.status_code == 401):
+                    err_message = "Your request requires some additional permissions."
+                elif (response.status_code == 404):
+                    err_message = "The request resource doesn't exist."
+                elif (response.status_code == 405):
+                    err_message = "The endpoint doesn't allow for that specific HTTP method."
+                elif (response.status_code == 500):
+                    err_message = "Your request wasn't expected and probably broke something on the server side."
                 else:
-                    logger.info('Look for another solution and try again!!')
-    
-    
-    # async def get_js_page(self, url):
-    #     '''
-    #     Gets the html of the page and converts it to beautiful soup
-    #     Returns beautiful soup object or None if page was no found
-    #     '''
-    #     # set the headers
-    #     headers = self.get_headers()
-    #     # add proxies
-    #     proxies = self.get_proxies()
+                    err_message = 'Failed request'
+                logger.error(f'Response status code- {response.status_code}, reason: {response.reason}')
+                logger.error(err_message)
 
-    #     try:
-    #         await asyncio.sleep(WAIT_TIME)
-    #         logger.info(f'Getting page: {url}')
-    #         response = await self.js_session.get(url,
-    #                                         #   headers=headers, 
-    #                                         #   proxies=proxies,
-    #                                           #allow_redirects=True
-    #                                           )
-    #     # except requests.exceptions.RequestException as e:
-    #     #     logger.error('Unable to get page!!!')
-    #     #     logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-    #     #     return None
-    #     except Exception as e:
-    #         logger.error('Unable to get page!!!')
-    #         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-    #     else:
-    #         un_authorized = [401, 403]
-    #         server_error = [500, 501]
-    #         if (response.status_code == 200):
-    #             html = response.text
-    #             return BeautifulSoup(html, 'lxml')
-    #         elif (response.status_code == 404):
-    #             logger.info(f'Bad url: Page({url}) not found')
-    #             return None
-    #         elif (response.status_code in server_error):
-    #             logger.info(f'Unable to get page({url}) due to server error')
-    #             return None
-    #         elif (response.status_code in un_authorized):
-    #             logger.info(f'Unable to get page({url}) due to being UnAuthorized')
-    #             if (headers == None) or (proxies == None):
-    #                 logger.info('Add proxy or change headers and try again!!')
-    #             else:
-    #                 logger.info('Look for another solution and try again!!')
 
     def check_for_proxies(self):
         '''
@@ -551,4 +537,4 @@ class BeautifulCrawler:
             await close_pool()
 
         # close the session
-        await self.session.aclose()
+        await self.session.close()
