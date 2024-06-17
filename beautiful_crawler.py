@@ -12,21 +12,21 @@ from inspect import getmembers, isfunction
 import pipeline_funcs
 from content import Content, Dataset
 from storage import get_repo, close_pool, get_pool
-from fake_useragent import UserAgent
+#from fake_useragent import UserAgent
 from utils.log_tool import get_logger
 from website import Website
 
 logger = get_logger("WEB_SCRAPER")
 
-def get_user_agent():
-    '''
-    Gets a random user agent
-    Returns user agent as string object
-    '''
-    ua = UserAgent()
-    #ua = UserAgent(cache=False, use_cache_server=False)
-    user_agent = ua.random
-    return user_agent
+# def get_user_agent():
+#     '''
+#     Gets a random user agent
+#     Returns user agent as string object
+#     '''
+#     ua = UserAgent()
+#     #ua = UserAgent(cache=False, use_cache_server=False)
+#     user_agent = ua.random
+#     return user_agent
 
 def check_for_proxies():
     '''
