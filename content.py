@@ -1,5 +1,5 @@
 from dataclasses import dataclass, asdict, field
-import pandas as pd
+from pandas import json_normalize
 
 @dataclass
 class Content:
@@ -16,7 +16,7 @@ class Dataset:
     records:list[Content] = field(default_factory=list)
     
     def dataframe(self):
-        return pd.json_normalize(
+        return json_normalize(
             data=[asdict(record) for record in self.records],
             # record_path="counties", 
             # meta=["state", "shortname", ["info", "governor"]],

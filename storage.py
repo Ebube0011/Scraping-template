@@ -1,6 +1,7 @@
 import mysql.connector
 from io import StringIO
 import boto3
+from pandas import DataFrame
 from scraper_settings import DB_USER, DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT
 from scraper_settings import STORAGE_TYPE, MAX_WORKERS
 from scraper_settings import S3_BUCKET_NAME, S3_OUTPUT_DIR
@@ -41,7 +42,7 @@ class Obj_Storage:
             logger.error('Unable to connect to object storage!!')
             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
 
-    def insert_data(self, filename, df):
+    def insert_data(self, filename, df:DataFrame):
         # add prefix with timestamp
         timestamp = datetime.now()
         prefix = f'/scp_{timestamp}/'
@@ -141,7 +142,7 @@ class DB_Storage:
                 cur.execute('USE scraping')
                 cur.execute(sql)
 
-    def insert_data(self, table_name, df):
+    def insert_data(self, table_name, df:DataFrame):
         global cnx_pool
         # connect to database if there is no connection
         if (cnx_pool == None) or (not cnx_pool.is_connected()):

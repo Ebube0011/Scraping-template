@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from pandas import DataFrame
 from numpy import nan
 import re
 from utils.log_tool import get_logger
@@ -12,7 +13,7 @@ def remove_nulls(**kwargs):
     '''
     Remove rows that are all null 
     '''
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
 
     try:
         # remove missing data
@@ -21,6 +22,7 @@ def remove_nulls(**kwargs):
         df.dropna(axis='index', subset=['title', 'link'], inplace=True) # define in which cols to find the missing values
         # df.dropna(axis='index', thresh=2, inplace=True)# 0=index, 1|columns
     except Exception as e:
+        logger.error('Error occured while removing nulls')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     finally:
         return df
@@ -29,7 +31,7 @@ def clean_title(**kwargs):
     '''
     Clean the title and change the data type
     '''
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
     try:
         # remove any quotations in title
         #df['title'] = df['title'].apply(lambda x: x.replace('\"', ''))
@@ -41,6 +43,7 @@ def clean_title(**kwargs):
         # set dtype
         df['title'] = df['title'].astype(np.str_)
     except Exception as e:
+        logger.error('Error occured while cleaning title')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     finally:
         return df
@@ -51,7 +54,7 @@ def clean_rating(**kwargs):
     '''
     Clean the rating and correct the datatype
     '''
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
     
     try:
         df['rating'] = df['rating'].apply(lambda x: x.replace('One', '1'))
@@ -63,6 +66,7 @@ def clean_rating(**kwargs):
         # changing dtypes
         df['rating'] = df['rating'].astype(np.int64)
     except Exception as e:
+        logger.error('Error occured while cleaning rating')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     finally:
         return df
@@ -71,7 +75,7 @@ def clean_price(**kwargs):
     '''
     Clean the price, change datatype and rename column
     '''
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
     
     try:
         df['price'] = df['price'].apply(lambda x: x[2:])
@@ -83,6 +87,7 @@ def clean_price(**kwargs):
         # renaming columns
         df.rename(columns={'price': 'price_£'}, inplace=True)
     except Exception as e:
+        logger.error('Error occured while cleaning price')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     finally:
         return df
@@ -91,7 +96,7 @@ def clean_link(**kwargs):
     '''
     Clean the link and set dtype to string
     '''
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
 
     try:
     # clean the link
@@ -101,6 +106,7 @@ def clean_link(**kwargs):
         # changing dtypes
         df['link'] = df['link'].astype(np.str_)
     except Exception as e:
+        logger.error('Error occured while cleaning link')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
     finally:
         return df
@@ -137,7 +143,7 @@ def clean_link(**kwargs):
 def save_to_csv(**kwargs):
 
     filename = OUTPUT_FILE_DIRECTORY + kwargs['filename']  + '.csv'
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
     try:
         # append if file exists
         file_exists = os.path.isfile(filename)
@@ -158,7 +164,7 @@ def save_to_csv(**kwargs):
 def save_to_excel(**kwargs):
 
     filename = OUTPUT_FILE_DIRECTORY + kwargs['filename']  + '.xlsx'
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
     try:
         # append if file exists
         file_exists = os.path.isfile(filename)
@@ -180,7 +186,7 @@ def save_to_db(**kwargs):
     inserts dataframe data into database
     '''
 
-    df = kwargs['df'].copy()
+    df:DataFrame = kwargs['df'].copy()
     table_name = kwargs['filename']
     storage = kwargs['obj'].storage
     try:
