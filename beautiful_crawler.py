@@ -128,7 +128,7 @@ class BeautifulCrawler:
 
         return BeautifulSoup(html, 'lxml')
     
-    def get_page(self, url):
+    def get_page(self, url:str):
         '''
         Gets the html of the page and converts it to beautiful soup
         Returns beautiful soup object or None if page was no found
@@ -152,7 +152,7 @@ class BeautifulCrawler:
         #     # name=None
         #     )
         # self.session.cookies.copy()
-        self.session.cookies.clear_session_cookies()
+        # self.session.cookies.clear_session_cookies()
 
         # make request
         try:
@@ -183,8 +183,8 @@ class BeautifulCrawler:
                 #     keep_page=True,
                 #     timeout=30,
                 # )
-                # html = response.text
-                html = response.html.html
+                html = response.text
+                # html = response.html.html
                 return BeautifulSoup(html, 'lxml')
             else:
                 if (response.status_code == 400):
@@ -268,7 +268,24 @@ class BeautifulCrawler:
             name_arg  = ''
         return (name_arg, string_arg)
         
-    def safe_get(self, pageObj, selector:dict):
+    def safe_get(self, pageObj:BeautifulSoup=None, api_response:dict=None, selector:dict|list = None):
+        '''
+        Executes either a function to parse bs page or api. The selector type
+        is used to identify which function to call when parsing the data.
+        Returns the result of the called function
+        '''
+        if (isinstance(selector, dict)):
+            result = self.safe_page_get(pageObj, selector)
+            return result
+        elif (isinstance(selector, list)):
+            result = self.safe_api_get(api_response, selector)
+            return result
+        else:
+            logger.error('Invalid tag/api selector used!!!')
+            return ''
+
+        
+    def safe_page_get(self, pageObj:BeautifulSoup, selector:dict):
         '''
         Executes beautiful soup filter functions to get data. In the absence of data
         or presence of an error, it returns an empty string.
@@ -308,12 +325,40 @@ class BeautifulCrawler:
                     result = result.get_text().strip()
         except AttributeError:
             logger.debug('Tag was not find')
+            logger.debug(f'Current result before attribute error: {result}')
             logger.debug('Moving on!')
-            return ''
+            result = ''
         except IndexError:
-            logger.debug('Issue with select/findall tag, tag not found')
+            logger.debug('Issue with index selection after select/findall method.')
+            logger.debug(f'Current result before index error: {result}')
             logger.debug('Moving on!')
-            return ''
+            result = ''
+        return result
+
+        
+    def safe_api_get(self, api_response:dict, selector:list):
+        '''
+        Parses the json response from the api call using the provided selectors.
+        In the case of an error, it returns a string.
+        Returns the parsed value or a string
+        '''
+        result = api_response
+        
+        # parse pipeline
+        try:
+            for key in selector:
+                result = result[key]
+
+        except AttributeError:
+            logger.debug('Invalid api key used')
+            logger.debug(f'Current result before invalid key: {result}')
+            logger.debug('Moving on!')
+            result = ''
+        except IndexError:
+            logger.debug('Invalid api index key used')
+            logger.debug(f'Current result before index error: {result}')
+            logger.debug('Moving on!')
+            result = ''
         return result
                 
     def parse_page_data(self, bs:BeautifulSoup, website:Website):
@@ -460,7 +505,7 @@ class BeautifulCrawler:
         logger.info('Pipeline process complete')
         #logger.info('>'*25)
 
-    def work(self, name):
+    def work(self, name:str):
         '''
         Consumes a site from the queue to crawl and starts the
         crawling process
@@ -505,7 +550,7 @@ class BeautifulCrawler:
         else:
             no_workers = MAX_WORKERS
 
-        workers = [threading.Thread(target=self.work, args=(i,))
+        workers = [threading.Thread(target=self.work, args=(str(i),))
                         for i in range(1, no_workers+1)]
         
         logger.info(f"Worker(s) starting work...")
