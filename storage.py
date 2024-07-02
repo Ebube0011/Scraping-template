@@ -1,6 +1,7 @@
 import mysql.connector
 from io import StringIO
 import boto3
+import time
 from pandas import DataFrame
 from scraper_settings import DB_USER, DB_NAME, DB_HOST, DB_PASSWORD, DB_PORT
 from scraper_settings import STORAGE_TYPE, MAX_WORKERS
@@ -83,7 +84,7 @@ def get_pool():
         size = 25
     else:
         if (MAX_WORKERS < 25):
-            size = MAX_WORKERS + 1
+            size = MAX_WORKERS
         else:
             size = 25
 
@@ -137,10 +138,15 @@ class DB_Storage:
                          link VARCHAR(1000),
                          created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                          PRIMARY KEY(bookId));'''
-        with mysql.connector.connect(pool_name='my_pool') as cnx:
-            with cnx.cursor() as cur:
-                cur.execute('USE scraping')
-                cur.execute(sql)
+        try:
+            with mysql.connector.connect(pool_name='my_pool') as cnx:
+                with cnx.cursor() as cur:
+                    cur.execute('USE scraping')
+                    cur.execute(sql)
+        except Exception as e:
+            logger.error('Failed to execute query!!!')
+            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+
 
     def insert_data(self, table_name, df:DataFrame):
         global cnx_pool
@@ -148,75 +154,83 @@ class DB_Storage:
         if (cnx_pool == None) or (not cnx_pool.is_connected()):
             self.connect_to_db()
             
-        # insert the data
-        if (cnx_pool.is_connected()):
-
-            # convert dataframe to records
-            records_to_insert = df.to_records(index=False).tolist()
-
-            # get table fields
-            table_fields = tuple(df.columns.values.tolist())
-            table_fields = str(table_fields).replace("'", "")
-            #print('data fields are: ', table_fields)
-
-            # get values place holder based on the number of fields being inserted
-            number_of_vals = len(records_to_insert[0]) - 1
-            vals_placeholder = '%s, ' * number_of_vals + '%s'
-            
-            inserted_records = 0
-            with mysql.connector.connect(pool_name='my_pool') as cnx:
-                with cnx.cursor() as cur:
-                    # loop through each record
-                    for record in records_to_insert:
-                        #print(record)
-                        cur.reset()
-                        
-                        # check if record already exists
-                        title = record[1].replace('\"', '')
-                        sql = f'''SELECT bookId 
-                                FROM scraping.{table_name} 
-                                WHERE title = "{title}"'''
-                        logger.debug(sql)
-                        try:
-                            #print(f'Book Title: {title}')
-                            cur.execute(sql)
-                        except Exception as e:
-                            logger.error('Unable to get row_id!!!')
-                            logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-                            
-                            # save to alternative storage
-                            logger.info('Saving to file instead')
-                            save_to_csv(filename=f'{table_name} failed_data.csv', df=df)
-                            return
-                        else:
-                            if (cur.rowcount == 0):
-                                cur.reset()
-                                #print(f'current table fields: {table_fields}')
-                                sql = f'''INSERT INTO scraping.{table_name} 
-                                        {table_fields}
-                                        VALUES ({vals_placeholder})'''
-                                logger.debug(sql)
-                                try:
-                                    cur.execute(sql, record)
-                                    # commit the insertion
-                                    cnx.commit()
-                                    inserted_records += 1
-                                except Exception as e:
-                                    logger.error('Unable to insert data into database!!!')
-                                    logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
-                                    cnx.rollback()
-                                    
-                                    # save to alternative storage
-                                    logger.info('Saving to file instead')
-                                    save_to_csv(filename=f'{table_name} failed_data.csv', df=df)
-            logger.info(f'{inserted_records} records inserted into database!')
-            
-        else:
-            # save to alternate file if db connection failed
+        # save to alternative storage if cnx pool is not connected
+        if (not cnx_pool.is_connected()):
             logger.error('Unable to Connect to database!')
             logger.info('Saving to file instead')
             file_name = table_name + '.csv'
-            save_to_csv(filename=file_name, df=df)   
+            save_to_csv(filename=file_name, df=df)  
+
+        # convert dataframe to records
+        records_to_insert = df.to_records(index=False).tolist()
+
+        # get table fields
+        table_fields = tuple(df.columns.values.tolist())
+        table_fields = str(table_fields).replace("'", "")
+        #print('data fields are: ', table_fields)
+
+        # get values place holder based on the number of fields being inserted
+        number_of_vals = len(records_to_insert[0]) - 1
+        vals_placeholder = '%s, ' * number_of_vals + '%s'
+        
+        inserted_records = 0
+        while True:
+            try:
+                with mysql.connector.connect(pool_name='my_pool') as cnx:
+                    with cnx.cursor() as cur:
+                        # loop through each record
+                        for record in records_to_insert:
+                            #print(record)
+                            cur.reset()
+                            
+                            # check if record already exists
+                            title = record[1].replace('\"', '')
+                            sql = f'''SELECT bookId 
+                                    FROM scraping.{table_name} 
+                                    WHERE title = "{title}"'''
+                            logger.debug(sql)
+                            try:
+                                #print(f'Book Title: {title}')
+                                cur.execute(sql)
+                            except Exception as e:
+                                logger.error('Unable to get row_id!!!')
+                                logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+                                
+                                # save to alternative storage
+                                logger.info('Saving to file instead')
+                                save_to_csv(filename=f'{table_name} failed_data.csv', df=df)
+                                return
+                            else:
+                                if (cur.rowcount == 0):
+                                    cur.reset()
+                                    #print(f'current table fields: {table_fields}')
+                                    sql = f'''INSERT INTO scraping.{table_name} 
+                                            {table_fields}
+                                            VALUES ({vals_placeholder})'''
+                                    logger.debug(sql)
+                                    try:
+                                        cur.execute(sql, record)
+                                        # commit the insertion
+                                        cnx.commit()
+                                        inserted_records += 1
+                                    except Exception as e:
+                                        logger.error('Unable to insert data into database!!!')
+                                        logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+                                        cnx.rollback()
+                                        
+                                        # save to alternative storage
+                                        logger.info('Saving to file instead')
+                                        save_to_csv(filename=f'{table_name} failed_data.csv', df=df)
+                logger.info(f'{inserted_records} record(s) inserted into database!')
+                break
+            except mysql.connector.errors.PoolError:
+                logger.warning('Current database connection pool exhausted!!!')
+                logger.warning('Waiting 3 secs for available connection')
+                time.sleep(3)
+            except Exception as e:
+                logger.error('DB error Occured!!!')
+                logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+                break
 
     def query_all(self, table_name):
         global cnx_pool

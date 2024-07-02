@@ -4,7 +4,7 @@ import os
 MAX_WORKERS:int = 25
 
 ''' STORAGE '''
-STORAGE_TYPE:str = 'csv'#'db','obj', 'csv', 'excel'
+STORAGE_TYPE:str = ''#'db','obj', 'csv', 'excel'
 
 
 ''' PIPELINE STEPS '''
@@ -13,6 +13,7 @@ STEPS:list[str] = ['remove_nulls', 'clean_title', 'clean_rating',
 
 
 ''' WEBSITE '''
+MAX_RETRIES:int = 4
 WAIT_TIME:float = 2
 WEBSITE_FILE_PATH:str = 'Websites/'
 

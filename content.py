@@ -3,12 +3,13 @@ from pandas import json_normalize
 
 @dataclass
 class Content:
-    category:str = ''
-    title:str = ''
-    rating:str = ''
-    price:str = ''
-    availability:str = ''
-    link:str = ''
+    category:str
+    title:str
+    rating:str
+    price:str
+    availability:str
+    link:str
+    # search_string:str = field(init=False, repr=False)
 
 @dataclass
 class Dataset:

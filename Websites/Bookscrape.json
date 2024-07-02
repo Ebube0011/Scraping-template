@@ -13,7 +13,7 @@
         }
     },
     "AbsoluteUrl": false,
-    "nextPageTag": {
+    "paginationTag": {
         "select": "li.next",
         "find": {
             "tag": "a",
