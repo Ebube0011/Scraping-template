@@ -187,11 +187,16 @@ def save_to_db(**kwargs):
     '''
 
     df:DataFrame = kwargs['df'].copy()
-    table_name = kwargs['filename']
+    table_name:str = kwargs['filename']
     storage = kwargs['obj'].storage
     try:
         logger.info(f'saving data to Database storage, table: {table_name}')
-        storage.insert_data(table_name, df)
+        # get table fields
+        fields = df.columns.values.tolist()
+        # convert dataframe to records
+        records = df.to_records(index=False).tolist()
+        # insert data into the repository
+        storage.insert_data(table_name=table_name, fields=fields, records=records)
     except Exception as e:
         logger.error('Failed to save data to database!!!')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')

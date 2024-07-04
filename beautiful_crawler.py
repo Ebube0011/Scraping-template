@@ -9,7 +9,7 @@ import queue
 # import threading
 from concurrent.futures import ThreadPoolExecutor
 from scraper_settings import STEPS, STORAGE_TYPE
-from scraper_settings import MAX_WORKERS
+from scraper_settings import MAX_WORKERS, RECORDS_BUFFER
 from scraper_settings import PROXIES, WAIT_TIME, HEADERS, MAX_RETRIES
 from inspect import getmembers, isfunction
 import pipeline_funcs
@@ -190,8 +190,8 @@ class BeautifulCrawler:
         retries:int = 0
         while (retries <= MAX_RETRIES):
             try:
-                time.sleep(WAIT_TIME)
                 logger.info(f'Getting page: {url}')
+                time.sleep(WAIT_TIME)
                 # response = self.session.get('https://icanhazip.com', proxies=proxies)
                 # return response.text.strip()
                 # response = self.session.get(url,
@@ -415,7 +415,6 @@ class BeautifulCrawler:
         books = self.safe_page_data_get(bs_page, website.itemsTag)
         if (books != '') and (len(books) > 0):
             dataset = []
-            max_hold_records:int = 1
             # loop through all product data
             for book in books:
                 endpoint = website.name
@@ -432,7 +431,7 @@ class BeautifulCrawler:
                     content.link = '{}/{}'.format(website.url, content.link)
                 dataset.append(content)
                 # deliver the parsed data to caller function
-                if (len(dataset) == max_hold_records):
+                if (len(dataset) == RECORDS_BUFFER):
                     yield (endpoint, dataset)
                     del dataset
                     dataset = []
@@ -490,6 +489,10 @@ class BeautifulCrawler:
                         yield page
                         curr_page = page
                         link = next_link
+                    else:
+                        self.visited.discard(next_link)
+                        logger.debug('Somethin went wrong with getting the next page. Possibly connection retries max out')
+                        break
 
                     
     def get_site_page(self, website:Website):

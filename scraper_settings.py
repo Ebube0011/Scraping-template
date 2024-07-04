@@ -2,9 +2,10 @@ import os
 
 ''' WORKERS '''
 MAX_WORKERS:int = 25
+RECORDS_BUFFER:int = 20
 
 ''' STORAGE '''
-STORAGE_TYPE:str = ''#'db','obj', 'csv', 'excel'
+STORAGE_TYPE:str = 'db'#'db','obj', 'csv', 'excel'
 
 
 ''' PIPELINE STEPS '''
