@@ -91,15 +91,15 @@ def get_pool():
     try:
         logger.info(f'Connecting to {DB_NAME} database')
         cnx_pool = mysql.connector.connect(pool_name='my_pool', 
-                                        pool_size=size,
-                                        host= DB_HOST,
-                                        user= DB_USER,
-                                        password= DB_PASSWORD,
-                                        database= DB_NAME,
-                                        port = DB_PORT,
-                                        charset='utf8',
-                                        buffered=True
-                                        )
+                                           pool_size=size,
+                                           host= DB_HOST,
+                                           user= DB_USER,
+                                           password= DB_PASSWORD,
+                                           database= DB_NAME,
+                                           port = DB_PORT,
+                                           charset='utf8',
+                                           buffered=True
+                                           )
     except Exception as e:
         logger.error('Unable to Connect to database!!!')
         logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
@@ -190,9 +190,9 @@ class DB_Storage:
                             sql = f'''SELECT bookId FROM scraping.{table_name} WHERE title = "{title}"'''
                             try:
                                 cur.execute(sql)
-                                logger.debug(sql)
                             except Exception as e:
                                 logger.error(f'Unable to get row_id of record: {record}')
+                                logger.debug(sql)
                                 logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
                                 
                                 # save to alternative storage
@@ -210,9 +210,9 @@ class DB_Storage:
                         sql = f'''INSERT INTO scraping.{table_name} {table_fields} VALUES ({vals_placeholder})'''
                         try:
                             cur.executemany(sql, records_to_insert)
-                            logger.debug(sql)
                         except Exception as e:
                             logger.error('Unable to insert data into database!!!')
+                            logger.debug(sql)
                             logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
                             cnx.rollback()
                             # save to alternative storage

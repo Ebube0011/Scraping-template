@@ -169,14 +169,14 @@ class BeautifulCrawler:
         Returns:
         BeautifulSoup: page beautiful soup object 
         '''
-        # to update the cookies
+        # update the cookies
         # self.session.cookies.update(other)
 
         # to see domains
         # cookies.list_domains()
         # cookes.list_paths()
 
-        # clearing cookies
+        # clear cookies
         # self.session.cookies.clear(
         #     # domain=None,
         #     # path=None,
@@ -200,6 +200,7 @@ class BeautifulCrawler:
                                             proxies=proxies,
                                             allow_redirects=True,
                                             )
+                logger.debug(f'Request Response is of type: {response.headers.get("Content-Type")}')
                 break
             except requests.exceptions.ConnectionError as e: 
                 logger.error('Unable to get page due to lack of network connection!!!')
@@ -229,6 +230,78 @@ class BeautifulCrawler:
             html = response.text
             # html = response.html.html
             return BeautifulSoup(html, 'lxml')
+        else:
+            if (response.status_code == 400):
+                err_message = "Your request is either wrong or missing some information."
+            elif (response.status_code == 401):
+                err_message = "Your request requires some additional permissions."
+            elif (response.status_code == 404):
+                err_message = "The request resource doesn't exist."
+            elif (response.status_code == 405):
+                err_message = "The endpoint doesn't allow for that specific HTTP method."
+            elif (response.status_code == 500):
+                err_message = "Your request wasn't expected and probably broke something on the server side."
+            else:
+                err_message = 'Failed request'
+            logger.error(f'Response status code- {response.status_code}, reason: {response.reason}')
+            logger.error(err_message)
+            return None
+    
+    def get_api(self, 
+                 session:HTMLSession,
+                 endpoint:str, 
+                 params:dict,
+                 headers:dict, 
+                 proxies:dict=get_proxies()):
+        '''
+        Make api requests
+        Returns json object or None if the request failed
+        Args: 
+        endpoint(str): The link endpoint to which the request is being made
+        params(dict): Optional parameters to send with the request
+        headers(dict): Headers to send with request
+        proxies(dict): Proxies to use when sending requests
+
+        Returns:
+        json: request response 
+        '''
+        # clear the cookies
+        session.cookies.clear_session_cookies()
+
+        # make request
+        retries:int = 0
+        while (retries <= MAX_RETRIES):
+            try:
+                logger.info(f'Making request to endpoint: {endpoint}')
+                time.sleep(WAIT_TIME)
+                # response = self.session.get('https://icanhazip.com', proxies=proxies)
+                # return response.text.strip()
+                # response = self.session.get(url,
+                response = session.get(endpoint,
+                                       params=params,
+                                       headers=headers, 
+                                       proxies=proxies,
+                                       allow_redirects=True,
+                                       )
+                logger.debug(f'Request Response is of type: {response.headers.get("Content-Type")}')
+                break
+            except requests.exceptions.ConnectionError as e: 
+                logger.error('Unable to make request due to lack of network connection!!!')
+                logger.debug('Retrying connection')
+                retries += 1
+                if (retries > MAX_RETRIES):
+                    logger.error(f'Unable to make request after maximum number of retries({retries})!!!')
+                    return None
+            except Exception as e:
+                logger.error('Unable to make request!!!')
+                logger.error(f'Exception: {e.__class__.__name__}: {str(e)}')
+                retries += 1
+                if (retries > MAX_RETRIES):
+                    logger.error(f'Unable to make request after maximum number of retries({retries})!!!')
+                    return None
+        
+        if (response.status_code == requests.codes.ok):#(response.status_code == 200):
+            return response.json()
         else:
             if (response.status_code == 400):
                 err_message = "Your request is either wrong or missing some information."
@@ -435,6 +508,7 @@ class BeautifulCrawler:
                     yield (endpoint, dataset)
                     del dataset
                     dataset = []
+            # release whatever is left
             if (len(dataset) > 0):
                 yield (endpoint, dataset)
 
@@ -449,6 +523,7 @@ class BeautifulCrawler:
         Generator function that Delivers the page and all the next pages in the page pagination if available.
         
         Args: 
+        session(HTMLSession): Session object with which to make the requests
         link(str): The page link to enter and find all the next pages
         website(Website): Website object containing data necessary for parsing the website it represents.
 
@@ -465,7 +540,7 @@ class BeautifulCrawler:
             while True:
                 # get next page url
                 logger.debug('getting next page tag')
-                next_page_no = self.safe_page_data_get(curr_page, website.paginationTag)
+                next_page_no = self.safe_page_data_get(bs_page=curr_page, selector=website.paginationTag)
                 # if there is no next page, break the loop
                 if (next_page_no == ''):
                     break
@@ -491,7 +566,7 @@ class BeautifulCrawler:
                         link = next_link
                     else:
                         self.visited.discard(next_link)
-                        logger.debug('Somethin went wrong with getting the next page. Possibly connection retries max out')
+                        logger.debug('Something went wrong with getting the next page. Possibly connection retries max out')
                         break
 
                     
@@ -528,6 +603,10 @@ class BeautifulCrawler:
     def crawl(self, website:Website):
         """
         Get pages from website home page and crawl through filtered links
+
+        Args: 
+        website(Website): Website object containing data necessary for parsing the website it represents.
+
         Returns None
         """
         # fetch page
